@@ -37,7 +37,7 @@
                                 <Font name="Arial" size="13.0" />
                             </font>
                         </Label>
-                        <!--Link para registrar -->
+                        <!--Link para registrar-->
                         <Hyperlink fx:id="HyperLinkRegis" layoutX="207.0" layoutY="256.0" mnemonicParsing="true" text="Regístrate" />
                     </children>
                 </AnchorPane>
