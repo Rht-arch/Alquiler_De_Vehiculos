@@ -5,6 +5,8 @@ module org.example.alquiler_vehiculos {
 
     opens org.example.alquiler_vehiculos to javafx.fxml;
     exports org.example.alquiler_vehiculos;
-    exports org.example.alquiler_vehiculos.Controladores;
-    opens org.example.alquiler_vehiculos.Controladores to javafx.fxml;
+    exports Controladores;
+    opens Controladores to javafx.fxml;
+    exports Informes;
+    opens Informes to javafx.fxml;
 }
