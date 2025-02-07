@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 
 <!--Panel principal-->
-<AnchorPane prefHeight="620.0" prefWidth="709.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #1e1485; -fx-border-width: 10;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.Controlador_Registro">
+<AnchorPane prefHeight="620.0" prefWidth="709.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #1e1485; -fx-border-width: 10;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.Controladores.Controlador_Registro">
    <children>
       <!--Imagen del logo-->
       <ImageView fitHeight="157.0" fitWidth="293.0" layoutX="207.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">

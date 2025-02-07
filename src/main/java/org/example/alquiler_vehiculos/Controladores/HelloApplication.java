@@ -1,4 +1,4 @@
-package org.example.alquiler_vehiculos;
+package org.example.alquiler_vehiculos.Controladores;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
