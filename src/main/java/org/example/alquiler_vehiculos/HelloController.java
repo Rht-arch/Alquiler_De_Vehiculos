@@ -1,4 +1,4 @@
-package Controladores;
+package org.example.alquiler_vehiculos;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
