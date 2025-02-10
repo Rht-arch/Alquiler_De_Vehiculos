@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.ProgressBar?>
+
+<StackPane alignment="CENTER" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.SplashController">
+    <Rectangle arcHeight="20" arcWidth="20" height="300" style="-fx-fill: #FFFFFF;" width="500" />
+    <VBox alignment="CENTER" spacing="20">
+        <!--Imagen con el gif -->
+        <ImageView fx:id="gifImageView" fitWidth="200" preserveRatio="true">
+            <image>
+                <Image url="@../../../imagenes/logo_proyecto.png" />
+            </image></ImageView>
+        <!--Barra de progreso -->
+        <ProgressBar fx:id="progressBar" prefWidth="400" />
+    </VBox>
+</StackPane>

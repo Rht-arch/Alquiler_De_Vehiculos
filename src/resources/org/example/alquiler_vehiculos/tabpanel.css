@@ -1,0 +1,69 @@
+/* Estilo general del TabPane */
+.tab-pane {
+    -fx-tab-min-width: 100px;
+    -fx-tab-max-width: 150px;
+    -fx-background-color: #f4f4f4;
+    -fx-padding: 5px;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5px;
+}
+
+/* Estilo de las pestañas */
+.tab {
+    -fx-background-color: #ddd;
+    -fx-border-color: #bbb;
+    -fx-border-radius: 5px 5px 0px 0px;
+    -fx-padding: 5px;
+}
+
+/* Estilo cuando la pestaña está seleccionada */
+.tab:selected {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-border-color: #2980b9;
+    -fx-border-radius: 5px 5px 0px 0px;
+}
+
+/* Estilo del texto dentro de las pestañas */
+.tab .tab-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* TableView - Estilo general */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5px;
+}
+
+/* Estilo de las cabeceras */
+.table-view .column-header-background {
+    -fx-background-color: #3498db;
+}
+
+.table-view .column-header {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+}
+
+/* Estilo de las filas alternas */
+.table-row-cell:odd {
+    -fx-background-color: #f9f9f9;
+}
+
+.table-row-cell:even {
+    -fx-background-color: white;
+}
+
+/* Efecto hover en las filas */
+.table-row-cell:hover {
+    -fx-background-color: #d3e9ff;
+}
+
+/* Estilo de las celdas */
+.table-cell {
+    -fx-border-color: #ddd;
+    -fx-padding: 5px;
+}
