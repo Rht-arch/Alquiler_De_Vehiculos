@@ -7,7 +7,7 @@
 <?import javafx.scene.control.ProgressBar?>
 
 <StackPane alignment="CENTER" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.SplashController">
-    <Rectangle arcHeight="20" arcWidth="20" height="300" style="-fx-fill: #2A2A2A;" width="500" />
+    <Rectangle arcHeight="20" arcWidth="20" height="300" style="-fx-fill: #FFFFFF;" width="500" />
     <VBox alignment="CENTER" spacing="20">
         <!--Imagen con el gif -->
         <ImageView fx:id="gifImageView" fitWidth="200" preserveRatio="true">
