@@ -13,6 +13,7 @@
 <?import javafx.scene.text.Font?>
 
 <!--Panel principal -->
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="650.0" style="-fx-background-color: #FFFFF; -fx-border-color:  #f1a52b; -fx-border-width: 10;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.HelloController">
     <children>
         <VBox alignment="CENTER" layoutX="311.0" layoutY="34.0">
@@ -46,7 +47,7 @@
         <!--Imagen -->
         <ImageView fitHeight="214.0" fitWidth="262.0" layoutX="22.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@/imagenes/logo_proyecto.png"/>
+                <Image url="@../../../imagenes/logo_proyecto.png" />
             </image>
         </ImageView>
         <!--ComboBox -->
