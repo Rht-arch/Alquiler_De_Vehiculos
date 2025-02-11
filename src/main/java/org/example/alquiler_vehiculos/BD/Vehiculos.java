@@ -1,27 +1,35 @@
 package org.example.alquiler_vehiculos.BD;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "vehiculos")
 public class Vehiculos {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Integer id;
+
+    @Column(name = "marca", nullable = false, length = 100)
     private String marca;
+
+    @Column(name = "modelo", nullable = false, length = 100)
     private String modelo;
-    private int año;
+
+    @Column(name = "`año`", nullable = false)
+    private Integer año;
+
+    @Column(name = "tipo", nullable = false, length = 50)
     private String tipo;
-    private float precio_dia;
 
-    public Vehiculos(int id, String marca, String modelo, int año, String tipo, float precio_dia) {
-        this.id = id;
-        this.marca = marca;
-        this.modelo = modelo;
-        this.año = año;
-        this.tipo = tipo;
-        this.precio_dia = precio_dia;
-    }
+    @Column(name = "precio_dia", nullable = false)
+    private Float precioDia;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -41,11 +49,11 @@ public class Vehiculos {
         this.modelo = modelo;
     }
 
-    public int getAño() {
+    public Integer getAño() {
         return año;
     }
 
-    public void setAño(int año) {
+    public void setAño(Integer año) {
         this.año = año;
     }
 
@@ -57,11 +65,12 @@ public class Vehiculos {
         this.tipo = tipo;
     }
 
-    public float getPrecio_dia() {
-        return precio_dia;
+    public Float getPrecioDia() {
+        return precioDia;
     }
 
-    public void setPrecio_dia(float precio_dia) {
-        this.precio_dia = precio_dia;
+    public void setPrecioDia(Float precioDia) {
+        this.precioDia = precioDia;
     }
+
 }
