@@ -18,7 +18,7 @@ public class SplashController2 {
     // Metodo para iniciar el splash con la barra de progreso
     public void startSplash(Runnable onComplete) {
         try {
-            String gifPath = getClass().getResource("@../../../imagenes/splash2.gif").toExternalForm();
+            String gifPath = getClass().getResource("/imagenes/splash2.gif").toExternalForm();
             Image gifImage = new Image(gifPath);
             gifImageView.setImage(gifImage);
 

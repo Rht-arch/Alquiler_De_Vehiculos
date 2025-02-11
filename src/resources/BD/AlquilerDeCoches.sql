@@ -168,3 +168,11 @@ INSERT INTO vehiculos (marca, modelo, año, tipo, precio_dia) VALUES
 ('Scania', 'G-Series', 2017, 'Furgoneta/Camión', 135.0),
 ('Scania', 'R-Series', 2021, 'Furgoneta/Camión', 140.0),
 ('Scania', 'S-Series', 2010, 'Furgoneta/Camión', 145.0);
+
+
+-- Inserción de usuarios
+INSERT INTO usuarios (nombre, apellido, correo, contraseña) VALUES
+('Juan', 'Pérez', 'juan.perez@gmail.com', 'password123'),
+('María', 'Gómez', 'maria.gomez@gmail.com', 'securePass456'),
+('Carlos', 'López', 'carlos.lopez@gmail.com', 'myPassword789'),
+('Laura', 'Fernández', 'laura.fernandez@gmail.com', 'lauraPass321');
