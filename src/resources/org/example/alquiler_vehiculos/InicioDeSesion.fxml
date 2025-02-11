@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Hyperlink?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <!--Panel principal -->
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="650.0" style="-fx-background-color: #FFFFF; -fx-border-color:  #f1a52b; -fx-border-width: 10;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.HelloController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="650.0" style="-fx-background-color: #ffffff; -fx-border-color: #f1a52b; -fx-border-width: 10;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.HelloController">
     <children>
         <VBox alignment="CENTER" layoutX="311.0" layoutY="34.0">
             <children>
@@ -31,7 +24,7 @@
                         <!--PasswordField para la contraseña-->
                         <PasswordField fx:id="textContraseña" layoutX="64.0" layoutY="141.0" prefHeight="26.0" prefWidth="202.0" promptText="Contraseña" style="-fx-background-radius: 10;" />
                         <!--Boton -->
-                        <Button fx:id="buttonAcceder" layoutX="64.0" layoutY="219.0" prefHeight="26.0" prefWidth="202.0" style="-fx-background-color: #f1a52b; -fx-background-radius: 10; -fx-text-fill: #ffffff;" text="Acceder" />
+                        <Button fx:id="buttonAcceder" layoutX="64.0" layoutY="219.0" prefHeight="26.0" prefWidth="202.0" onMouseClicked="#handleLogin" style="-fx-background-color: #f1a52b; -fx-background-radius: 10; -fx-text-fill: #ffffff;" text="Acceder"/>
                         <!--Lable -->
                         <Label fx:id="labelNoTienes" layoutX="69.0" layoutY="260.0" text="¿No tienes una cuenta?" textFill="WHITE">
                             <font>
@@ -51,6 +44,6 @@
             </image>
         </ImageView>
         <!--ComboBox -->
-        <ComboBox fx:id="ComBoBoxIdiomasLogin" layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="118.0" promptText="Idioma" />
+        <ComboBox fx:id="ComBoBoxIdiomasLogin" layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="118.0" promptText="Idioma" style="-fx-background-color: #ffffff;" />
     </children>
 </AnchorPane>

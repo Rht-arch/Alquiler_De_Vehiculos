@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
@@ -27,6 +28,9 @@ public class Controlador_Pagina_Principal {
     @FXML
     ComboBox<Float> precio;
 
+    @FXML
+    Text nombre;
+
     Map<String,String[]> modelosPorMarca = new HashMap<>();
     Map<String, String[]> marcasPorTipo = new HashMap<>();
 
@@ -34,6 +38,8 @@ public class Controlador_Pagina_Principal {
     public void initialize() {
         filtros.setVisible(false);
         tipo.getItems().addAll("Coche","Moto","Furgoneta/Camión");
+
+       //nombre.setText(usuario.getNombre());
 
 
         marcasPorTipo.put("Coche", new String[]{"Toyota", "Ford", "BMW", "Honda", "Volkswagen", "Audi", "Mercedes-Benz", "Nissan", "Peugeot", "Chevrolet", "Renault", "Fiat"});

@@ -1,18 +1,132 @@
 package org.example.alquiler_vehiculos;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class HelloController {
+    //Variables
     @FXML
-    private Label welcomeText;
+    private TextField textUsuario;
 
     @FXML
-    private Button login;
+    private PasswordField textContraseña;
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    private Button buttonAcceder;
+
+
+    @FXML
+    private Label labelIniciarSesion;
+
+
+    @FXML
+    private Hyperlink HyperLinkRegis;
+
+    @FXML
+    private ComboBox<String> ComBoBoxIdiomasLogin;
+
+    //Variables para el idioma
+    private Locale locale;
+    private ResourceBundle bundle;
+
+    @FXML
+    public void handleLogin() {
+        String username = textUsuario.getText();
+        String password = textContraseña.getText();
+
+        if (isInputValid(username, password)) {
+            showSplashScreen();
+        } else {
+            //Alerta
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Validación Fallida");
+            alert.setHeaderText(null);
+            alert.setContentText("Por favor, rellena ambos campos.");
+            alert.showAndWait();
+        }
     }
+
+    // Verifica que los campos estén correctamente escritos
+    private boolean isInputValid(String username, String password) {
+        return username != null && !username.trim().isEmpty() &&
+                password != null && !password.trim().isEmpty();
+    }
+
+//    //Metodo que inicializa los componentes
+//    @FXML
+//    public void initialize() {
+//        // Idioma por defecto
+//        setLocale(new Locale("es"));
+//
+//        // ComboBox de idiomas
+//        ComBoBoxIdiomasLogin.getItems().addAll("Español", "English");
+//        ComBoBoxIdiomasLogin.getSelectionModel().select("Español");
+//
+//        // Cambio de idioma
+//        ComBoBoxIdiomasLogin.setOnAction(event -> {
+//            String selectedLanguage = ComBoBoxIdiomasLogin.getValue();
+//            switch (selectedLanguage) {
+//                case "English":
+//                    setLocale(new Locale("en"));
+//                    break;
+//                default:
+//                    setLocale(new Locale("es"));
+//                    break;
+//            }
+//        });
+//
+//    }
+//
+//    //Metodo que llama al property
+//    private void setLocale(Locale locale) {
+//        this.locale = locale;
+//        bundle = ResourceBundle.getBundle("idiomas.EtiquetasBundle", locale);
+//        updateTexts();
+//    }
+//
+//    //Metodo que cambia los componentes de idioma
+//    private void updateTexts() {
+//        labelIniciarSesion.setText(bundle.getString("login.title"));
+//        textUsuario.setPromptText(bundle.getString("login.username"));
+//        textContraseña.setPromptText(bundle.getString("login.password"));
+//        buttonAcceder.setText(bundle.getString("login.button"));
+//        HyperLinkRegis.setText(bundle.getString("login.register"));
+//    }
+
+    // Metodo para mostrar el SplashScreen
+    private void showSplashScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/splash.fxml"));
+            Scene splashScene = new Scene(loader.load());
+
+            SplashController splashController = loader.getController();
+            Stage currentStage = (Stage) buttonAcceder.getScene().getWindow();
+
+            Stage splashStage = new Stage();
+            splashStage.setScene(splashScene);
+            splashStage.setTitle("Cargando...");
+            splashStage.setResizable(false);
+            splashStage.show();
+
+            splashController.startSplash(() -> {
+                try {
+                    CambiarPantallas.switchScene(splashStage, "/org/example/alquiler_vehiculos/Mostrar_Vehiculo.fxml", "Alquiler de Coches");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            currentStage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
