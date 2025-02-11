@@ -6,17 +6,22 @@ public class Vehiculos {
     private String modelo;
     private int año;
     private String tipo;
-    private float precio_dia;
+    private double precioDia;
 
-    public Vehiculos(int id, String marca, String modelo, int año, String tipo, float precio_dia) {
+    // Constructor vacío
+    public Vehiculos() {}
+
+    // Constructor con parámetros
+    public Vehiculos(int id, String marca, String modelo, int año, String tipo, double precioDia) {
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;
         this.año = año;
         this.tipo = tipo;
-        this.precio_dia = precio_dia;
+        this.precioDia = precioDia;
     }
 
+    // Getters y Setters
     public int getId() {
         return id;
     }
@@ -57,11 +62,24 @@ public class Vehiculos {
         this.tipo = tipo;
     }
 
-    public float getPrecio_dia() {
-        return precio_dia;
+    public double getPrecioDia() {
+        return precioDia;
     }
 
-    public void setPrecio_dia(float precio_dia) {
-        this.precio_dia = precio_dia;
+    public void setPrecioDia(double precioDia) {
+        this.precioDia = precioDia;
+    }
+
+    // Método toString para depuración
+    @Override
+    public String toString() {
+        return "Vehiculos{" +
+                "id=" + id +
+                ", marca='" + marca + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", año=" + año +
+                ", tipo='" + tipo + '\'' +
+                ", precioDia=" + precioDia +
+                '}';
     }
 }
