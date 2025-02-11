@@ -131,5 +131,9 @@ public class Controlador_Pagina_Principal {
                 }
             }
         }
+//        VehiculoDAO vehiculoDAO = new VehiculoDAO();
+//        tablaVehiculos.setItems(FXCollections.observableArrayList(
+//                vehiculoDAO.vehiculoFiltros(marcaSeleccionada, tipoSeleccionado, modeloSeleccionada)
+//        ));
     }
 }

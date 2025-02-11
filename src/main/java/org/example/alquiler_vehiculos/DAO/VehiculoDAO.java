@@ -35,8 +35,8 @@ public class VehiculoDAO {
         String sql = "SELECT * FROM vehiculos WHERE id = ?";
         Vehiculos vehiculo = null;
 
-        try (Connection conn = ConexionBD.getConexion();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection con = ConexionBD.getConexion();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
@@ -62,8 +62,8 @@ public class VehiculoDAO {
         List<Vehiculos> listaVehiculos = new ArrayList<>();
         String sql = "SELECT * FROM vehiculos";
 
-        try (Connection conn = ConexionBD.getConexion();
-             Statement stmt = conn.createStatement();
+        try (Connection con = ConexionBD.getConexion();
+             Statement stmt = con.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
@@ -108,8 +108,8 @@ public class VehiculoDAO {
     public boolean eliminarVehiculo(int id) {
         String sql = "DELETE FROM vehiculos WHERE id = ?";
 
-        try (Connection conn = ConexionBD.getConexion();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection con = ConexionBD.getConexion();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
             return pstmt.executeUpdate() > 0; // Devuelve true si la eliminación fue exitosa
@@ -122,8 +122,8 @@ public class VehiculoDAO {
     public boolean existeVehiculo(int id) {
         String sql = "SELECT COUNT(*) FROM vehiculos WHERE id = ?";
 
-        try (Connection conn = ConexionBD.getConexion();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection con = ConexionBD.getConexion();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
@@ -136,5 +136,37 @@ public class VehiculoDAO {
         }
         return false;
     }
+
+    public List<Vehiculos> vehiculoFiltros(String marcaSeleccionada, String tipoSeleccionado, String modeloSeleccionada) {
+        List<Vehiculos> listaVehiculos = new ArrayList<>();
+
+        String sql = "SELECT * FROM vehiculos WHERE marca = ? AND modelo = ? AND tipo = ?";
+
+        try (Connection con = ConexionBD.getConexion();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setString(1, marcaSeleccionada);
+            pstmt.setString(2, modeloSeleccionada);
+            pstmt.setString(3, tipoSeleccionado);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Vehiculos vehiculo = new Vehiculos(
+                            rs.getInt("id"),
+                            rs.getString("marca"),
+                            rs.getString("modelo"),
+                            rs.getInt("año"),
+                            rs.getString("tipo"),
+                            rs.getDouble("precio_dia")
+                    );
+                    listaVehiculos.add(vehiculo);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listaVehiculos;
+    }
+
 
 }
