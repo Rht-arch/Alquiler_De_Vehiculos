@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<StackPane alignment="CENTER" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.SplashController">
+    <Rectangle arcHeight="20" arcWidth="20" height="300" style="-fx-fill: #FFFFFF;" width="500" />
+    <VBox alignment="CENTER" spacing="20">
+        <!--Imagen con el gif -->
+        <ImageView fx:id="gifImageView" fitHeight="246.0" fitWidth="282.0" preserveRatio="true">
+            <image>
+                <Image url="@../../../imagenes/splash2.gif" />
+            </image></ImageView>
+        <!--Barra de progreso -->
+        <ProgressBar fx:id="progressBar" prefWidth="400" />
+    </VBox>
+</StackPane>
