@@ -1,36 +1,55 @@
 package org.example.alquiler_vehiculos.BD;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "clientes")
 public class Clientes {
-    private String contrasenia;
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Integer id;
+
+    @Column(name = "`contraseña`", nullable = false)
+    private String contraseña;
+
+    @Column(name = "dni", nullable = false, length = 20)
+    private String dni;
+
+    @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
+
+    @Column(name = "apellido", nullable = false, length = 100)
     private String apellido;
+
+    @Column(name = "telefono", nullable = false, length = 20)
     private String telefono;
+
+    @Column(name = "correo", nullable = false, length = 100)
     private String correo;
 
-    public Clientes(String contrasenia, int id, String nombre, String apellido, String telefono, String correo) {
-        this.contrasenia = contrasenia;
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.telefono = telefono;
-        this.correo = correo;
-    }
-
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
     public String getNombre() {
@@ -64,4 +83,5 @@ public class Clientes {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+
 }
