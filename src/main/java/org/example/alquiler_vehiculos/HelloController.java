@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.example.alquiler_vehiculos.DAO.ClientesDAO;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -14,6 +15,7 @@ import java.util.ResourceBundle;
  * Clase que gestiona y controla la pantalla de inicio de sesion
  */
 public class HelloController {
+    public ClientesDAO clientesDAO = new ClientesDAO();
     /**
      * Textfield para recoger el usuario
      */
@@ -64,7 +66,7 @@ public class HelloController {
         String username = textUsuario.getText();
         String password = textContraseña.getText();
 
-        if (isInputValid(username, password)) {
+        if (clientesDAO.obtenerClientePorId(username, password) != null) {
             showSplashScreen();
         } else {
             //Alerta

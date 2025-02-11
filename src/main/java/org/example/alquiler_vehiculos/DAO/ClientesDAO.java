@@ -32,14 +32,15 @@ public class ClientesDAO {
     }
 
     // Método para obtener un cliente por su ID
-    public Clientes obtenerClientePorId(int id) {
-        String sql = "SELECT * FROM clientes WHERE id = ?";
+    public Clientes obtenerClientePorId(String correo, String contra) {
+        String sql = "SELECT * FROM clientes WHERE correo = ? AND contraseña = ?";
         Clientes cliente = null;
 
         try (Connection conn = ConexionBD.getConexion();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, id);
+            pstmt.setString(1, correo);
+            pstmt.setString(2, contra);
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
