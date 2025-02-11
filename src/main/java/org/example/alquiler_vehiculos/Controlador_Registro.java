@@ -61,6 +61,12 @@ public class Controlador_Registro {
         // Intentar insertar en la base de datos
         boolean registrado = clientesDAO.insertarCliente(nuevoCliente);
 
+        // Verificar si la inserción fue exitosa
+        if (registrado) {
+            abrirPantallaPrincipal();
+        } else {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error en el Registro", "Hubo un error al registrar el usuario.");
+        }
     }
 
     /**
@@ -92,6 +98,7 @@ public class Controlador_Registro {
             stage.setTitle("UrbanDrive - Pantalla Principal");
             stage.setScene(new Scene(root));
             stage.show();
+            stage.setResizable(false);
             cerrarVentana(); // Cerrar la ventana de registro
         } catch (IOException e) {
             e.printStackTrace();
