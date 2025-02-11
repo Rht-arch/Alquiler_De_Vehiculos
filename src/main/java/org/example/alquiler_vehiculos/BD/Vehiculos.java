@@ -1,35 +1,32 @@
 package org.example.alquiler_vehiculos.BD;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "vehiculos")
 public class Vehiculos {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Integer id;
-
-    @Column(name = "marca", nullable = false, length = 100)
+    private int id;
     private String marca;
-
-    @Column(name = "modelo", nullable = false, length = 100)
     private String modelo;
-
-    @Column(name = "`año`", nullable = false)
-    private Integer año;
-
-    @Column(name = "tipo", nullable = false, length = 50)
+    private int año;
     private String tipo;
+    private double precioDia;
 
-    @Column(name = "precio_dia", nullable = false)
-    private Float precioDia;
+    // Constructor vacío
+    public Vehiculos() {}
 
-    public Integer getId() {
+    // Constructor con parámetros
+    public Vehiculos(int id, String marca, String modelo, int año, String tipo, double precioDia) {
+        this.id = id;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.año = año;
+        this.tipo = tipo;
+        this.precioDia = precioDia;
+    }
+
+    // Getters y Setters
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -49,11 +46,11 @@ public class Vehiculos {
         this.modelo = modelo;
     }
 
-    public Integer getAño() {
+    public int getAño() {
         return año;
     }
 
-    public void setAño(Integer año) {
+    public void setAño(int año) {
         this.año = año;
     }
 
@@ -65,12 +62,24 @@ public class Vehiculos {
         this.tipo = tipo;
     }
 
-    public Float getPrecioDia() {
+    public double getPrecioDia() {
         return precioDia;
     }
 
-    public void setPrecioDia(Float precioDia) {
+    public void setPrecioDia(double precioDia) {
         this.precioDia = precioDia;
     }
 
+    // Método toString para depuración
+    @Override
+    public String toString() {
+        return "Vehiculos{" +
+                "id=" + id +
+                ", marca='" + marca + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", año=" + año +
+                ", tipo='" + tipo + '\'' +
+                ", precioDia=" + precioDia +
+                '}';
+    }
 }

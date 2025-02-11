@@ -1,47 +1,35 @@
 package org.example.alquiler_vehiculos.BD;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "clientes")
 public class Clientes {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Integer id;
-
-    @Column(name = "`contraseña`", nullable = false)
+    private int id;
+    private String dni;
+    private String nombre;
+    private String apellido;
+    private String telefono;
+    private String correo;
     private String contraseña;
 
-    @Column(name = "dni", nullable = false, length = 20)
-    private String dni;
+    // Constructor vacío
+    public Clientes() {}
 
-    @Column(name = "nombre", nullable = false, length = 100)
-    private String nombre;
+    // Constructor con parámetros
+    public Clientes(int id, String dni, String nombre, String apellido, String telefono, String correo, String contraseña) {
+        this.id = id;
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.telefono = telefono;
+        this.correo = correo;
+        this.contraseña = contraseña;
+    }
 
-    @Column(name = "apellido", nullable = false, length = 100)
-    private String apellido;
-
-    @Column(name = "telefono", nullable = false, length = 20)
-    private String telefono;
-
-    @Column(name = "correo", nullable = false, length = 100)
-    private String correo;
-
-    public Integer getId() {
+    // Getters y Setters
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
-    }
-
-    public String getContraseña() {
-        return contraseña;
-    }
-
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
     }
 
     public String getDni() {
@@ -84,4 +72,25 @@ public class Clientes {
         this.correo = correo;
     }
 
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+
+    // Método toString para depuración
+    @Override
+    public String toString() {
+        return "ClienteDTO{" +
+                "id=" + id +
+                ", dni='" + dni + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", correo='" + correo + '\'' +
+                ", contraseña='" + contraseña + '\'' +
+                '}';
+    }
 }
