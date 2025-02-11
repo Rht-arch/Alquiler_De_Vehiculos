@@ -19,7 +19,7 @@
       <!--Imagen del logo-->
       <ImageView fitHeight="157.0" fitWidth="293.0" layoutX="207.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@/imagenes/logo_proyecto.png" />
+            <Image url="@../../../imagenes/logo_proyecto.png" />
          </image>
       </ImageView>
    
