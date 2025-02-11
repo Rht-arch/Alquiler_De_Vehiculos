@@ -112,6 +112,8 @@ public class HelloController {
             }
         });
 
+        HyperLinkRegis.setOnAction(event -> abrirPantallaRegistro());
+
     }
 
     /**
@@ -133,6 +135,29 @@ public class HelloController {
         textContraseña.setPromptText(bundle.getString("login.password"));
         buttonAcceder.setText(bundle.getString("login.button"));
         HyperLinkRegis.setText(bundle.getString("login.register"));
+    }
+
+    /**
+     * Metodo que maneja el evento de clic en el Hyperlink y abre la pantalla de registro
+     */
+    @FXML
+    public void abrirPantallaRegistro() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/registro.fxml"));
+            Scene registroScene = new Scene(loader.load());
+
+            Stage registroStage = new Stage();
+            registroStage.setScene(registroScene);
+            registroStage.setTitle("Registro de Usuario");
+            registroStage.setResizable(false);
+            registroStage.show();
+
+            Stage currentStage = (Stage) HyperLinkRegis.getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
