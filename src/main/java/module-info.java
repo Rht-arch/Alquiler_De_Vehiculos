@@ -6,6 +6,5 @@ module org.example.alquiler_vehiculos {
 
     opens org.example.alquiler_vehiculos to javafx.fxml;
     exports org.example.alquiler_vehiculos;
-    exports org.example.alquiler_vehiculos.BD;
-    opens org.example.alquiler_vehiculos.BD to javafx.fxml;
+
 }
