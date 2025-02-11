@@ -118,4 +118,23 @@ public class VehiculoDAO {
             return false;
         }
     }
+    //Método para comprobar si existe un vehículo
+    public boolean existeVehiculo(int id) {
+        String sql = "SELECT COUNT(*) FROM vehiculos WHERE id = ?";
+
+        try (Connection conn = ConexionBD.getConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Devuelve true si el vehículo existe
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

@@ -122,4 +122,23 @@ public class ClientesDAO {
             return false;
         }
     }
+    //Método para comprobar si existe un cliente
+    public boolean existeCliente(int id) {
+        String sql = "SELECT COUNT(*) FROM clientes WHERE id = ?";
+
+        try (Connection conn = ConexionBD.getConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Devuelve true si el cliente existe
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }
