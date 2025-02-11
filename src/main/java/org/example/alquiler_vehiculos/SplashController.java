@@ -8,14 +8,26 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
+/**
+ * Clase que controla la primera pantalla del splash
+ */
+
 public class SplashController {
-    //Variables
+    /**
+     * Imageview para cargar la imagen
+     */
     @FXML
     private ImageView gifImageView;
+    /**
+     * ProgressBar insertar la barra
+     */
     @FXML
     private ProgressBar progressBar;
 
-    // Metodo para iniciar el splash con la barra de progreso
+    /**
+     * Metodo que se gestiona el tiempo de carga de la barra de progreso
+     * @param onComplete Devuelve que se ah compeltado el progreso de carga
+     */
     public void startSplash(Runnable onComplete) {
         try {
             String gifPath = getClass().getResource("/imagenes/logo_proyecto.png").toExternalForm();
