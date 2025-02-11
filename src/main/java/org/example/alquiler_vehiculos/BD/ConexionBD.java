@@ -1,4 +1,4 @@
-package org.example.alquiler_vehiculos;
+package org.example.alquiler_vehiculos.BD;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

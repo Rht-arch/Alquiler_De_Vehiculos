@@ -10,32 +10,55 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Clase que gestiona y controla la pantalla de inicio de sesion
+ */
 public class HelloController {
-    //Variables
+    /**
+     * Textfield para recoger el usuario
+     */
     @FXML
     private TextField textUsuario;
 
+    /**
+     * PasswordField para recoger la contraseña
+     */
     @FXML
     private PasswordField textContraseña;
 
+    /**
+     * Button accionar carga la siguiente pantalla
+     */
     @FXML
     private Button buttonAcceder;
 
-
+    /**
+     * Label para poner el texto de Iniciar Sesion
+     */
     @FXML
     private Label labelIniciarSesion;
 
-
+    /**
+     * Hiperlink para moverse a la pantalla de registro
+     */
     @FXML
     private Hyperlink HyperLinkRegis;
 
+    /**
+     * ComboBox para indicar el idioma
+     */
     @FXML
     private ComboBox<String> ComBoBoxIdiomasLogin;
 
-    //Variables para el idioma
+    /**
+     * Variables para establecer el idioma
+     */
     private Locale locale;
     private ResourceBundle bundle;
 
+    /**
+     * Metodo que valida si los campos para acceder y si no estan validados salta una alerta
+     */
     @FXML
     public void handleLogin() {
         String username = textUsuario.getText();
@@ -53,54 +76,68 @@ public class HelloController {
         }
     }
 
-    // Verifica que los campos estén correctamente escritos
+    /**
+     * Metodo para ver que los parametros no esten vacios
+     * @param username variable usuario
+     * @param password variable contraseña
+     * @return Devuelve si los parametros estan vacios o no
+     */
     private boolean isInputValid(String username, String password) {
         return username != null && !username.trim().isEmpty() &&
                 password != null && !password.trim().isEmpty();
     }
 
-//    //Metodo que inicializa los componentes
-//    @FXML
-//    public void initialize() {
-//        // Idioma por defecto
-//        setLocale(new Locale("es"));
-//
-//        // ComboBox de idiomas
-//        ComBoBoxIdiomasLogin.getItems().addAll("Español", "English");
-//        ComBoBoxIdiomasLogin.getSelectionModel().select("Español");
-//
-//        // Cambio de idioma
-//        ComBoBoxIdiomasLogin.setOnAction(event -> {
-//            String selectedLanguage = ComBoBoxIdiomasLogin.getValue();
-//            switch (selectedLanguage) {
-//                case "English":
-//                    setLocale(new Locale("en"));
-//                    break;
-//                default:
-//                    setLocale(new Locale("es"));
-//                    break;
-//            }
-//        });
-//
-//    }
-//
-//    //Metodo que llama al property
-//    private void setLocale(Locale locale) {
-//        this.locale = locale;
-//        bundle = ResourceBundle.getBundle("idiomas.EtiquetasBundle", locale);
-//        updateTexts();
-//    }
-//
-//    //Metodo que cambia los componentes de idioma
-//    private void updateTexts() {
-//        labelIniciarSesion.setText(bundle.getString("login.title"));
-//        textUsuario.setPromptText(bundle.getString("login.username"));
-//        textContraseña.setPromptText(bundle.getString("login.password"));
-//        buttonAcceder.setText(bundle.getString("login.button"));
-//        HyperLinkRegis.setText(bundle.getString("login.register"));
-//    }
+    /**
+     * Metodo que inicializa los elementos del idioma
+     */
+    @FXML
+    public void initialize() {
+        // Idioma por defecto
+        setLocale(new Locale("es"));
 
-    // Metodo para mostrar el SplashScreen
+        // ComboBox de idiomas
+        ComBoBoxIdiomasLogin.getItems().addAll("Español", "English");
+        ComBoBoxIdiomasLogin.getSelectionModel().select("Español");
+
+        // Cambio de idioma
+        ComBoBoxIdiomasLogin.setOnAction(event -> {
+            String selectedLanguage = ComBoBoxIdiomasLogin.getValue();
+            switch (selectedLanguage) {
+                case "English":
+                    setLocale(new Locale("en"));
+                    break;
+                default:
+                    setLocale(new Locale("es"));
+                    break;
+            }
+        });
+
+    }
+
+    /**
+     * Metodo para establecer los idiomas
+     * @param locale variable para establecer idioma predeterminado
+     */
+    private void setLocale(Locale locale) {
+        this.locale = locale;
+        bundle = ResourceBundle.getBundle("idiomas", locale);
+        updateTexts();
+    }
+
+    /**
+     * Metodo que cambia los idiomas
+     */
+    private void updateTexts() {
+        labelIniciarSesion.setText(bundle.getString("login.title"));
+        textUsuario.setPromptText(bundle.getString("login.username"));
+        textContraseña.setPromptText(bundle.getString("login.password"));
+        buttonAcceder.setText(bundle.getString("login.button"));
+        HyperLinkRegis.setText(bundle.getString("login.register"));
+    }
+
+    /**
+     * Metodo qyue muestra el spalsh y despues la pagina principal
+     */
     private void showSplashScreen() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/splash.fxml"));
