@@ -175,4 +175,5 @@ INSERT INTO usuarios (nombre, apellido, correo, contraseña) VALUES
 ('Juan', 'Pérez', 'juan.perez@gmail.com', 'password123'),
 ('María', 'Gómez', 'maria.gomez@gmail.com', 'securePass456'),
 ('Carlos', 'López', 'carlos.lopez@gmail.com', 'myPassword789'),
-('Laura', 'Fernández', 'laura.fernandez@gmail.com', 'lauraPass321');
+('Laura', 'Fernández', 'laura.fernandez@gmail.com', 'lauraPass321'),
+('Admin','Admin','admin@gmail.com','admin123');
