@@ -2,13 +2,13 @@ package org.example.alquiler_vehiculos;
 
 import javafx.fxml.FXML;
 import javafx.scene.SubScene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import org.example.alquiler_vehiculos.BD.Vehiculos;
 
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
@@ -27,6 +27,13 @@ public class Controlador_Pagina_Principal {
     ComboBox<Integer> anio;
     @FXML
     ComboBox<Float> precio;
+
+    @FXML
+    Tab coche,moto,camion;
+
+    @FXML
+    TableView<Vehiculos> coches,motos,camions;
+
 
     @FXML
     Text nombre;
@@ -124,5 +131,9 @@ public class Controlador_Pagina_Principal {
                 }
             }
         }
+//        VehiculoDAO vehiculoDAO = new VehiculoDAO();
+//        tablaVehiculos.setItems(FXCollections.observableArrayList(
+//                vehiculoDAO.vehiculoFiltros(marcaSeleccionada, tipoSeleccionado, modeloSeleccionada)
+//        ));
     }
 }
