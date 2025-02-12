@@ -1,9 +1,6 @@
 package org.example.alquiler_vehiculos;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.alquiler_vehiculos.BD.Clientes;
@@ -13,22 +10,56 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 
+/**
+ * Clase que controla la pantalla de Registro
+ * @author Alicia Pacheco Mena
+ */
+
 public class Controlador_Registro {
+    /**
+     * Textfield para recoger el nombre
+     */
     @FXML
     private TextField textFieldNombre;
+    /**
+     * TextField para recoger el apellido
+     */
     @FXML
     private TextField textFieldApellido;
+    /**
+     * TextField para recoger el email
+     */
     @FXML
     private TextField textFieldEmail;
+    /**
+     * Textfield para el telefono
+     */
     @FXML
     private TextField textFieldTelefono;
+    /**
+     * PasswordField para la contraseña
+     */
     @FXML
     private PasswordField textPasswordContraseña;
+    /**
+     * Button para el cambio de ventana
+     */
     @FXML
     private Button buttonUnirse;
+    /**
+     * Textfield para recoger el DNI
+     */
     @FXML
     private TextField textFieldDNI;
+    /**
+     * Hyperlink para conectar con la pantalla anterior
+     */
+    @FXML
+    private Hyperlink HlinicioSesion;
 
+    /**
+     * Llamada para el ClienteDAO
+     */
     private final ClientesDAO clientesDAO = new ClientesDAO();
 
     /**
@@ -49,10 +80,23 @@ public class Controlador_Registro {
             return;
         }
 
-        // Validar formato de DNI
+        // Implementacion de las validaciones
         if (!esDNIValido(dni)) {
             mostrarAlerta(Alert.AlertType.ERROR, "Error en el Registro", "El DNI no es válido. Debe tener 8 números y una letra.");
             return;
+        }
+
+        if (!esContraseñaValida(contraseña)){
+            mostrarAlerta(Alert.AlertType.ERROR, "Error en el Registro", "La contraseña debe tener al menos 8 caracteres");
+        }
+
+        if(!esEmailValido(correo)) {
+            mostrarAlerta(Alert.AlertType.ERROR,"Error en el Registro", "El email es incorrecto");
+            return;
+        }
+
+        if(!esNumeroValido(telefono)) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error en el Registro", "El numero debe ser de 9 numeros");
         }
 
         // Crear objeto cliente (sin ID porque es autoincremental)
@@ -70,10 +114,39 @@ public class Controlador_Registro {
     }
 
     /**
-     * Valida el formato del DNI (8 números seguidos de una letra)
+     * Verificar si el DNI es correcto
+     * @param dni parametro DNI
+     * @return expresion regular para verificar
      */
     private boolean esDNIValido(String dni) {
         return Pattern.matches("\\d{8}[A-Za-z]", dni);
+    }
+
+    /**
+     * Valida el telefono
+     * @param telefono parametro telefono
+     * @return expresion regular para verificar
+     */
+    private boolean esNumeroValido(String telefono) {
+        return Pattern.matches("^/d¨{9}$", telefono);
+    }
+
+    /**
+     * Valida que el correo sea correcto
+     * @param email parametro correo
+     * @return expresion regular para verificar
+     */
+    private boolean esEmailValido(String email) {
+        return Pattern.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$\n", email);
+    }
+
+    /**
+     *Valida si la contraseña tenga al menos 8 caracteres
+     * @param password parametro contraseña
+     * @return expresion regular para verificar
+     */
+    private boolean esContraseñaValida(String password) {
+        return Pattern.matches("^.{8,}$\n", password);
     }
 
     /**
@@ -92,25 +165,25 @@ public class Controlador_Registro {
      */
     private void abrirPantallaPrincipal() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/Mostrar_Vehiculo.fxml"));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setTitle("UrbanDrive - Pantalla Principal");
-            stage.setScene(new Scene(root));
-            stage.show();
-            stage.setResizable(false);
-            cerrarVentana(); // Cerrar la ventana de registro
+            Stage currentStage = (Stage) buttonUnirse.getScene().getWindow();
+            CambiarPantallas.switchScene(currentStage, "/org/example/alquiler_vehiculos/Mostrar_Vehiculo.fxml",
+                    "UrbanDrive - Pantalla Principal");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Cierra la ventana de registro
+     * Abre la pantalla de inicio de sesión
      */
-    private void cerrarVentana() {
-        Stage stage = (Stage) buttonUnirse.getScene().getWindow();
-        stage.close();
+    private void abrirPantallaInicioSesion() {
+        try {
+            Stage currentStage = (Stage) HlinicioSesion.getScene().getWindow();
+            CambiarPantallas.switchScene(currentStage, "/org/example/alquiler_vehiculos/Iniciar_Sesion.fxml",
+                    "UrbanDrive - Iniciar Sesión");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -119,6 +192,7 @@ public class Controlador_Registro {
     @FXML
     public void initialize() {
         buttonUnirse.setOnAction(event -> registrarUsuario());
+        HlinicioSesion.setOnAction(event -> abrirPantallaInicioSesion()); // Vuelve a la pantalla de inicio de sesión
     }
 
 }
