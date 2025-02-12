@@ -125,7 +125,7 @@ public class Controlador_Pagina_Principal {
                 coche.setDisable(true);
                 camion.setDisable(true);
                 moto.setDisable(false);
-            } else {
+            } else if("Furgoneta/Camión".equals(tipoSeleccionado)) {
                 coche.setDisable(true);
                 moto.setDisable(true);
                 camion.setDisable(false);
@@ -151,6 +151,10 @@ public class Controlador_Pagina_Principal {
     public void abrirFiltros(javafx.scene.input.MouseEvent mouseEvent) {
         if(mouseEvent.getButton() == MouseButton.PRIMARY) {
             filtros.setVisible(true);
+            tipo.getSelectionModel().clearSelection();
+            tipo.setPromptText("--Tipo--");
+            marca.getSelectionModel().clearSelection();
+            modelo.getSelectionModel().clearSelection();
         }
 
     }
