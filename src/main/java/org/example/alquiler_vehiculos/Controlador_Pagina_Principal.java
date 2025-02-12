@@ -37,7 +37,7 @@ public class Controlador_Pagina_Principal {
     Tab coche,moto,camion;
 
     @FXML
-    TableView<Vehiculos> coches;
+    TableView<Vehiculos> coches,motos,camions;
     @FXML
     TableColumn<Vehiculos, Integer> ids ;
     @FXML
@@ -68,6 +68,9 @@ public class Controlador_Pagina_Principal {
         anios.setCellValueFactory(new PropertyValueFactory<>("año"));
         precios.setCellValueFactory(new PropertyValueFactory<>("Preciodia"));
 
+        coches.getColumns().setAll(ids, marcas, modelos, anios, precios);
+        motos.getColumns().setAll(ids, marcas, modelos, anios, precios);
+        camions.getColumns().setAll(ids, marcas, modelos, anios, precios);
 
         filtros.setVisible(false);
         tipo.getItems().addAll("Coche","Moto","Furgoneta/Camión");
@@ -181,6 +184,7 @@ public class Controlador_Pagina_Principal {
         vehiculosObservableList.clear();
         vehiculosObservableList.addAll(vehiculosList);
         coches.setItems(vehiculosObservableList);
-
+        motos.setItems(vehiculosObservableList);
+        camions.setItems(vehiculosObservableList);
     }
 }
