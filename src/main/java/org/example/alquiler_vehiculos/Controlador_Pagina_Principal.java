@@ -9,6 +9,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import org.example.alquiler_vehiculos.BD.Vehiculos;
+import org.example.alquiler_vehiculos.DAO.VehiculoDAO;
 
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
@@ -37,6 +38,8 @@ public class Controlador_Pagina_Principal {
 
     @FXML
     Text nombre;
+
+    VehiculoDAO vehiculoDAO = new VehiculoDAO();
 
     Map<String,String[]> modelosPorMarca = new HashMap<>();
     Map<String, String[]> marcasPorTipo = new HashMap<>();
@@ -127,7 +130,7 @@ public class Controlador_Pagina_Principal {
             if(marcaSeleccionada != null) {
                 String sql2 = "SELECT * FROM vehiculo WHERE tipo = '"+tipoSeleccionado+"' AND marca = '"+marcaSeleccionada+"'";
                 if(modeloSeleccionada != null) {
-                    String sql3 = "SELECT * FROM vehiculos WHERE tipo = '"+tipoSeleccionado+"' AND marca = '"+marcaSeleccionada+"' AND modelo = '"+modeloSeleccionada+"'";
+                    vehiculoDAO.vehiculoFiltros(marcaSeleccionada, tipoSeleccionado,modeloSeleccionada);
                 }
             }
         }

@@ -189,11 +189,18 @@ public class HelloController {
             splashStage.show();
 
             splashController.startSplash(() -> {
+               if(textUsuario.equals("admin@gmail.com")) {
                 try {
-                    CambiarPantallas.switchScene(splashStage, "/org/example/alquiler_vehiculos/Mostrar_Vehiculo.fxml", "Alquiler de Coches");
+                    CambiarPantallas.switchScene(splashStage, "/org/example/alquiler_vehiculos/admin.fxml", "Alquiler de Coches");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+               }else{
+                   try {
+                       CambiarPantallas.switchScene(splashStage, "/org/example/alquiler_vehiculos/Mostrar_Vehiculo.fxml", "Alquiler de Coches");
+                   } catch (IOException e) {
+                       throw new RuntimeException(e);
+                   }               }
             });
 
             currentStage.close();
