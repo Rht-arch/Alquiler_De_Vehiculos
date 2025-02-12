@@ -20,11 +20,11 @@
                             </font>
                         </Label>
                         <!--TextField para usuario -->
-                        <TextField fx:id="textUsuario" layoutX="65.0" layoutY="95.0" prefHeight="26.0" prefWidth="201.0" promptText="Usuario" style="-fx-background-radius: 10;" />
+                        <TextField fx:id="textUsuario" layoutX="65.0" layoutY="95.0" prefHeight="26.0" prefWidth="201.0" promptText="Usuario" style="-fx-background-radius: 10;" tooltip="Ingrese con el email"/>
                         <!--PasswordField para la contraseña-->
-                        <PasswordField fx:id="textContraseña" layoutX="64.0" layoutY="141.0" prefHeight="26.0" prefWidth="202.0" promptText="Contraseña" style="-fx-background-radius: 10;" />
+                        <PasswordField fx:id="textContraseña" layoutX="64.0" layoutY="141.0" prefHeight="26.0" prefWidth="202.0" promptText="Contraseña" style="-fx-background-radius: 10;" tooltip="Introduce la contraseña" />
                         <!--Boton -->
-                        <Button fx:id="buttonAcceder" layoutX="64.0" layoutY="219.0" prefHeight="26.0" prefWidth="202.0" onMouseClicked="#handleLogin" style="-fx-background-color: #f1a52b; -fx-background-radius: 10; -fx-text-fill: #ffffff;" text="Acceder"/>
+                        <Button fx:id="buttonAcceder" layoutX="64.0" layoutY="219.0" prefHeight="26.0" prefWidth="202.0" onMouseClicked="#handleLogin" style="-fx-background-color: #f1a52b; -fx-background-radius: 10; -fx-text-fill: #ffffff;" text="Acceder" tooltip="Pulse para iniciar sesion"/>
                         <!--Lable -->
                         <Label fx:id="labelNoTienes" layoutX="69.0" layoutY="260.0" text="¿No tienes una cuenta?" textFill="WHITE">
                             <font>

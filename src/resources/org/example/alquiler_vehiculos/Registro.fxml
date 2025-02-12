@@ -30,34 +30,34 @@
                <font>
                   <Font name="System Bold" size="13.0" />
                </font></Label>
-            <TextField fx:id="textFieldNombre" layoutX="179.0" layoutY="68.0" prefHeight="25.0" prefWidth="150.0" promptText="Nombre" />
+            <TextField fx:id="textFieldNombre" layoutX="179.0" layoutY="68.0" prefHeight="25.0" prefWidth="150.0" promptText="Nombre" tooltip="Ingrese su nombre"/>
    
                <!--TextField para el campo Apellido-->
-            <TextField fx:id="textFieldApellido" layoutX="344.0" layoutY="68.0" prefHeight="25.0" prefWidth="150.0" promptText="Apellidos" />
+            <TextField fx:id="textFieldApellido" layoutX="344.0" layoutY="68.0" prefHeight="25.0" prefWidth="150.0" promptText="Apellidos" tooltip="Ingrese sus apellidos"/>
    
                <!--Label y TextField para el campo Email-->
             <Label layoutX="114.0" layoutY="178.0" text="Email " textFill="#1e1485">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font></Label>
-            <TextField fx:id="textFieldEmail" layoutX="179.0" layoutY="175.0" prefHeight="25.0" prefWidth="314.0" promptText="example@gmail.com" />
+            <TextField fx:id="textFieldEmail" layoutX="179.0" layoutY="175.0" prefHeight="25.0" prefWidth="314.0" promptText="ejemplo@gmail.com" tooltip="Ingrese su correo electronico"/>
    
                <!--Label y PasswordField para el campo contraseña-->
             <Label layoutX="87.0" layoutY="236.0" text="Contraseña" textFill="#1e1485">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font></Label>
-            <PasswordField fx:id="textPasswordContraseña" layoutX="180.0" layoutY="233.0" prefHeight="25.0" prefWidth="312.0" />
+            <PasswordField fx:id="textPasswordContraseña" layoutX="180.0" layoutY="233.0" prefHeight="25.0" prefWidth="312.0" tooltip="Ingrese una contraseña compleja" />
    
                <!--Label y TextField para el campo telefono-->
             <Label layoutX="49.0" layoutY="288.0" text="Número de móvil" textFill="#1e1485">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font></Label>
-            <TextField fx:id="textFieldTelefono" layoutX="179.0" layoutY="285.0" prefHeight="25.0" prefWidth="314.0" />
+            <TextField fx:id="textFieldTelefono" layoutX="179.0" layoutY="285.0" prefHeight="25.0" prefWidth="314.0" tooltip="Ingrese su nuemro de telefono" />
    
                <!--Button-->
-            <Button fx:id="buttonUnirse" layoutX="494.0" layoutY="350.0" mnemonicParsing="false" style="-fx-background-color: #1e1485; -fx-text-fill: #ffffff;" text="Registrate" />
+            <Button fx:id="buttonUnirse" layoutX="494.0" layoutY="350.0" mnemonicParsing="false" style="-fx-background-color: #1e1485; -fx-text-fill: #ffffff;" text="Registrate" tooltip="Pulse para registrarse" />
             <Hyperlink layoutX="111.0" layoutY="363.0" text="Inicia Sesión">
                <font>
                   <Font size="13.0" />
