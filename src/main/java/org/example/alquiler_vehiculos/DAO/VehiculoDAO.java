@@ -137,30 +137,24 @@ public class VehiculoDAO {
         return false;
     }
 
-    public List<Vehiculos> vehiculoFiltros(String marcaSeleccionada, String tipoSeleccionado, String modeloSeleccionada) {
+    public List<Vehiculos> obtenerPorTipo(String tipo) {
         List<Vehiculos> listaVehiculos = new ArrayList<>();
-
-        String sql = "SELECT * FROM vehiculos WHERE marca = ? AND modelo = ? AND tipo = ?";
+        String sql = "SELECT * FROM vehiculos WHERE tipo = ?";
 
         try (Connection con = ConexionBD.getConexion();
              PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, tipo);
+            ResultSet rs = pstmt.executeQuery();
 
-            pstmt.setString(1, marcaSeleccionada);
-            pstmt.setString(2, modeloSeleccionada);
-            pstmt.setString(3, tipoSeleccionado);
-
-            try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
-                    Vehiculos vehiculo = new Vehiculos(
-                            rs.getInt("id"),
-                            rs.getString("marca"),
-                            rs.getString("modelo"),
-                            rs.getInt("año"),
-                            rs.getString("tipo"),
-                            rs.getDouble("precio_dia")
-                    );
-                    listaVehiculos.add(vehiculo);
-                }
+            while (rs.next()) {
+                listaVehiculos.add(new Vehiculos(
+                        rs.getInt("id"),
+                        rs.getString("marca"),
+                        rs.getString("modelo"),
+                        rs.getInt("año"),
+                        rs.getString("tipo"),
+                        rs.getDouble("precio_dia")
+                ));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -168,5 +162,56 @@ public class VehiculoDAO {
         return listaVehiculos;
     }
 
+    public List<Vehiculos> obtenerPorTipoYMarca(String tipo, String marca) {
+        List<Vehiculos> listaVehiculos = new ArrayList<>();
+        String sql = "SELECT * FROM vehiculos WHERE tipo = ? AND marca = ?";
 
+        try (Connection con = ConexionBD.getConexion();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, tipo);
+            pstmt.setString(2, marca);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                listaVehiculos.add(new Vehiculos(
+                        rs.getInt("id"),
+                        rs.getString("marca"),
+                        rs.getString("modelo"),
+                        rs.getInt("año"),
+                        rs.getString("tipo"),
+                        rs.getDouble("precio_dia")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listaVehiculos;
+    }
+
+    public List<Vehiculos> obtenerPorTipoMarcaYModelo(String tipo, String marca, String modelo) {
+        List<Vehiculos> listaVehiculos = new ArrayList<>();
+        String sql = "SELECT * FROM vehiculos WHERE tipo = ? AND marca = ? AND modelo = ?";
+
+        try (Connection con = ConexionBD.getConexion();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, tipo);
+            pstmt.setString(2, marca);
+            pstmt.setString(3, modelo);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                listaVehiculos.add(new Vehiculos(
+                        rs.getInt("id"),
+                        rs.getString("marca"),
+                        rs.getString("modelo"),
+                        rs.getInt("año"),
+                        rs.getString("tipo"),
+                        rs.getDouble("precio_dia")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listaVehiculos;
+    }
 }

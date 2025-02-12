@@ -12,7 +12,9 @@ import org.example.alquiler_vehiculos.BD.Vehiculos;
 import org.example.alquiler_vehiculos.DAO.VehiculoDAO;
 
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Controlador_Pagina_Principal {
@@ -125,15 +127,18 @@ public class Controlador_Pagina_Principal {
         String marcaSeleccionada = marca.getValue();
         String tipoSeleccionado = tipo.getValue();
         String modeloSeleccionada = modelo.getValue();
+        VehiculoDAO vehiculoDAO = new VehiculoDAO();
+        List<Vehiculos> vehiculosFiltros = new ArrayList<>();
         if (tipoSeleccionado != null) {
-            String sql = "SELECT * FROM vehiculo WHERE tipo = '" + tipoSeleccionado + "'";
+            vehiculosFiltros = vehiculoDAO.obtenerPorTipo(tipoSeleccionado);
             if(marcaSeleccionada != null) {
-                String sql2 = "SELECT * FROM vehiculo WHERE tipo = '"+tipoSeleccionado+"' AND marca = '"+marcaSeleccionada+"'";
+                vehiculosFiltros = vehiculoDAO.obtenerPorTipoYMarca(tipoSeleccionado, marcaSeleccionada);
                 if(modeloSeleccionada != null) {
-                    vehiculoDAO.vehiculoFiltros(marcaSeleccionada, tipoSeleccionado,modeloSeleccionada);
+                    vehiculosFiltros = vehiculoDAO.obtenerPorTipoMarcaYModelo(tipoSeleccionado, marcaSeleccionada, modeloSeleccionada);
                 }
             }
         }
+
 //        VehiculoDAO vehiculoDAO = new VehiculoDAO();
 //        tablaVehiculos.setItems(FXCollections.observableArrayList(
 //                vehiculoDAO.vehiculoFiltros(marcaSeleccionada, tipoSeleccionado, modeloSeleccionada)
