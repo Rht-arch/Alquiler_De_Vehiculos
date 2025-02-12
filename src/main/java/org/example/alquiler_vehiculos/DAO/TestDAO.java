@@ -29,7 +29,7 @@ public class TestDAO {
 
         // 4️⃣ Actualizar un vehículo
         if (vehiculo != null) {
-            vehiculo.setPrecioDia(55.0);
+            vehiculo.setPreciodia(55.0);
             if (vehiculoDAO.actualizarVehiculo(vehiculo)) {
                 System.out.println("✅ Vehículo actualizado correctamente.");
             }

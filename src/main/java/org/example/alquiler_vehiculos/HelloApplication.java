@@ -11,7 +11,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("InicioDeSesion.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Mostrar_Vehiculo.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 650, 350);
         stage.setTitle("Alquiler de coches");
         stage.setResizable(true);

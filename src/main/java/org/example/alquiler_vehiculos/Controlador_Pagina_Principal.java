@@ -1,8 +1,11 @@
 package org.example.alquiler_vehiculos;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.SubScene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -13,6 +16,7 @@ import org.example.alquiler_vehiculos.DAO.VehiculoDAO;
 
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Controlador_Pagina_Principal {
@@ -33,8 +37,19 @@ public class Controlador_Pagina_Principal {
     Tab coche,moto,camion;
 
     @FXML
-    TableView<Vehiculos> coches,motos,camions;
+    TableView<Vehiculos> coches;
+    @FXML
+    TableColumn<Vehiculos, Integer> ids ;
+    @FXML
+    TableColumn<Vehiculos, String> marcas ;
+    @FXML
+    TableColumn<Vehiculos, String> modelos ;
+    @FXML
+    TableColumn<Vehiculos, Integer> anios ;
+    @FXML
+    TableColumn<Vehiculos, Double> precios ;
 
+    private ObservableList<Vehiculos> vehiculosObservableList = FXCollections.observableArrayList();
 
     @FXML
     Text nombre;
@@ -46,10 +61,17 @@ public class Controlador_Pagina_Principal {
 
     @FXML
     public void initialize() {
+
+        ids.setCellValueFactory(new PropertyValueFactory<>("id"));
+        marcas.setCellValueFactory(new PropertyValueFactory<>("marca"));
+        modelos.setCellValueFactory(new PropertyValueFactory<>("modelo"));
+        anios.setCellValueFactory(new PropertyValueFactory<>("año"));
+        precios.setCellValueFactory(new PropertyValueFactory<>("Preciodia"));
+
+
         filtros.setVisible(false);
         tipo.getItems().addAll("Coche","Moto","Furgoneta/Camión");
 
-       //nombre.setText(usuario.getNombre());
 
 
         marcasPorTipo.put("Coche", new String[]{"Toyota", "Ford", "BMW", "Honda", "Volkswagen", "Audi", "Mercedes-Benz", "Nissan", "Peugeot", "Chevrolet", "Renault", "Fiat"});
@@ -95,6 +117,19 @@ public class Controlador_Pagina_Principal {
             if (tipoSeleccionado != null) {
                 marca.getItems().addAll(marcasPorTipo.get(tipoSeleccionado));
             }
+            if ("Coche".equals(tipoSeleccionado)) {
+                coche.setDisable(false);  // Habilitar el tab de coches
+                moto.setDisable(true);    // Deshabilitar el tab de motos (si lo deseas)
+                camion.setDisable(true);
+            } else if ("Moto".equals(tipoSeleccionado)) {
+                coche.setDisable(true);
+                camion.setDisable(true);
+                moto.setDisable(false);
+            } else {
+                coche.setDisable(true);
+                moto.setDisable(true);
+                camion.setDisable(false);
+            }
         });
         // Agregar las marcas al ComboBox
         marca.getItems().addAll(modelosPorMarca.keySet());
@@ -125,18 +160,23 @@ public class Controlador_Pagina_Principal {
         String marcaSeleccionada = marca.getValue();
         String tipoSeleccionado = tipo.getValue();
         String modeloSeleccionada = modelo.getValue();
+        String sql = "SELECT * FROM vehiculos WHERE 1=1 ";
         if (tipoSeleccionado != null) {
-            String sql = "SELECT * FROM vehiculo WHERE tipo = '" + tipoSeleccionado + "'";
+             sql += " AND tipo ='" + tipoSeleccionado + "'";
             if(marcaSeleccionada != null) {
-                String sql2 = "SELECT * FROM vehiculo WHERE tipo = '"+tipoSeleccionado+"' AND marca = '"+marcaSeleccionada+"'";
+                sql += " AND marca = '"+marcaSeleccionada+"'";
                 if(modeloSeleccionada != null) {
-                    vehiculoDAO.vehiculoFiltros(marcaSeleccionada, tipoSeleccionado,modeloSeleccionada);
+                    sql+= " AND modelo = '"+modeloSeleccionada+"'";
                 }
             }
         }
-//        VehiculoDAO vehiculoDAO = new VehiculoDAO();
-//        tablaVehiculos.setItems(FXCollections.observableArrayList(
-//                vehiculoDAO.vehiculoFiltros(marcaSeleccionada, tipoSeleccionado, modeloSeleccionada)
-//        ));
+        List<Vehiculos> vehiculos = vehiculoDAO.obtenerVehiculosConFiltro(sql);
+        mostrarenTabla(vehiculos);
+    }
+    public void mostrarenTabla(List<Vehiculos> vehiculosList) {
+        vehiculosObservableList.clear();
+        vehiculosObservableList.addAll(vehiculosList);
+        coches.setItems(vehiculosObservableList);
+
     }
 }

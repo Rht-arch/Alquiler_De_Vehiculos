@@ -21,7 +21,7 @@ public class VehiculoDAO {
             pstmt.setString(2, vehiculo.getModelo());
             pstmt.setInt(3, vehiculo.getAño());
             pstmt.setString(4, vehiculo.getTipo());
-            pstmt.setDouble(5, vehiculo.getPrecioDia());
+            pstmt.setDouble(5, vehiculo.getPreciodia());
 
             return pstmt.executeUpdate() > 0; // Devuelve true si la inserción fue exitosa
         } catch (SQLException e) {
@@ -94,7 +94,7 @@ public class VehiculoDAO {
             pstmt.setString(2, vehiculo.getModelo());
             pstmt.setInt(3, vehiculo.getAño());
             pstmt.setString(4, vehiculo.getTipo());
-            pstmt.setDouble(5, vehiculo.getPrecioDia());
+            pstmt.setDouble(5, vehiculo.getPreciodia());
             pstmt.setInt(6, vehiculo.getId());
 
             return pstmt.executeUpdate() > 0; // Devuelve true si la actualización fue exitosa
@@ -137,36 +137,32 @@ public class VehiculoDAO {
         return false;
     }
 
-    public List<Vehiculos> vehiculoFiltros(String marcaSeleccionada, String tipoSeleccionado, String modeloSeleccionada) {
-        List<Vehiculos> listaVehiculos = new ArrayList<>();
-
-        String sql = "SELECT * FROM vehiculos WHERE marca = ? AND modelo = ? AND tipo = ?";
+    public List<Vehiculos> obtenerVehiculosConFiltro(String sql) {
+        List<Vehiculos> vehiculos = new ArrayList<>();
 
         try (Connection con = ConexionBD.getConexion();
              PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-            pstmt.setString(1, marcaSeleccionada);
-            pstmt.setString(2, modeloSeleccionada);
-            pstmt.setString(3, tipoSeleccionado);
-
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    Vehiculos vehiculo = new Vehiculos(
-                            rs.getInt("id"),
-                            rs.getString("marca"),
-                            rs.getString("modelo"),
-                            rs.getInt("año"),
-                            rs.getString("tipo"),
-                            rs.getDouble("precio_dia")
-                    );
-                    listaVehiculos.add(vehiculo);
+                    Vehiculos vehiculo = new Vehiculos();
+                    vehiculo.setId(rs.getInt("id"));
+                    vehiculo.setTipo(rs.getString("tipo"));
+                    vehiculo.setMarca(rs.getString("marca"));
+                    vehiculo.setModelo(rs.getString("modelo"));
+                    vehiculo.setAño(rs.getInt("anio"));
+                    vehiculo.setPreciodia(rs.getDouble("precio_dia"));
+                    vehiculos.add(vehiculo);
                 }
             }
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Manejo de excepciones
         }
-        return listaVehiculos;
+
+        return vehiculos;
     }
+
 
 
 }

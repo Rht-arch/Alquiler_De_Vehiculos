@@ -26,29 +26,29 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="7.0" layoutY="14.0" prefHeight="357.0" prefWidth="949.0">
+                        <TableView fx:id="coches" layoutX="7.0" layoutY="14.0" prefHeight="357.0" prefWidth="949.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="Id" />
-                            <TableColumn prefWidth="300.0" text="Marca" />
-                              <TableColumn prefWidth="324.0" text="Modelo" />
-                              <TableColumn prefWidth="86.0" text="Año" />
-                              <TableColumn prefWidth="162.0" text="Precio" />
+                            <TableColumn fx:id="ids" prefWidth="75.0" text="Id" />
+                            <TableColumn fx:id="marcas" prefWidth="300.0" text="Marca" />
+                              <TableColumn fx:id="modelos" prefWidth="324.0" text="Modelo" />
+                              <TableColumn fx:id="anios" prefWidth="86.0" text="Año" />
+                              <TableColumn fx:id="precios" prefWidth="162.0" text="Precio" />
                           </columns>
                         </TableView>
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab text="Motos">
+          <Tab  text="Motos">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="6.0" layoutY="14.0" prefHeight="360.0" prefWidth="950.0">
+                        <TableView  layoutX="7.0" layoutY="14.0" prefHeight="357.0" prefWidth="949.0">
                            <columns>
                               <TableColumn prefWidth="75.0" text="Id" />
-                              <TableColumn prefWidth="300.0" text="Marca" />
-                              <TableColumn prefWidth="324.0" text="Modelo" />
-                              <TableColumn prefWidth="86.0" text="Año" />
-                              <TableColumn prefWidth="162.0" text="Precio" />
+                              <TableColumn  prefWidth="300.0" text="Marca" />
+                              <TableColumn  prefWidth="324.0" text="Modelo" />
+                              <TableColumn  prefWidth="86.0" text="Año" />
+                              <TableColumn  prefWidth="162.0" text="Precio" />
                            </columns>
                         </TableView>
                      </children></AnchorPane>
@@ -58,7 +58,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="8.0" layoutY="14.0" prefHeight="357.0" prefWidth="948.0">
+                        <TableView layoutX="7.0" layoutY="14.0" prefHeight="357.0" prefWidth="949.0">
                            <columns>
                               <TableColumn prefWidth="75.0" text="Id" />
                               <TableColumn prefWidth="300.0" text="Marca" />
