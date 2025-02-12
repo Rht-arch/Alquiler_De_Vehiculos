@@ -189,7 +189,7 @@ public class HelloController {
             splashStage.show();
 
             splashController.startSplash(() -> {
-               if(textUsuario.equals("admin@gmail.com")) {
+               if(clientesDAO.obtenerClientePorId(textUsuario.getText(),textContraseña.getText()).getCorreo().matches("admin@gmail.com")) {
                 try {
                     CambiarPantallas.switchScene(splashStage, "/org/example/alquiler_vehiculos/admin.fxml", "Alquiler de Coches");
                 } catch (IOException e) {
