@@ -30,7 +30,7 @@
                <font>
                   <Font name="System Bold" size="13.0" />
                </font></Label>
-            <TextField fx:id="textFieldNombre"  layoutX="179.0" layoutY="68.0" prefHeight="25.0" prefWidth="150.0" promptText="Nombre" />
+            <TextField fx:id="textFieldNombre" layoutX="179.0" layoutY="68.0" prefHeight="25.0" prefWidth="150.0" promptText="Nombre" />
    
                <!--TextField para el campo Apellido-->
             <TextField fx:id="textFieldApellido" layoutX="344.0" layoutY="68.0" prefHeight="25.0" prefWidth="150.0" promptText="Apellidos" />
@@ -58,7 +58,7 @@
    
                <!--Button-->
             <Button fx:id="buttonUnirse" layoutX="494.0" layoutY="350.0" mnemonicParsing="false" style="-fx-background-color: #1e1485; -fx-text-fill: #ffffff;" text="Registrate" />
-            <Hyperlink layoutX="111.0" layoutY="363.0" text="Inicia Sesión">
+            <Hyperlink fx:id="HlinicioSesion" layoutX="111.0" layoutY="363.0" text="Inicia Sesión">
                <font>
                   <Font size="13.0" />
                </font></Hyperlink>
@@ -66,7 +66,7 @@
                <font>
                   <Font size="13.0" />
                </font></Label>
-            <TextField layoutX="180.0" layoutY="121.0" prefHeight="25.0" prefWidth="312.0" fx:id="textFieldDNI" />
+            <TextField fx:id="textFieldDNI" layoutX="180.0" layoutY="121.0" prefHeight="25.0" prefWidth="312.0" />
             <Label layoutX="121.0" layoutY="125.0" text="DNI" textFill="#1e1485">
                <font>
                   <Font name="System Bold" size="13.0" />
