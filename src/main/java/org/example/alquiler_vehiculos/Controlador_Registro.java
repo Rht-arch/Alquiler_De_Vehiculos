@@ -86,19 +86,6 @@ public class Controlador_Registro {
             return;
         }
 
-        if (!esContraseñaValida(contraseña)){
-            mostrarAlerta(Alert.AlertType.ERROR, "Error en el Registro", "La contraseña debe tener al menos 8 caracteres");
-        }
-
-        if(!esEmailValido(correo)) {
-            mostrarAlerta(Alert.AlertType.ERROR,"Error en el Registro", "El email es incorrecto");
-            return;
-        }
-
-        if(!esNumeroValido(telefono)) {
-            mostrarAlerta(Alert.AlertType.ERROR, "Error en el Registro", "El numero debe ser de 9 numeros");
-        }
-
         // Crear objeto cliente (sin ID porque es autoincremental)
         Clientes nuevoCliente = new Clientes(0, dni, nombre, apellido, telefono, correo, contraseña);
 
@@ -120,33 +107,6 @@ public class Controlador_Registro {
      */
     private boolean esDNIValido(String dni) {
         return Pattern.matches("\\d{8}[A-Za-z]", dni);
-    }
-
-    /**
-     * Valida el telefono
-     * @param telefono parametro telefono
-     * @return expresion regular para verificar
-     */
-    private boolean esNumeroValido(String telefono) {
-        return Pattern.matches("^/d¨{9}$", telefono);
-    }
-
-    /**
-     * Valida que el correo sea correcto
-     * @param email parametro correo
-     * @return expresion regular para verificar
-     */
-    private boolean esEmailValido(String email) {
-        return Pattern.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$\n", email);
-    }
-
-    /**
-     *Valida si la contraseña tenga al menos 8 caracteres
-     * @param password parametro contraseña
-     * @return expresion regular para verificar
-     */
-    private boolean esContraseñaValida(String password) {
-        return Pattern.matches("^.{8,}$\n", password);
     }
 
     /**
