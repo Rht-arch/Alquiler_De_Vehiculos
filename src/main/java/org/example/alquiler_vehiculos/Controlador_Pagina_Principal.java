@@ -127,7 +127,7 @@ public class Controlador_Pagina_Principal {
             if(marcaSeleccionada != null) {
                 String sql2 = "SELECT * FROM vehiculo WHERE tipo = '"+tipoSeleccionado+"' AND marca = '"+marcaSeleccionada+"'";
                 if(modeloSeleccionada != null) {
-                    String sql3 = "SELECT * FROM vehiculo WHERE tipo = '"+tipoSeleccionado+"' AND marca = '"+marcaSeleccionada+"' AND modelo = '"+modeloSeleccionada+"'";
+                    String sql3 = "SELECT * FROM vehiculos WHERE tipo = '"+tipoSeleccionado+"' AND marca = '"+marcaSeleccionada+"' AND modelo = '"+modeloSeleccionada+"'";
                 }
             }
         }
