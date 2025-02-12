@@ -52,11 +52,16 @@ public class HelloController {
     @FXML
     private ComboBox<String> ComBoBoxIdiomasLogin;
 
+
+    @FXML
+    private Tooltip user, pass;
     /**
      * Variables para establecer el idioma
      */
     private Locale locale;
     private ResourceBundle bundle;
+    @FXML
+    private Label labelNoTienesCuenta;
 
     /**
      * Metodo que valida si los campos para acceder y si no estan validados salta una alerta
@@ -94,39 +99,42 @@ public class HelloController {
      */
     @FXML
     public void initialize() {
-        // Idioma por defecto
-        setLocale(new Locale("es"));
-
-        // ComboBox de idiomas
+        // Idioma por defecto (Default language)
         ComBoBoxIdiomasLogin.getItems().addAll("Español", "English");
         ComBoBoxIdiomasLogin.getSelectionModel().select("Español");
 
-        // Cambio de idioma
+        // Cambio de idioma (Language change)
         ComBoBoxIdiomasLogin.setOnAction(event -> {
             String selectedLanguage = ComBoBoxIdiomasLogin.getValue();
+
+            // Set the Locale based on the selected language
             switch (selectedLanguage) {
                 case "English":
-                    setLocale(new Locale("en"));
+                    Locale.setDefault(Locale.ENGLISH); // Set default to English
+                    locale = Locale.ENGLISH; //
+                    // Use English locale
                     break;
                 default:
-                    setLocale(new Locale("es"));
+                    Locale.setDefault(new Locale("es", "ES")); // Set default to Spanish (Spain)
+                    locale = new Locale("es", "ES"); // Use Spanish locale
                     break;
             }
+
+            // Load the resource bundle
+            bundle = ResourceBundle.getBundle("org.example.alquiler_vehiculos.idioma", locale);
+            updateTexts();
+            textUsuario.setTooltip(new Tooltip(bundle.getString("login.tooltip")));
+            textContraseña.setTooltip(new Tooltip(bundle.getString("password.tooltip")));
         });
 
         HyperLinkRegis.setOnAction(event -> abrirPantallaRegistro());
-
     }
 
     /**
      * Metodo para establecer los idiomas
      * @param locale variable para establecer idioma predeterminado
      */
-    private void setLocale(Locale locale) {
-        this.locale = locale;
-        bundle = ResourceBundle.getBundle("idiomas", locale);
-        updateTexts();
-    }
+
 
     /**
      * Metodo que cambia los idiomas
@@ -137,6 +145,7 @@ public class HelloController {
         textContraseña.setPromptText(bundle.getString("login.password"));
         buttonAcceder.setText(bundle.getString("login.button"));
         HyperLinkRegis.setText(bundle.getString("login.register"));
+        labelNoTienesCuenta.setText(bundle.getString("ntc"));
     }
 
     /**
@@ -145,7 +154,7 @@ public class HelloController {
     @FXML
     public void abrirPantallaRegistro() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/registro.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/Registro.fxml"));
             Scene registroScene = new Scene(loader.load());
 
             Stage registroStage = new Stage();

@@ -29,6 +29,7 @@ public class Controlador_Registro {
     @FXML
     private TextField textFieldDNI;
 
+
     private final ClientesDAO clientesDAO = new ClientesDAO();
 
     /**
