@@ -150,7 +150,7 @@ public class VehiculoDAO {
                     vehiculo.setTipo(rs.getString("tipo"));
                     vehiculo.setMarca(rs.getString("marca"));
                     vehiculo.setModelo(rs.getString("modelo"));
-                    vehiculo.setAño(rs.getInt("anio"));
+                    vehiculo.setAño(rs.getInt("año"));
                     vehiculo.setPreciodia(rs.getDouble("precio_dia"));
                     vehiculos.add(vehiculo);
                 }
