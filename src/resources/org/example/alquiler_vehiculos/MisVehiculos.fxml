@@ -29,7 +29,7 @@
               <Image url="@../../../imagenes/logo_proyecto.png" />
           </image>
       </ImageView>
-      <Button fx:id="volver" layoutX="31.0" layoutY="615.0" mnemonicParsing="false" onMouseClicked="#handleVolver" prefHeight="37.0" prefWidth="201.0" style="-fx-background-color: #FFFFFF;" text="Volver a la pantalla principal" textFill="#1e1485">
+      <Button fx:id="volver" layoutX="31.0" layoutY="615.0" mnemonicParsing="false" onAction="#handleVolver" prefHeight="37.0" prefWidth="201.0" style="-fx-background-color: #FFFFFF;" text="Volver a la pantalla principal" textFill="#1e1485">
          <font>
             <Font name="Arial Bold" size="13.0" />
          </font>
