@@ -10,6 +10,7 @@ import javafx.util.Duration;
 
 /**
  * Clase que controla la primera pantalla del splash
+ * @author Alicia Pacheco Mena
  */
 
 public class SplashController {
@@ -26,7 +27,7 @@ public class SplashController {
 
     /**
      * Metodo que se gestiona el tiempo de carga de la barra de progreso
-     * @param onComplete Devuelve que se ah compeltado el progreso de carga
+     * @param onComplete Devuelve que se ha completado el progreso de carga
      */
     public void startSplash(Runnable onComplete) {
         try {
