@@ -3,13 +3,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="931.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.Controlador_Compra">
+<AnchorPane prefHeight="500.0" prefWidth="931.0" xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.alquiler_vehiculos.Controlador_Compra">
     <children>
         <!-- Título -->
         <Label layoutX="30.0" layoutY="20.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Detalles del Alquiler" />
 
         <!-- Tabla combinada -->
-        <TableView fx:id="tablaCompra" layoutX="30.0" layoutY="51.0" prefHeight="349.0" prefWidth="874.0">
+        <TableView fx:id="tablaCompra" layoutX="30.0" layoutY="51.0" prefHeight="300.0" prefWidth="874.0">
             <columns>
                 <!-- Datos del Vehículo -->
                 <TableColumn fx:id="colMarca" prefWidth="120.0" text="Marca" />
@@ -17,16 +19,20 @@
                 <TableColumn fx:id="colTipo" prefWidth="120.0" text="Tipo" />
 
                 <!-- Datos del Alquiler -->
-                <TableColumn fx:id="colId" prefWidth="80.0" text="ID Alquiler" />
                 <TableColumn fx:id="colIdCliente" prefWidth="100.0" text="Cliente ID" />
                 <TableColumn fx:id="colFechaInicio" prefWidth="120.0" text="Fecha Inicio" />
                 <TableColumn fx:id="colFechaFin" prefWidth="120.0" text="Fecha Fin" />
-                <TableColumn fx:id="colTotal" prefWidth="100.0" text="Total" />
+                <TableColumn fx:id="colTotal" prefWidth="100.0" text="Total (€)" />
             </columns>
         </TableView>
 
+        <!-- Selección de fecha de fin -->
+        <Label layoutX="30.0" layoutY="370.0" text="Seleccionar fecha de fin:" />
+        <DatePicker fx:id="fechaFinPicker" layoutX="180.0" layoutY="365.0" onAction="#calcularTotal"/>
+
         <!-- Botones -->
-        <Button fx:id="btnComprar" layoutX="841.0" layoutY="420.0" onAction="#comprarVehiculo" text="Comprar" />
+        <Button fx:id="btnCalcular" layoutX="400.0" layoutY="365.0" onAction="#calcularTotal" text="Calcular Total" />
+        <Button fx:id="btnComprar" layoutX="800.0" layoutY="420.0" onAction="#comprarVehiculo" text="Comprar" />
         <Button fx:id="btnVolver" layoutX="30.0" layoutY="420.0" onAction="#volver" text="Volver" />
     </children>
 </AnchorPane>
