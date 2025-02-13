@@ -13,9 +13,14 @@ import java.util.ResourceBundle;
 
 /**
  * Clase que gestiona y controla la pantalla de inicio de sesion
+ * @author Alicia Pacheco Mena
  */
 public class HelloController {
+    /**
+     * Conexion con la base de datos
+     */
     public ClientesDAO clientesDAO = new ClientesDAO();
+
     /**
      * Textfield para recoger el usuario
      */
@@ -52,14 +57,21 @@ public class HelloController {
     @FXML
     private ComboBox<String> ComBoBoxIdiomasLogin;
 
-
+    /**
+     * Tooltip
+     */
     @FXML
     private Tooltip user, pass;
+
     /**
      * Variables para establecer el idioma
      */
     private Locale locale;
     private ResourceBundle bundle;
+
+    /**
+     * Label para establecer un texto
+     */
     @FXML
     private Label labelNoTienesCuenta;
 
@@ -99,28 +111,25 @@ public class HelloController {
      */
     @FXML
     public void initialize() {
-        // Idioma por defecto (Default language)
+        // Idioma por defecto
         ComBoBoxIdiomasLogin.getItems().addAll("Español", "English");
         ComBoBoxIdiomasLogin.getSelectionModel().select("Español");
 
-        // Cambio de idioma (Language change)
+        // Cambio de idioma
         ComBoBoxIdiomasLogin.setOnAction(event -> {
             String selectedLanguage = ComBoBoxIdiomasLogin.getValue();
 
-            // Set the Locale based on the selected language
             switch (selectedLanguage) {
                 case "English":
-                    Locale.setDefault(Locale.ENGLISH); // Set default to English
-                    locale = Locale.ENGLISH; //
-                    // Use English locale
+                    Locale.setDefault(Locale.ENGLISH);
+                    locale = Locale.ENGLISH;
                     break;
                 default:
-                    Locale.setDefault(new Locale("es", "ES")); // Set default to Spanish (Spain)
-                    locale = new Locale("es", "ES"); // Use Spanish locale
+                    Locale.setDefault(new Locale("es", "ES"));
+                    locale = new Locale("es", "ES");
                     break;
             }
 
-            // Load the resource bundle
             bundle = ResourceBundle.getBundle("org.example.alquiler_vehiculos.idioma", locale);
             updateTexts();
             textUsuario.setTooltip(new Tooltip(bundle.getString("login.tooltip")));
@@ -129,12 +138,6 @@ public class HelloController {
 
         HyperLinkRegis.setOnAction(event -> abrirPantallaRegistro());
     }
-
-    /**
-     * Metodo para establecer los idiomas
-     * @param locale variable para establecer idioma predeterminado
-     */
-
 
     /**
      * Metodo que cambia los idiomas
