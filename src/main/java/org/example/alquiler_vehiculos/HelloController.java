@@ -96,17 +96,6 @@ public class HelloController {
     }
 
     /**
-     * Metodo para ver que los parametros no esten vacios
-     * @param username variable usuario
-     * @param password variable contraseña
-     * @return Devuelve si los parametros estan vacios o no
-     */
-    private boolean isInputValid(String username, String password) {
-        return username != null && !username.trim().isEmpty() &&
-                password != null && !password.trim().isEmpty();
-    }
-
-    /**
      * Metodo que inicializa los elementos del idioma
      */
     @FXML

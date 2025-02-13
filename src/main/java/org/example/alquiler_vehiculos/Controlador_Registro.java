@@ -7,6 +7,8 @@ import org.example.alquiler_vehiculos.BD.Clientes;
 import org.example.alquiler_vehiculos.DAO.ClientesDAO;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 
@@ -56,6 +58,23 @@ public class Controlador_Registro {
      */
     @FXML
     private Hyperlink HlinicioSesion;
+    /**
+     * ComboBox para indicar el idioma
+     */
+    @FXML
+    private ComboBox<String> comboBoxIdiomas;
+    /**
+     * Label para establecer texto
+     */
+    @FXML
+    private Label labelRegistro, labelCampos, labelNombre, labelEmail, labelContraseña, labelNumero, labelDNI, labelUsuario;
+
+    /**
+     * Variables para establecer el idioma
+     */
+    private Locale locale;
+    private ResourceBundle bundle;
+
 
     /**
      * Llamada para el ClienteDAO
@@ -151,8 +170,45 @@ public class Controlador_Registro {
      */
     @FXML
     public void initialize() {
+        // Idioma por defecto
+        comboBoxIdiomas.getItems().addAll("Español", "English");
+        comboBoxIdiomas.getSelectionModel().select("Español");
+
+        // Cambio de idioma
+        comboBoxIdiomas.setOnAction(event -> {
+            String selectedLanguage = comboBoxIdiomas.getValue();
+
+            switch (selectedLanguage) {
+                case "English":
+                    Locale.setDefault(Locale.ENGLISH);
+                    locale = Locale.ENGLISH;
+                    break;
+                default:
+                    Locale.setDefault(new Locale("es", "ES"));
+                    locale = new Locale("es", "ES");
+                    break;
+            }
+
+            bundle = ResourceBundle.getBundle("org.example.alquiler_vehiculos.idioma", locale);
+            updateTexts();
+        });
         buttonUnirse.setOnAction(event -> registrarUsuario());
         HlinicioSesion.setOnAction(event -> abrirPantallaInicioSesion()); // Vuelve a la pantalla de inicio de sesión
     }
 
+    /**
+     * Metodo que cambia los idiomas
+     */
+    private void updateTexts() {
+        labelRegistro.setText(bundle.getString("labelRegistro"));
+        labelCampos.setText(bundle.getString("labelCampos"));
+        labelNombre.setText(bundle.getString("labelNombre"));
+        labelEmail.setText(bundle.getString("labelEmail"));
+        labelContraseña.setText(bundle.getString("labelContraseña"));
+        labelNumero.setText(bundle.getString("labelNumero"));
+        labelDNI.setText(bundle.getString("labelDNI"));
+        buttonUnirse.setText(bundle.getString("buttonUnirse"));
+        HlinicioSesion.setText(bundle.getString("HlinicioSesion"));
+        labelUsuario.setText(bundle.getString("labelUsuario"));
+    }
 }
