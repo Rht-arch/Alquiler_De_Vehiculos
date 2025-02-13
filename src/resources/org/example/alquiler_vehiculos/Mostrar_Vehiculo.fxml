@@ -7,7 +7,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.Controlador_Pagina_Principal">
     <children>
-        <Text layoutX="29.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Bienvenido,@!" wrappingWidth="236.51900482177734">
+        <Text layoutX="29.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Bienvenido!" wrappingWidth="236.51900482177734">
             <font>
                 <Font size="26.0" />
             </font>
@@ -18,7 +18,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TableView fx:id="coches" layoutX="7.0" layoutY="14.0" prefHeight="357.0" prefWidth="949.0" style="-fx-background-color: gray;">
+                                <TableView fx:id="coches" layoutX="7.0" layoutY="14.0" prefHeight="357.0" prefWidth="949.0">
                                     <columns>
                                         <TableColumn fx:id="ids" prefWidth="75.0" text="Id" />
                                         <TableColumn fx:id="marcas" prefWidth="300.0" text="Marca" />
@@ -34,7 +34,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TableView fx:id="motos" layoutX="6.0" layoutY="14.0" prefHeight="360.0" prefWidth="950.0">
+                                <TableView fx:id="motos" layoutX="7.0" layoutY="14.0" prefHeight="360.0" prefWidth="950.0">
                                     <columns>
                                         <TableColumn fx:id="ids" prefWidth="75.0" text="Id" />
                                         <TableColumn fx:id="marcas" prefWidth="300.0" text="Marca" />
@@ -50,7 +50,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TableView fx:id="camions" layoutX="8.0" layoutY="14.0" prefHeight="357.0" prefWidth="948.0">
+                                <TableView fx:id="camions" layoutX="7.0" layoutY="14.0" prefHeight="357.0" prefWidth="948.0">
                                     <columns>
                                         <TableColumn fx:id="ids" prefWidth="75.0" text="Id" />
                                         <TableColumn fx:id="marcas" prefWidth="300.0" text="Marca" />
@@ -100,5 +100,18 @@
             <Button fx:id="cerrar" layoutX="289.0" layoutY="143.0" mnemonicParsing="false" onMouseClicked="#cerrarFiltros" style="-fx-background-radius: 50; -fx-background-color: white;" text="Guardar Filtros" />
          </children>
       </Pane>
+      <DatePicker layoutX="1057.0" layoutY="119.0" promptText="Selecciona la fecha" />
+      <Button layoutX="998.0" layoutY="705.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="220.0" stylesheets="@Botones.css" text="Ir a la pantalla de compra" />
+      <DatePicker layoutX="1057.0" layoutY="192.0" promptText="Selecciona la fecha" />
+      <Label layoutX="1057.0" layoutY="82.0" style="-fx-font-weight: bold;" text="Fecha de inicio">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="1057.0" layoutY="160.0" style="-fx-font-weight: bold;" text="Fecha de final">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
     </children>
 </Pane>

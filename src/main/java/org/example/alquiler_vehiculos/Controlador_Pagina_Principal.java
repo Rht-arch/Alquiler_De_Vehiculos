@@ -154,10 +154,6 @@ public class Controlador_Pagina_Principal {
     public void abrirFiltros(javafx.scene.input.MouseEvent mouseEvent) {
         if(mouseEvent.getButton() == MouseButton.PRIMARY) {
             filtros.setVisible(true);
-            tipo.getSelectionModel().clearSelection();
-            tipo.setPromptText("--Tipo--");
-            marca.getSelectionModel().clearSelection();
-            modelo.getSelectionModel().clearSelection();
         }
 
     }
@@ -187,4 +183,5 @@ public class Controlador_Pagina_Principal {
         motos.setItems(vehiculosObservableList);
         camions.setItems(vehiculosObservableList);
     }
+
 }
