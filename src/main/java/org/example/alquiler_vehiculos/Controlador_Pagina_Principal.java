@@ -36,14 +36,11 @@ import java.util.Map;
 
 public class Controlador_Pagina_Principal {
 
-    /**
-     * DatePicker para recoger fechas
-     */
+    ClientesDAO clientesDAO = new ClientesDAO();
+
     @FXML
     DatePicker fechaInicio,fechaFin;
-    /**
-     * Button para realizar uan accion
-     */
+
     @FXML
     Button busqueda,cerrar,comprar;
 
@@ -138,7 +135,15 @@ public class Controlador_Pagina_Principal {
         filtros.setVisible(false);
         tipo.getItems().addAll("Coche","Moto","Furgoneta/Camión");
 
+       // Agregar valores de años desde 2010 a 2024
+        for (int i = 2010; i <= 2024; i++) {
+            anio.getItems().add(i);
+        }
 
+        // Agregar valores de precios desde 40 a 145
+        for (float p = 40; p <= 145; p += 5) { // Incremento de 5 en 5
+            precio.getItems().add(p);
+        }
 
         marcasPorTipo.put("Coche", new String[]{"Toyota", "Ford", "BMW", "Honda", "Volkswagen", "Audi", "Mercedes-Benz", "Nissan", "Peugeot", "Chevrolet", "Renault", "Fiat"});
         marcasPorTipo.put("Moto", new String[]{"Harley-Davidson", "Yamaha", "Ducati", "Kawasaki", "Suzuki", "Triumph", "Piaggio", "KTM"});
@@ -229,9 +234,10 @@ public class Controlador_Pagina_Principal {
     }
 
     /**
-     * Metod que abre el panel de filtro
-     * @param mouseEvent AL clicarle muestra el panel filtros
+     * Este método abre la pestaña de filtros y muestra los campos para filtrar
+     * @param mouseEvent
      */
+
     public void abrirFiltros(javafx.scene.input.MouseEvent mouseEvent) {
         if(mouseEvent.getButton() == MouseButton.PRIMARY) {
             filtros.setVisible(true);
@@ -244,14 +250,18 @@ public class Controlador_Pagina_Principal {
     }
 
     /**
-     * Metodo que cierra el panel de filtros
-     * @param mouseEvent
+     * Este método se encarga de realizar la consulta en función de los parametros seleccionados
+     * al pulsar el botón este se cierra los filtros y muestra los vehiculos filtrados
+     *
+     * @param mouseEvent Recoge un evento de ratón
      */
     public void cerrarFiltros(javafx.scene.input.MouseEvent mouseEvent) {
         filtros.setVisible(false);
         String marcaSeleccionada = marca.getValue();
         String tipoSeleccionado = tipo.getValue();
         String modeloSeleccionada = modelo.getValue();
+        Integer anioSeleccionado = anio.getValue();
+        Float precioSeleccionado = precio.getValue();
         String sql = "SELECT * FROM vehiculos WHERE 1=1 ";
         if (tipoSeleccionado != null) {
              sql += " AND tipo ='" + tipoSeleccionado + "'";
@@ -261,14 +271,19 @@ public class Controlador_Pagina_Principal {
                     sql+= " AND modelo = '"+modeloSeleccionada+"'";
                 }
             }
+        } else if (anioSeleccionado != null) {
+            sql += " AND año ='" + anioSeleccionado + "'";
+
+        } else if (precioSeleccionado != null) {
+            sql += " AND precio_dia <='" + precioSeleccionado + "'";
         }
         List<Vehiculos> vehiculos = vehiculoDAO.obtenerVehiculosConFiltro(sql);
         mostrarenTabla(vehiculos);
     }
 
     /**
-     * Metod que meustra la lista de vehiculos
-     * @param vehiculosList Variable lista de los vehiculos
+     * Método que muestra los vehiculos en la tablas en función de los filtros seleccionados
+     * @param vehiculosList List con los vehiculos de la base de datos
      */
     public void mostrarenTabla(List<Vehiculos> vehiculosList) {
         vehiculosObservableList.clear();
@@ -279,7 +294,9 @@ public class Controlador_Pagina_Principal {
     }
 
     /**
-     * Metodo que selecciona el vehiculo elegido por el Usuario
+     * Este metodo es el encargado de obtener el vehiculo elegido por el cliente y
+     * y sirve para enlazarlo al metodo compra() que genera el vehiculo para la compra
+     *
      */
     @FXML
     public void seleccionarVehiculo() {
