@@ -1,0 +1,209 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Contrato" language="java" pageWidth="595" pageHeight="250" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c8cc3b5e-7076-491e-89ea-c6c4d034450c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (2)"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="id_alquiler" class="java.lang.String"/>
+	<query language="sql"><![CDATA[SELECT 
+    a.id AS id_alquiler,
+    c.nombre AS nombre_cliente,
+    c.apellido AS apellido_cliente,
+    c.dni AS dni_cliente,
+    c.telefono AS telefono_cliente,
+    c.correo AS correo_cliente,
+    v.marca AS marca_vehiculo,
+    v.modelo AS modelo_vehiculo,
+    v.año AS año_vehiculo,
+    v.tipo AS tipo_vehiculo,
+    v.precio_dia AS precio_por_dia,
+    a.fecha_inicio,
+    a.fecha_fin,
+    a.total
+FROM alquileresdetalles a
+JOIN clientes c ON a.id_cliente = c.id
+JOIN vehiculos v ON a.id_vehiculo = v.id
+WHERE a.id = $P{id_alquiler}
+]]></query>
+	<field name="id_alquiler" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_alquiler"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alquileresdetalles"/>
+	</field>
+	<field name="nombre_cliente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre_cliente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="apellido_cliente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="apellido"/>
+		<property name="com.jaspersoft.studio.field.label" value="apellido_cliente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="dni_cliente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dni"/>
+		<property name="com.jaspersoft.studio.field.label" value="dni_cliente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="telefono_cliente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="telefono"/>
+		<property name="com.jaspersoft.studio.field.label" value="telefono_cliente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="correo_cliente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="correo"/>
+		<property name="com.jaspersoft.studio.field.label" value="correo_cliente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="clientes"/>
+	</field>
+	<field name="marca_vehiculo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="marca"/>
+		<property name="com.jaspersoft.studio.field.label" value="marca_vehiculo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vehiculos"/>
+	</field>
+	<field name="modelo_vehiculo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="modelo"/>
+		<property name="com.jaspersoft.studio.field.label" value="modelo_vehiculo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vehiculos"/>
+	</field>
+	<field name="año_vehiculo" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="año"/>
+		<property name="com.jaspersoft.studio.field.label" value="año_vehiculo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vehiculos"/>
+	</field>
+	<field name="tipo_vehiculo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="tipo"/>
+		<property name="com.jaspersoft.studio.field.label" value="tipo_vehiculo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vehiculos"/>
+	</field>
+	<field name="precio_por_dia" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="precio_dia"/>
+		<property name="com.jaspersoft.studio.field.label" value="precio_por_dia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vehiculos"/>
+	</field>
+	<field name="fecha_inicio" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="fecha_inicio"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_inicio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alquileresdetalles"/>
+	</field>
+	<field name="fecha_fin" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="fecha_fin"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_fin"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alquileresdetalles"/>
+	</field>
+	<field name="total" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="total"/>
+		<property name="com.jaspersoft.studio.field.label" value="total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alquileresdetalles"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="63" splitType="Stretch">
+		<element kind="staticText" uuid="2262cb28-180a-415c-8bf7-d96acf6f2038" x="140" y="-20" width="270" height="30" fontName="Adobe Caslon Pro" fontSize="20.0">
+			<text><![CDATA[CONTRATO DE ALQUILER]]></text>
+		</element>
+		<element kind="staticText" uuid="fb6fc6ec-eb32-434d-a913-f7516eaac41a" x="70" y="30" width="271" height="14">
+			<text><![CDATA[Dirección: Av. Carlos Sainz, 2, 28914 Leganés, Madrid]]></text>
+		</element>
+		<element kind="staticText" uuid="a0758b0b-f724-4b38-b5e4-1de1b46b5b05" x="70" y="44" width="265" height="15">
+			<text><![CDATA[Contacto: urbanDrive@gmail.com  ]]></text>
+		</element>
+		<element kind="staticText" uuid="25d8f671-94d9-4487-8cc5-c7ea1644141d" x="70" y="15" width="100" height="15">
+			<text><![CDATA[Nombre: UrbanDrive]]></text>
+		</element>
+	</title>
+	<pageHeader height="27" splitType="Stretch">
+		<element kind="rectangle" uuid="be28e161-ddab-4663-96d6-2c5ecb070b8a" x="0" y="6" width="550" height="11" backcolor="#31278C"/>
+	</pageHeader>
+	<columnHeader height="26" splitType="Stretch">
+		<element kind="staticText" uuid="3e400d4d-d181-4fb9-a3b4-5e673b1a41fb" x="10" y="0" width="40" height="20">
+			<text><![CDATA[Nombre]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ec504f9b-00ba-4aef-8214-d33f1d5abe2a"/>
+		</element>
+		<element kind="staticText" uuid="34c9f628-a46f-4642-b93f-87da27552f36" x="80" y="1" width="50" height="19">
+			<text><![CDATA[Apellido]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8f8f94a3-232d-4884-aaca-6eb313f6dfee"/>
+		</element>
+		<element kind="staticText" uuid="7f4e771f-18c8-445a-bc5b-be20f10fdcaa" x="150" y="0" width="40" height="20">
+			<text><![CDATA[DNI]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="59b6b17d-a525-4e5d-b163-b0f523fa9ead"/>
+		</element>
+		<element kind="staticText" uuid="a270ff8b-a016-4c41-ba23-2a70e4f89b9f" x="305" y="-2" width="40" height="20">
+			<text><![CDATA[Marca]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="201efaef-44f2-4076-bfff-42cb0c607af4"/>
+		</element>
+		<element kind="staticText" uuid="b7ff6dc6-1089-4836-b2d8-819403d934ab" x="370" y="0" width="40" height="20">
+			<text><![CDATA[Modelo]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f4439c64-f6a4-4503-b14b-027d96edefa4"/>
+		</element>
+		<element kind="staticText" uuid="40c9c0a6-af83-40f1-bb3a-b92441d8b6ab" x="430" y="0" width="30" height="17">
+			<text><![CDATA[Tipo]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="10055175-7202-49b2-9b2b-deb15e6e08b6"/>
+		</element>
+		<element kind="staticText" uuid="d0cb1bf8-b443-4ead-b374-3d458b984c5d" x="480" y="0" width="60" height="17">
+			<text><![CDATA[Año vehiculo]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0ae78ee8-e510-4280-aa04-20b3d3a2c4e5"/>
+		</element>
+		<element kind="staticText" uuid="d5fe1faa-3673-49c2-ac5c-c48dde42e066" x="230" y="1" width="60" height="19">
+			<text><![CDATA[Telefono]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5900eea5-df8f-4a6c-b2d3-fc2f5db8ba6d"/>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<element kind="textField" uuid="6fa3b565-ac98-4d42-b396-b47e93dc2fc0" x="10" y="0" width="50" height="20">
+				<expression><![CDATA[$F{nombre_cliente}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ec504f9b-00ba-4aef-8214-d33f1d5abe2a"/>
+			</element>
+			<element kind="textField" uuid="27ca03ad-47f7-4021-9706-3c852c9edead" x="80" y="0" width="50" height="20">
+				<expression><![CDATA[$F{apellido_cliente}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8f8f94a3-232d-4884-aaca-6eb313f6dfee"/>
+			</element>
+			<element kind="textField" uuid="39eaf03f-eb8c-4122-b47b-4a56b4b2daa8" x="150" y="0" width="53" height="20">
+				<expression><![CDATA[$F{dni_cliente}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="59b6b17d-a525-4e5d-b163-b0f523fa9ead"/>
+			</element>
+			<element kind="textField" uuid="b0d8603a-a190-4167-96e9-e0c9f5ecaf41" x="305" y="0" width="40" height="20">
+				<expression><![CDATA[$F{marca_vehiculo}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="201efaef-44f2-4076-bfff-42cb0c607af4"/>
+			</element>
+			<element kind="textField" uuid="7f16e304-17b4-497e-adf3-62f9522446f4" x="370" y="0" width="40" height="20">
+				<expression><![CDATA[$F{modelo_vehiculo}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f4439c64-f6a4-4503-b14b-027d96edefa4"/>
+			</element>
+			<element kind="textField" uuid="adca944e-481a-4930-b608-55359895ede8" x="430" y="0" width="40" height="20">
+				<expression><![CDATA[$F{tipo_vehiculo}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="10055175-7202-49b2-9b2b-deb15e6e08b6"/>
+			</element>
+			<element kind="textField" uuid="8514417d-d04c-4d3b-9637-194e2810b11d" x="480" y="0" width="40" height="20">
+				<expression><![CDATA[$F{año_vehiculo}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0ae78ee8-e510-4280-aa04-20b3d3a2c4e5"/>
+			</element>
+			<element kind="textField" uuid="dd2ad39f-3b4d-4bf5-b8d6-8319b54b03e2" x="230" y="0" width="60" height="20">
+				<expression><![CDATA[$F{telefono_cliente}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5900eea5-df8f-4a6c-b2d3-fc2f5db8ba6d"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="5" splitType="Stretch"/>
+	<pageFooter height="43" splitType="Stretch">
+		<element kind="textField" uuid="743a046b-88e6-4179-80d6-4d61d53be3f9" x="430" y="13" width="60" height="16">
+			<expression><![CDATA[$F{total}]]></expression>
+		</element>
+		<element kind="staticText" uuid="16d969a4-a61a-491a-aaaa-c32a03b22092" x="10" y="0" width="60" height="20">
+			<text><![CDATA[Fecha inicio]]></text>
+		</element>
+		<element kind="textField" uuid="ecad25cf-9008-4ca4-9edf-75ab5fa108c9" x="80" y="0" width="100" height="20">
+			<expression><![CDATA[$F{fecha_inicio}]]></expression>
+		</element>
+		<element kind="staticText" uuid="ca88783b-5fed-47b8-9cac-78190a867d8f" x="10" y="24" width="60" height="18">
+			<text><![CDATA[Fecha fin]]></text>
+		</element>
+		<element kind="textField" uuid="aabcdbe6-92a6-4a83-9087-640532a1f805" x="80" y="24" width="100" height="18">
+			<expression><![CDATA[$F{fecha_fin}]]></expression>
+		</element>
+		<element kind="staticText" uuid="88e76b8b-d6c2-4140-a419-5d89240e23d2" x="360" y="12" width="70" height="18">
+			<text><![CDATA[Total del pago]]></text>
+		</element>
+		<element kind="staticText" uuid="87a813b6-61e3-4275-9bc0-6a309e8a900d" x="480" y="13" width="10" height="16">
+			<text><![CDATA[€]]></text>
+		</element>
+	</pageFooter>
+	<summary height="7" splitType="Stretch"/>
+</jasperReport>
