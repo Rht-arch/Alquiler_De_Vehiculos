@@ -312,6 +312,15 @@ public class Controlador_Pagina_Principal {
         modelos.setText(bundle.getString("table.modelo"));
         anios.setText(bundle.getString("table.anio"));
         precios.setText(bundle.getString("table.precio"));
+
+
+
+        // Actualizar los textos de las columnas de la tabla
+        ids.setText(bundle.getString("table.id"));
+        marcas.setText(bundle.getString("table.marca"));
+        modelos.setText(bundle.getString("table.modelo"));
+        anios.setText(bundle.getString("table.anio"));
+        precios.setText(bundle.getString("table.precio"));
     }
 
     /**
