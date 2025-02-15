@@ -3,13 +3,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="931.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.Controlador_Compra">
+<AnchorPane prefHeight="500.0" prefWidth="931.0" style="-fx-background-color: white; -fx-border-color: #f1a52b; -fx-border-width: 10;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.Controlador_Compra">
     <children>
         <!-- Título -->
-        <Label layoutX="30.0" layoutY="20.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Detalles del Alquiler" />
+        <Label layoutX="30.0" layoutY="20.0" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1e1485;" text="Detalles del Alquiler" />
 
         <!-- Tabla combinada -->
-        <TableView fx:id="tablaCompra" layoutX="30.0" layoutY="51.0" prefHeight="300.0" prefWidth="874.0">
+        <TableView fx:id="tablaCompra" layoutX="30.0" layoutY="51.0" prefHeight="300.0" prefWidth="874.0" style="-fx-border-color: #1e1485; -fx-border-width: 5;">
             <columns>
                 <!-- Datos del Vehículo -->
                 <TableColumn fx:id="colMarca" prefWidth="120.0" text="Marca" />
@@ -25,7 +25,7 @@
         </TableView>
 
         <!-- Botones -->
-        <Button fx:id="btnComprar" layoutX="843.0" layoutY="420.0" onAction="#comprarVehiculo" text="Alquilar" />
-        <Button fx:id="btnVolver" layoutX="30.0" layoutY="420.0" onAction="#volver" text="Volver" />
+        <Button fx:id="btnComprar" layoutX="743.0" layoutY="420.0" onAction="#comprarVehiculo" prefHeight="38.0" prefWidth="161.0" stylesheets="@Botones.css" text="Alquilar" />
+        <Button fx:id="btnVolver" layoutX="30.0" layoutY="420.0" onAction="#volver" prefHeight="38.0" prefWidth="139.0" stylesheets="@Botones.css" text="Volver" />
     </children>
 </AnchorPane>

@@ -18,16 +18,16 @@
 
 /* Estilo cuando la pestaña está seleccionada */
 .tab:selected {
-    -fx-background-color: #3498db;
-    -fx-text-fill: white;
-    -fx-border-color: #2980b9;
+    -fx-background-color:  #1e1485;
     -fx-border-radius: 5px 5px 0px 0px;
+    -fx-text-fill: white;
 }
 
 /* Estilo del texto dentro de las pestañas */
 .tab .tab-label {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
+    -fx-text-fill: white;
 }
 
 /* TableView - Estilo general */
@@ -39,7 +39,7 @@
 
 /* Estilo de las cabeceras */
 .table-view .column-header-background {
-    -fx-background-color: #3498db;
+    -fx-background-color:  #f1a52b;
 }
 
 .table-view .column-header {
@@ -59,7 +59,7 @@
 
 /* Efecto hover en las filas */
 .table-row-cell:hover {
-    -fx-background-color: #d3e9ff;
+    -fx-background-color:  #97bdf5;
 }
 
 /* Estilo de las celdas */
