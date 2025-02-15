@@ -12,7 +12,7 @@
             <Font size="26.0" />
          </font>
       </Text>
-      <TabPane layoutX="280.0" layoutY="357.0" prefHeight="416.0" prefWidth="969.0" stylesheets="@tabpanel.css" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutX="274.0" layoutY="254.0" prefHeight="416.0" prefWidth="969.0" stylesheets="@tabpanel.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Coches">
             <content>

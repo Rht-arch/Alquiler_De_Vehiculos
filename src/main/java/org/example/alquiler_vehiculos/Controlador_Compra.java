@@ -23,7 +23,7 @@ public class Controlador_Compra {
     @FXML private TableColumn<AlquilerDetalle, Float> colTotal;
     @FXML private Button btnComprar;
     @FXML private Button btnVolver;
-
+    private AlquilerDetalle vehiculoSeleccionado;
     private final ObservableList<AlquilerDetalle> listaAlquileres = FXCollections.observableArrayList();
 
     @FXML

@@ -100,9 +100,9 @@
             <Button fx:id="cerrar" layoutX="289.0" layoutY="143.0" mnemonicParsing="false" onMouseClicked="#cerrarFiltros" style="-fx-background-radius: 50; -fx-background-color: white;" text="Guardar Filtros" />
          </children>
       </Pane>
-      <DatePicker layoutX="1057.0" layoutY="119.0" promptText="Selecciona la fecha" />
-      <Button layoutX="998.0" layoutY="705.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="220.0" stylesheets="@Botones.css" text="Ir a la pantalla de compra" />
-      <DatePicker layoutX="1057.0" layoutY="192.0" promptText="Selecciona la fecha" />
+      <DatePicker fx:id="fechaInicio" layoutX="1057.0" layoutY="119.0" promptText="Selecciona la fecha" />
+      <Button fx:id="comprar" layoutX="998.0" layoutY="705.0" mnemonicParsing="false" onMouseClicked="#compra" prefHeight="38.0" prefWidth="220.0" stylesheets="@Botones.css" text="Ir a la pantalla de compra" />
+      <DatePicker fx:id="fechaFin" layoutX="1057.0" layoutY="192.0" promptText="Selecciona la fecha" />
       <Label layoutX="1057.0" layoutY="82.0" style="-fx-font-weight: bold;" text="Fecha de inicio">
          <font>
             <Font size="14.0" />

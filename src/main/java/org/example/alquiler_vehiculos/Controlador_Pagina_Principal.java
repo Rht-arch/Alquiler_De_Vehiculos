@@ -3,6 +3,9 @@ package org.example.alquiler_vehiculos;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -11,17 +14,30 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import org.example.alquiler_vehiculos.BD.AlquilerDetalle;
 import org.example.alquiler_vehiculos.BD.Vehiculos;
+import org.example.alquiler_vehiculos.DAO.ClientesDAO;
 import org.example.alquiler_vehiculos.DAO.VehiculoDAO;
 
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Controlador_Pagina_Principal {
+
+    ClientesDAO clientesDAO = new ClientesDAO();
+
     @FXML
-    Button busqueda,cerrar;
+    DatePicker fechaInicio,fechaFin;
+
+    @FXML
+    Button busqueda,cerrar,comprar;
 
     @FXML
     Pane filtros;
@@ -50,6 +66,7 @@ public class Controlador_Pagina_Principal {
     TableColumn<Vehiculos, Double> precios ;
 
     private ObservableList<Vehiculos> vehiculosObservableList = FXCollections.observableArrayList();
+    private Vehiculos vehiculoSeleccionado = null;  // Variable para almacenar el vehículo seleccionado
 
     @FXML
     Text nombre;
@@ -147,6 +164,21 @@ public class Controlador_Pagina_Principal {
                 modelo.getItems().addAll(modelosPorMarca.get(marcaSeleccionada));
             }
         });
+        coches.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.SINGLE);
+        motos.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.SINGLE);
+        camions.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.SINGLE);
+        // Eliminar el código que responde al clic en la tabla
+        coches.setRowFactory(tv -> {
+            TableRow<Vehiculos> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty()) {
+                    vehiculoSeleccionado = row.getItem(); // Guardamos el vehículo seleccionado
+                    System.out.println("Vehículo seleccionado: " + vehiculoSeleccionado.getMarca() + " " + vehiculoSeleccionado.getModelo());
+                }
+            });
+            return row;
+        });
+
 
     }
 
@@ -154,6 +186,10 @@ public class Controlador_Pagina_Principal {
     public void abrirFiltros(javafx.scene.input.MouseEvent mouseEvent) {
         if(mouseEvent.getButton() == MouseButton.PRIMARY) {
             filtros.setVisible(true);
+            tipo.getSelectionModel().clearSelection();
+            tipo.setPromptText("--Tipo--");
+            marca.getSelectionModel().clearSelection();
+            modelo.getSelectionModel().clearSelection();
         }
 
     }
@@ -183,5 +219,70 @@ public class Controlador_Pagina_Principal {
         motos.setItems(vehiculosObservableList);
         camions.setItems(vehiculosObservableList);
     }
+    @FXML
+    public void compra() {
+        if (vehiculoSeleccionado != null) { // Verificamos que haya un vehículo seleccionado
+            // Obtenemos las fechas seleccionadas
+            LocalDate ini = fechaInicio.getValue();
+            LocalDate fin = fechaFin.getValue();
+
+            if (ini != null && fin != null) {
+                // Calculamos el total de alquiler
+                double total = vehiculoSeleccionado.getPreciodia() * Period.between(ini, fin).getDays();
+                // Creamos el detalle de alquiler
+                AlquilerDetalle alquilerDetalle = new AlquilerDetalle(
+                        vehiculoSeleccionado.getMarca(),
+                        vehiculoSeleccionado.getModelo(),
+                        vehiculoSeleccionado.getTipo(),
+                        ini,
+                        fin,
+                        total
+                );
+
+                enviarAVistaDetalle(alquilerDetalle);
+            } else {
+                System.out.println("Por favor, selecciona las fechas.");
+            }
+        } else {
+            System.out.println("Por favor, selecciona un vehículo.");
+        }
+        coches.getSelectionModel().clearSelection();
+        motos.getSelectionModel().clearSelection();
+        camions.getSelectionModel().clearSelection();
+
+        // Limpiar los filtros
+        tipo.getSelectionModel().clearSelection();
+        marca.getSelectionModel().clearSelection();
+        modelo.getSelectionModel().clearSelection();
+        anio.getSelectionModel().clearSelection();
+        precio.getSelectionModel().clearSelection();
+        fechaInicio.setValue(null);
+        fechaFin.setValue(null);
+    }
+
+
+    private void enviarAVistaDetalle(AlquilerDetalle alquilerDetalle) {
+        try {
+            System.out.println("Abriendo la ventana de compra...");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Compra.fxml"));
+            Parent root = loader.load();
+
+            Controlador_Compra controladorCompra = loader.getController();
+            if (controladorCompra != null) {
+                controladorCompra.setVehiculoSeleccionado(alquilerDetalle);
+                System.out.println("Vehículo seleccionado enviado a la ventana de compra.");
+            } else {
+                System.out.println("Error: controladorCompra es null.");
+            }
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error al cargar la ventana de compra: " + e.getMessage());
+        }
+    }
+
 
 }
