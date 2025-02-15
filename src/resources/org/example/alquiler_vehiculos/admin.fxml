@@ -67,9 +67,9 @@
       </TabPane>
       <Pane layoutX="38.0" layoutY="413.0" prefHeight="200.0" prefWidth="184.0" stylesheets="@Botones.css">
          <children>
-            <Button layoutY="8.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="183.0" text="Página principal" />
+            <Button layoutY="8.0" mnemonicParsing="false" onMouseClicked="#irAPantallaInicio" prefHeight="25.0" prefWidth="183.0" text="Página principal" />
             <Button layoutY="87.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="183.0" text="Gestionar vehiculos" />
-            <Button layoutX="1.0" layoutY="162.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="183.0" text="Mostrar vehiculos" />
+            <Button layoutX="1.0" layoutY="162.0" mnemonicParsing="false"  onMouseClicked="#irAMostrarVehiculos" prefHeight="25.0" prefWidth="183.0" text="Mostrar vehiculos" />
          </children>
       </Pane>
       <Pane layoutX="780.0" layoutY="40.0" prefHeight="200.0" prefWidth="382.0" stylesheets="@Botones.css">

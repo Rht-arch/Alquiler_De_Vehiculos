@@ -163,6 +163,76 @@ public class VehiculoDAO {
         return vehiculos;
     }
 
+    public List<Vehiculos> cargarVehiculos() {
+        List<Vehiculos> vehiculos = new ArrayList<>();
+        String query = "SELECT * FROM vehiculos";
 
+        try (Connection con= ConexionBD.getConexion();
+                Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                Vehiculos vehiculo = new Vehiculos(
+                        rs.getInt("id"),
+                        rs.getString("marca"),
+                        rs.getString("modelo"),
+                        rs.getInt("año"),
+                        rs.getString("tipo"),
+                        rs.getFloat("precio_dia")
+                );
+                vehiculos.add(vehiculo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return vehiculos;
+    }
+
+    public List<Vehiculos> filtrarVehiculos(String id, String marca, String modelo, String anio, String tipo, String precio) {
+        List<Vehiculos> vehiculos = new ArrayList<>();
+        StringBuilder query = new StringBuilder("SELECT * FROM vehiculos WHERE 1=1");
+
+        // Añadir condiciones según los parámetros proporcionados
+        if (id != null && !id.isEmpty()) {
+            query.append(" AND id = ").append(Integer.parseInt(id));
+        }
+        if (marca != null && !marca.isEmpty()) {
+            query.append(" AND marca LIKE '%").append(marca).append("%'");
+        }
+        if (modelo != null && !modelo.isEmpty()) {
+            query.append(" AND modelo LIKE '%").append(modelo).append("%'");
+        }
+        if (anio != null && !anio.isEmpty()) {
+            query.append(" AND año = ").append(Integer.parseInt(anio));
+        }
+        if (tipo != null && !tipo.isEmpty()) {
+            query.append(" AND tipo LIKE '%").append(tipo).append("%'");
+        }
+        if (precio != null && !precio.isEmpty()) {
+            query.append(" AND precio_dia = ").append(Float.parseFloat(precio));
+        }
+
+        try ( Connection con= ConexionBD.getConexion();
+                Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(query.toString())) {
+
+            while (rs.next()) {
+                Vehiculos vehiculo = new Vehiculos(
+                        rs.getInt("id"),
+                        rs.getString("marca"),
+                        rs.getString("modelo"),
+                        rs.getInt("año"),
+                        rs.getString("tipo"),
+                        rs.getFloat("precio_dia")
+                );
+                vehiculos.add(vehiculo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return vehiculos;
+    }
 
 }
