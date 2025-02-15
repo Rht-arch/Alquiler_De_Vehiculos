@@ -66,7 +66,7 @@ public class Controlador_Pagina_Principal {
     TableColumn<Vehiculos, Double> precios ;
 
     private ObservableList<Vehiculos> vehiculosObservableList = FXCollections.observableArrayList();
-    private Vehiculos vehiculoSeleccionado = null;  // Variable para almacenar el vehículo seleccionado
+    private Vehiculos vehiculoSeleccionado;  // Variable para almacenar el vehículo seleccionado
 
     @FXML
     Text nombre;
@@ -212,12 +212,33 @@ public class Controlador_Pagina_Principal {
         List<Vehiculos> vehiculos = vehiculoDAO.obtenerVehiculosConFiltro(sql);
         mostrarenTabla(vehiculos);
     }
+
     public void mostrarenTabla(List<Vehiculos> vehiculosList) {
         vehiculosObservableList.clear();
         vehiculosObservableList.addAll(vehiculosList);
         coches.setItems(vehiculosObservableList);
         motos.setItems(vehiculosObservableList);
         camions.setItems(vehiculosObservableList);
+    }
+
+    @FXML
+    public void seleccionarVehiculo() {
+        Vehiculos seleccionado = null;
+
+        if (coches.getSelectionModel().getSelectedItem() != null) {
+            seleccionado = coches.getSelectionModel().getSelectedItem();
+        } else if (motos.getSelectionModel().getSelectedItem() != null) {
+            seleccionado = motos.getSelectionModel().getSelectedItem();
+        } else if (camions.getSelectionModel().getSelectedItem() != null) {
+            seleccionado = camions.getSelectionModel().getSelectedItem();
+        }
+
+        if (seleccionado != null) {
+            vehiculoSeleccionado = seleccionado; // Guardamos el vehículo para la compra
+            System.out.println("Vehículo seleccionado: " + vehiculoSeleccionado.getModelo());
+        } else {
+            System.out.println("No se ha seleccionado ningún vehículo.");
+        }
     }
     @FXML
     public void compra() {

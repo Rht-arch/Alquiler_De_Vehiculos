@@ -18,7 +18,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TableView fx:id="coches" layoutX="7.0" layoutY="14.0" prefHeight="357.0" prefWidth="949.0">
+                                <TableView fx:id="coches" layoutX="7.0" layoutY="14.0" onMouseClicked="#seleccionarVehiculo" prefHeight="357.0" prefWidth="949.0">
                                     <columns>
                                         <TableColumn fx:id="ids" prefWidth="75.0" text="Id" />
                                         <TableColumn fx:id="marcas" prefWidth="300.0" text="Marca" />
@@ -34,7 +34,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TableView fx:id="motos" layoutX="7.0" layoutY="14.0" prefHeight="360.0" prefWidth="950.0">
+                                <TableView fx:id="motos" layoutX="7.0" layoutY="14.0" onMouseClicked="#seleccionarVehiculo" prefHeight="360.0" prefWidth="950.0">
                                     <columns>
                                         <TableColumn fx:id="ids" prefWidth="75.0" text="Id" />
                                         <TableColumn fx:id="marcas" prefWidth="300.0" text="Marca" />
@@ -50,7 +50,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TableView fx:id="camions" layoutX="7.0" layoutY="14.0" prefHeight="357.0" prefWidth="948.0">
+                                <TableView fx:id="camions" layoutX="7.0" layoutY="14.0" onMouseClicked="#seleccionarVehiculo" prefHeight="357.0" prefWidth="948.0">
                                     <columns>
                                         <TableColumn fx:id="ids" prefWidth="75.0" text="Id" />
                                         <TableColumn fx:id="marcas" prefWidth="300.0" text="Marca" />
