@@ -131,5 +131,7 @@
          </image>
       </ImageView>
       <ComboBox fx:id="comboBoxIdiomas" layoutX="971.0" layoutY="28.0" prefWidth="150.0" style="-fx-background-color: white;" />
+      <Button fx:id="informeCoche" layoutX="427.0" layoutY="714.0" mnemonicParsing="false" stylesheets="@Botones.css" text="Generar Informe Coches" />
+      <Button fx:id="informeVentas" layoutX="794.0" layoutY="714.0" mnemonicParsing="false" stylesheets="@Botones.css" text="Generar Informe Ventas"  />
    </children>
 </Pane>
