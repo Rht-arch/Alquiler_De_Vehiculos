@@ -21,14 +21,27 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.example.alquiler_vehiculos.DAO.VehiculoDAO;
 import org.example.alquiler_vehiculos.BD.Vehiculos;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class Controlador_admin {
+    @FXML
+    private Text welcomeText;
 
+    @FXML
+    private Tab tabCoches;
+
+    @FXML
+    private Tab tabMotos;
+
+    @FXML
+    private Tab tabFurgonetas;
     @FXML
     private Button insert, delete, update, create;
 
@@ -54,10 +67,63 @@ public class Controlador_admin {
     private TableColumn<Vehiculos, Float> precios;
 
     @FXML
+    private Text txid;
+
+    @FXML
+    private Text txmarca;
+
+    @FXML
+    private Text txmodelo;
+
+    @FXML
+    private Text txaño;
+
+    @FXML
+    private Text tectipo;
+
+    @FXML
+    private Text txprecio;
+
+    @FXML
+    private Text labelId;
+
+    @FXML
+    private Text labelMarca;
+    @FXML
+    private Tab tabcoches;
+
+    @FXML
+    private Tab tabmotos;
+
+    @FXML
+    private Tab tabfurgonetas;
+
+    @FXML
+    private Text labelModelo;
+
+    @FXML
+    private Text labelAnio;
+
+    @FXML
+    private Text labelTipo;
+
+    @FXML
+    private Text labelPrecio;
+
+    @FXML
+    private Button gestionarVehiculosButton;
+
+    @FXML
     private Button paginaPrincipalButton, mostrarVehiculosButton;
+
+    @FXML
+    private ComboBox<String> comboBoxIdiomas;
 
     private VehiculoDAO vehiculoDAO = new VehiculoDAO();
     private ObservableList<Vehiculos> listaVehiculos;
+    private Locale locale;
+    private ResourceBundle bundle;
+
 
     /**
      * Inicializa la interfaz gráfica y configura las columnas de la tabla
@@ -65,9 +131,68 @@ public class Controlador_admin {
      */
     @FXML
     public void initialize() {
+        comboBoxIdiomas.getItems().addAll("Español", "English");
+        comboBoxIdiomas.getSelectionModel().select("Español");
+
+        // Cambio de idioma
+        comboBoxIdiomas.setOnAction(event -> {
+            String selectedLanguage = comboBoxIdiomas.getValue();
+
+            switch (selectedLanguage) {
+                case "English":
+                    Locale.setDefault(Locale.ENGLISH);
+                    locale = Locale.ENGLISH;
+                    break;
+                default:
+                    Locale.setDefault(new Locale("es", "ES"));
+                    locale = new Locale("es", "ES");
+                    break;
+            }
+
+            bundle = ResourceBundle.getBundle("org.example.alquiler_vehiculos.idioma", locale);
+            updateText();
+        });
         configurarColumnas();
         configurarListeners();
+
     }
+    /**
+     * Metodo que cambia los idiomas
+     */
+    public void updateText() {
+        // Actualizar textos generales
+        welcomeText.setText(bundle.getString("welcome.text"));
+
+        // Actualizar textos de las pestañas
+        tabcoches.setText(bundle.getString("tab.coches"));
+        tabmotos.setText(bundle.getString("tab.motos"));
+        tabfurgonetas.setText(bundle.getString("tab.furgonetas"));
+
+        // Actualizar textos de los botones
+        paginaPrincipalButton.setText(bundle.getString("button.paginaPrincipal"));
+        gestionarVehiculosButton.setText(bundle.getString("button.gestionarVehiculos"));
+        mostrarVehiculosButton.setText(bundle.getString("button.mostrarVehiculos"));
+        insert.setText(bundle.getString("button.anadir"));
+        delete.setText(bundle.getString("button.borrar"));
+        update.setText(bundle.getString("button.modificar"));
+        create.setText(bundle.getString("button.mostrar"));
+
+        // Actualizar textos de las etiquetas
+        txid.setText(bundle.getString("label.id"));
+        txmarca.setText(bundle.getString("label.marca"));
+        txmodelo.setText(bundle.getString("label.modelo"));
+        txaño.setText(bundle.getString("label.anio"));
+        tectipo.setText(bundle.getString("label.tipo"));
+        txprecio.setText(bundle.getString("label.precio"));
+
+        // Actualizar textos de las columnas de la tabla
+        ids.setText(bundle.getString("label.id"));
+        marcas.setText(bundle.getString("label.marca"));
+        modelos.setText(bundle.getString("label.modelo"));
+        anios.setText(bundle.getString("label.anio"));
+        precios.setText(bundle.getString("label.precio"));
+    }
+
 
     /**
      * Configura las columnas de la tabla para mostrar los datos de los vehículos.
