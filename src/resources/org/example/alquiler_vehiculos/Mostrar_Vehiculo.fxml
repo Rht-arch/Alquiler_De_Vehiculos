@@ -94,9 +94,9 @@
          <children>
             <ComboBox fx:id="marca" layoutX="141.0" layoutY="14.0" prefHeight="26.0" prefWidth="113.0" promptText="-- Marca --" style="-fx-background-color: white;" visibleRowCount="8" />
             <ComboBox fx:id="modelo" layoutX="279.0" layoutY="14.0" prefHeight="26.0" prefWidth="120.0" promptText="-- Modelo --" style="-fx-background-color: white;" />
-            <ComboBox layoutX="415.0" layoutY="14.0" prefHeight="26.0" prefWidth="97.0" promptText="-- Año --" style="-fx-background-color: white;" />
+            <ComboBox fx:id="anio" layoutX="415.0" layoutY="14.0" prefHeight="26.0" prefWidth="97.0" promptText="-- Año --" style="-fx-background-color: white;" />
             <ComboBox fx:id="tipo" layoutX="23.0" layoutY="14.0" prefHeight="26.0" prefWidth="97.0" promptText="-- Tipo --" style="-fx-background-color: white;" />
-            <ComboBox layoutX="537.0" layoutY="14.0" prefHeight="26.0" prefWidth="120.0" promptText="-- Precio --" style="-fx-background-color: white;" />
+            <ComboBox fx:id="precio" layoutX="537.0" layoutY="14.0" prefHeight="26.0" prefWidth="120.0" promptText="-- Precio --" style="-fx-background-color: white;" />
             <Button fx:id="cerrar" layoutX="289.0" layoutY="143.0" mnemonicParsing="false" onMouseClicked="#cerrarFiltros" style="-fx-background-radius: 50; -fx-background-color: white;" text="Guardar Filtros" />
          </children>
       </Pane>
