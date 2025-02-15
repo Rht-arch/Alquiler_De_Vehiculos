@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane fx:id="comboBoxIdiomas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: white; -fx-border-color: #f1a52b; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.Controlador_Pagina_Principal">
+<Pane  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: white; -fx-border-color: #f1a52b; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.Controlador_Pagina_Principal">
     <children>
-        <Text layoutX="29.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Bienvenido!" wrappingWidth="236.51900482177734">
+        <Text fx:id="txtWelcome" layoutX="29.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Bienvenido!" wrappingWidth="236.51900482177734">
             <font>
                 <Font size="26.0" />
             </font>
@@ -67,9 +67,9 @@
         </TabPane>
         <Pane layoutX="48.0" layoutY="318.0" prefHeight="361.0" prefWidth="184.0" stylesheets="@Botones.css">
             <children>
-                <Button layoutY="8.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="183.0" text="Página principal" />
-                <Button layoutY="143.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="183.0" text="Gestionar vehiculos" />
-                <Button layoutX="1.0" layoutY="283.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="183.0" text="Mis vehiculos" />
+                <Button fx:id="btprincipal" layoutY="8.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="183.0" text="Página principal" />
+                <Button fx:id="btgestionar" layoutY="143.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="183.0" text="Gestionar vehiculos" />
+                <Button fx:id="btvehiculos" layoutX="1.0" layoutY="283.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="183.0" text="Mis vehiculos" />
             </children>
         </Pane>
         <ImageView fitHeight="200.0" fitWidth="173.0" layoutX="29.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
@@ -103,16 +103,16 @@
       <DatePicker fx:id="fechaInicio" layoutX="1057.0" layoutY="119.0" promptText="Selecciona la fecha" />
       <Button fx:id="comprar" layoutX="998.0" layoutY="705.0" mnemonicParsing="false" onMouseClicked="#compra" prefHeight="38.0" prefWidth="220.0" stylesheets="@Botones.css" text="Ir a la pantalla de compra" />
       <DatePicker fx:id="fechaFin" layoutX="1057.0" layoutY="192.0" promptText="Selecciona la fecha" />
-      <Label layoutX="1057.0" layoutY="82.0" style="-fx-font-weight: bold;" text="Fecha de inicio">
+      <Label fx:id="txFecha" layoutX="1057.0" layoutY="82.0" style="-fx-font-weight: bold;" text="Fecha de inicio">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="1057.0" layoutY="160.0" style="-fx-font-weight: bold;" text="Fecha de final">
+      <Label fx:id="txFechaF" layoutX="1057.0" layoutY="160.0" style="-fx-font-weight: bold;" text="Fecha de final">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <ChoiceBox layoutX="982.0" layoutY="17.0" prefWidth="150.0" style="-fx-background-color: white;" />
+      <ComboBox fx:id="comboBoxIdiomas" layoutX="982.0" layoutY="17.0" prefWidth="150.0" style="-fx-background-color: white;" />
     </children>
 </Pane>

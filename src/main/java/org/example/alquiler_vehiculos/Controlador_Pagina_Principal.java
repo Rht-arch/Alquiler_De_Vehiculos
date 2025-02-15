@@ -24,10 +24,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Clase que controla la Pagina Principal
@@ -50,6 +47,9 @@ public class Controlador_Pagina_Principal {
     @FXML
     Pane filtros;
 
+    @FXML
+    private Text txtWelcome;
+
     /**
      * ComboBoz para marca, modelo y tipo
      */
@@ -71,6 +71,9 @@ public class Controlador_Pagina_Principal {
      */
     @FXML
     Tab coche,moto,camion;
+
+    @FXML
+    private ComboBox<String> comboBoxIdiomas;
 
     /**
      * Elementos de la tabla
@@ -102,6 +105,21 @@ public class Controlador_Pagina_Principal {
      */
     @FXML
     Text nombre;
+    @FXML
+    private Label txFecha;
+
+    @FXML
+    private Label txFechaF;
+
+    @FXML
+    private Button btprincipal;
+
+    @FXML
+    private Button btgestionar;
+
+    @FXML
+    private Button btvehiculos;
+
 
     /**
      * Llamada a la clase VehiculoDAO
@@ -117,10 +135,38 @@ public class Controlador_Pagina_Principal {
     Map<String, String[]> marcasPorTipo = new HashMap<>();
 
     /**
+     * Variables para establecer el idioma
+     */
+    private Locale locale;
+    private ResourceBundle bundle;
+
+    /**
      * Metodo que incializa los componentes
      */
     @FXML
     public void initialize() {
+        // Idioma por defecto
+        comboBoxIdiomas.getItems().addAll("Español", "English");
+        comboBoxIdiomas.getSelectionModel().select("Español");
+
+        // Cambio de idioma
+        comboBoxIdiomas.setOnAction(event -> {
+            String selectedLanguage = comboBoxIdiomas.getValue();
+
+            switch (selectedLanguage) {
+                case "English":
+                    Locale.setDefault(Locale.ENGLISH);
+                    locale = Locale.ENGLISH;
+                    break;
+                default:
+                    Locale.setDefault(new Locale("es", "ES"));
+                    locale = new Locale("es", "ES");
+                    break;
+            }
+
+            bundle = ResourceBundle.getBundle("org.example.alquiler_vehiculos.idioma", locale);
+            updateTexts();
+        });
 
         ids.setCellValueFactory(new PropertyValueFactory<>("id"));
         marcas.setCellValueFactory(new PropertyValueFactory<>("marca"));
@@ -231,6 +277,41 @@ public class Controlador_Pagina_Principal {
         });
 
 
+    }
+
+    private void updateTexts() {
+
+        txtWelcome.setText(bundle.getString("welcome.text"));
+
+        // Actualizar los textos de las pestañas
+        coche.setText(bundle.getString("tab.coches"));
+        moto.setText(bundle.getString("tab.motos"));
+        camion.setText(bundle.getString("tab.furgonetas"));
+
+        // Actualizar los textos de los botones
+        btprincipal.setText(bundle.getString("button.paginaPrincipal"));
+        btgestionar.setText(bundle.getString("button.gestionarVehiculos"));
+        btvehiculos.setText(bundle.getString("button.misVehiculos"));
+        comprar.setText(bundle.getString("button.irCompra"));
+        cerrar.setText(bundle.getString("button.guardarFiltros"));
+
+        // Actualizar los textos de las etiquetas
+        txFecha.setText(bundle.getString("label.fechaInicio"));
+        txFechaF.setText(bundle.getString("label.fechaFin"));
+
+        // Actualizar los textos de los ComboBox
+        marca.setPromptText(bundle.getString("combobox.marca"));
+        modelo.setPromptText(bundle.getString("combobox.modelo"));
+        anio.setPromptText(bundle.getString("combobox.anio"));
+        tipo.setPromptText(bundle.getString("combobox.tipo"));
+        precio.setPromptText(bundle.getString("combobox.precio"));
+
+        // Actualizar los textos de las columnas de la tabla
+        ids.setText(bundle.getString("table.id"));
+        marcas.setText(bundle.getString("table.marca"));
+        modelos.setText(bundle.getString("table.modelo"));
+        anios.setText(bundle.getString("table.anio"));
+        precios.setText(bundle.getString("table.precio"));
     }
 
     /**
