@@ -29,29 +29,55 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Clase que controla la Pagina Principal
+ * @author Rafael Haro
+ */
+
 public class Controlador_Pagina_Principal {
 
-    ClientesDAO clientesDAO = new ClientesDAO();
-
+    /**
+     * DatePicker para recoger fechas
+     */
     @FXML
     DatePicker fechaInicio,fechaFin;
-
+    /**
+     * Button para realizar uan accion
+     */
     @FXML
     Button busqueda,cerrar,comprar;
 
+    /**
+     * Pane de la pantalla filtro
+     */
     @FXML
     Pane filtros;
 
+    /**
+     * ComboBoz para marca, modelo y tipo
+     */
     @FXML
     ComboBox<String> marca, modelo , tipo;
+    /**
+     * ComboBox para el año
+     */
     @FXML
     ComboBox<Integer> anio;
+    /**
+     * ComboBox para el precio
+     */
     @FXML
     ComboBox<Float> precio;
 
+    /**
+     * Tab que recoge los tipos de vehiculos
+     */
     @FXML
     Tab coche,moto,camion;
 
+    /**
+     * Elementos de la tabla
+     */
     @FXML
     TableView<Vehiculos> coches,motos,camions;
     @FXML
@@ -65,17 +91,37 @@ public class Controlador_Pagina_Principal {
     @FXML
     TableColumn<Vehiculos, Double> precios ;
 
+    /**
+     * Lista de vehiculos
+     */
     private ObservableList<Vehiculos> vehiculosObservableList = FXCollections.observableArrayList();
+    /**
+     * Variable para los Vehiculos seleccionados
+     */
     private Vehiculos vehiculoSeleccionado;  // Variable para almacenar el vehículo seleccionado
 
+    /**
+     * Recoge el nombre
+     */
     @FXML
     Text nombre;
 
+    /**
+     * Llamada a la clase VehiculoDAO
+     */
     VehiculoDAO vehiculoDAO = new VehiculoDAO();
-
+    /**
+     * Mapa de los modelos por Marca
+     */
     Map<String,String[]> modelosPorMarca = new HashMap<>();
+    /**
+     * Mapa de lso modelos pr tipo
+     */
     Map<String, String[]> marcasPorTipo = new HashMap<>();
 
+    /**
+     * Metodo que incializa los componentes
+     */
     @FXML
     public void initialize() {
 
@@ -182,7 +228,10 @@ public class Controlador_Pagina_Principal {
 
     }
 
-
+    /**
+     * Metod que abre el panel de filtro
+     * @param mouseEvent AL clicarle muestra el panel filtros
+     */
     public void abrirFiltros(javafx.scene.input.MouseEvent mouseEvent) {
         if(mouseEvent.getButton() == MouseButton.PRIMARY) {
             filtros.setVisible(true);
@@ -194,6 +243,10 @@ public class Controlador_Pagina_Principal {
 
     }
 
+    /**
+     * Metodo que cierra el panel de filtros
+     * @param mouseEvent
+     */
     public void cerrarFiltros(javafx.scene.input.MouseEvent mouseEvent) {
         filtros.setVisible(false);
         String marcaSeleccionada = marca.getValue();
@@ -213,6 +266,10 @@ public class Controlador_Pagina_Principal {
         mostrarenTabla(vehiculos);
     }
 
+    /**
+     * Metod que meustra la lista de vehiculos
+     * @param vehiculosList Variable lista de los vehiculos
+     */
     public void mostrarenTabla(List<Vehiculos> vehiculosList) {
         vehiculosObservableList.clear();
         vehiculosObservableList.addAll(vehiculosList);
@@ -221,6 +278,9 @@ public class Controlador_Pagina_Principal {
         camions.setItems(vehiculosObservableList);
     }
 
+    /**
+     * Metodo que selecciona el vehiculo elegido por el Usuario
+     */
     @FXML
     public void seleccionarVehiculo() {
         Vehiculos seleccionado = null;
@@ -240,6 +300,10 @@ public class Controlador_Pagina_Principal {
             System.out.println("No se ha seleccionado ningún vehículo.");
         }
     }
+
+    /**
+     * Metodo que realiza la compra
+     */
     @FXML
     public void compra() {
         if (vehiculoSeleccionado != null) { // Verificamos que haya un vehículo seleccionado
@@ -281,7 +345,10 @@ public class Controlador_Pagina_Principal {
         fechaFin.setValue(null);
     }
 
-
+    /**
+     * Metodo que envia toda la informacion recogida a la siguiente pantalla
+     * @param alquilerDetalle Variabel para recoger datos
+     */
     private void enviarAVistaDetalle(AlquilerDetalle alquilerDetalle) {
         try {
             System.out.println("Abriendo la ventana de compra...");

@@ -11,8 +11,15 @@ import org.example.alquiler_vehiculos.BD.AlquilerDetalle;
 
 import java.util.Date;
 
+/**
+ * Clase que controla la clase compra
+ * @author Cristian Alejandro
+ */
 public class Controlador_Compra {
 
+    /**
+     * TableView para msotrar lso vehiculos
+     */
     @FXML private TableView<AlquilerDetalle> tablaCompra;
     @FXML private TableColumn<AlquilerDetalle, String> colMarca;
     @FXML private TableColumn<AlquilerDetalle, String> colModelo;
@@ -21,11 +28,26 @@ public class Controlador_Compra {
     @FXML private TableColumn<AlquilerDetalle, Date> colFechaInicio;
     @FXML private TableColumn<AlquilerDetalle, Date> colFechaFin;
     @FXML private TableColumn<AlquilerDetalle, Float> colTotal;
+    /**
+     * Button para realizar uan accion
+     */
     @FXML private Button btnComprar;
+    /**
+     * Button para realizar uan accion
+     */
     @FXML private Button btnVolver;
+    /**
+     * Variable alquilar detalle
+     */
     private AlquilerDetalle vehiculoSeleccionado;
+    /**
+     * Lista que contiene todos los alquileres
+     */
     private final ObservableList<AlquilerDetalle> listaAlquileres = FXCollections.observableArrayList();
 
+    /**
+     * Metodo que inicializa los componentes
+     */
     @FXML
     public void initialize() {
         // Configurar las columnas de la tabla con las propiedades del objeto AlquilerDetalle
@@ -41,7 +63,10 @@ public class Controlador_Compra {
         tablaCompra.setItems(listaAlquileres);
     }
 
-    // Método para recibir un objeto AlquilerDetalle y agregarlo a la tabla
+    /**
+     * Metodo que selecciona un coche
+     * @param alquilerDetalle Variabla del aquiler detallado
+     */
     public void setVehiculoSeleccionado(AlquilerDetalle alquilerDetalle) {
         if (alquilerDetalle != null) {
             listaAlquileres.clear(); // Limpiar la tabla antes de agregar el nuevo
@@ -49,12 +74,17 @@ public class Controlador_Compra {
         }
     }
 
-    // Métodos para manejar los botones (pueden ser implementados según la lógica deseada)
+    /**
+     * Metodo que realiza la compra
+     */
     @FXML
     private void comprarVehiculo() {
         System.out.println("Vehículo alquilado: " + listaAlquileres.get(0));
     }
 
+    /**
+     * Metodo que vuelve a la pantalla anterior
+     */
     @FXML
     private void volver() {
         System.out.println("Volver a la pantalla anterior");
