@@ -389,6 +389,10 @@ public class Controlador_Pagina_Principal {
             System.out.println("Error al cargar la ventana de compra: " + e.getMessage());
         }
     }
+
+    /**
+     * Metodo que carga la patalla mis vehiculos
+     */
     @FXML
     public void cargarMisVehiculos() {
         try {

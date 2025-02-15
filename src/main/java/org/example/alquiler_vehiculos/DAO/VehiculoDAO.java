@@ -8,9 +8,18 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase que proporciona métodos para interactuar con la tabla de vehiculos en la base de datos.
+ * Permite realizar operaciones como insertar, obtener, actualizar y eliminar clientes.
+ * @author Cristian Alejandro
+ */
 public class VehiculoDAO {
 
-    // Método para insertar un nuevo vehículo
+    /**
+     * Inserta un nuevo vehiculo en la base de datos.
+     * @param vehiculo El objeto Clientes que contiene los datos del cliente a insertar.
+     * @return true si la inserción fue exitosa, false en caso contrario.
+     */
     public boolean insertarVehiculo(Vehiculos vehiculo) {
         String sql = "INSERT INTO vehiculos (marca, modelo, año, tipo, precio_dia) VALUES (?, ?, ?, ?, ?)";
 
@@ -30,7 +39,11 @@ public class VehiculoDAO {
         }
     }
 
-    // Método para obtener un vehículo por su ID
+    /**
+     * Obtiene un Vehiculo por su id
+     * @param id El id del cliente.
+     * @return Un objeto Vehiculo si se encuentra, o null si no existe.
+     */
     public Vehiculos obtenerVehiculoPorId(int id) {
         String sql = "SELECT * FROM vehiculos WHERE id = ?";
         Vehiculos vehiculo = null;
@@ -57,7 +70,10 @@ public class VehiculoDAO {
         return vehiculo;
     }
 
-    // Método para obtener todos los vehículos
+    /**
+     * Obtiene todos los vehiculos registrados en la base de datos.
+     * @return Una lista de objetos Vehiculos.
+     */
     public List<Vehiculos> obtenerTodosLosVehiculos() {
         List<Vehiculos> listaVehiculos = new ArrayList<>();
         String sql = "SELECT * FROM vehiculos";
@@ -83,7 +99,11 @@ public class VehiculoDAO {
         return listaVehiculos;
     }
 
-    // Método para actualizar un vehículo existente
+    /**
+     * Metodo que actualiza el vehiculo
+     * @param vehiculo Varibael vehiculo
+     * @return devuelve la actualizacion
+     */
     public boolean actualizarVehiculo(Vehiculos vehiculo) {
         String sql = "UPDATE vehiculos SET marca = ?, modelo = ?, año = ?, tipo = ?, precio_dia = ? WHERE id = ?";
 
@@ -104,7 +124,11 @@ public class VehiculoDAO {
         }
     }
 
-    // Método para eliminar un vehículo por su ID
+    /**
+     * Metodo que elima el Vehculo
+     * @param id Variabel vehiculo
+     * @return Devuelve el vehiculo eliminado
+     */
     public boolean eliminarVehiculo(int id) {
         String sql = "DELETE FROM vehiculos WHERE id = ?";
 
@@ -118,7 +142,12 @@ public class VehiculoDAO {
             return false;
         }
     }
-    //Método para comprobar si existe un vehículo
+
+    /**
+     * Metodo que comprueba si existe vehiculos
+     * @param id Variable id
+     * @return Devurlve si o no
+     */
     public boolean existeVehiculo(int id) {
         String sql = "SELECT COUNT(*) FROM vehiculos WHERE id = ?";
 
@@ -137,6 +166,11 @@ public class VehiculoDAO {
         return false;
     }
 
+    /**
+     * Metodo que crea una lista con los parametros elegidos
+     * @param sql conexion bd
+     * @return devurlv evehiculos filtrado
+     */
     public List<Vehiculos> obtenerVehiculosConFiltro(String sql) {
         List<Vehiculos> vehiculos = new ArrayList<>();
 
@@ -163,6 +197,10 @@ public class VehiculoDAO {
         return vehiculos;
     }
 
+    /**
+     * Metodo que agrupa en uan lista los Vehiculos
+     * @return devuelve la lista
+     */
     public List<Vehiculos> cargarVehiculos() {
         List<Vehiculos> vehiculos = new ArrayList<>();
         String query = "SELECT * FROM vehiculos";
@@ -189,6 +227,16 @@ public class VehiculoDAO {
         return vehiculos;
     }
 
+    /**
+     * Metodo que filtra los vehiculos
+     * @param id Variable id
+     * @param marca Variable marca
+     * @param modelo Variable modelo
+     * @param anio Variable anio
+     * @param tipo Variable tipo
+     * @param precio Variable precio
+     * @return Devuelve los vehiculos
+     */
     public List<Vehiculos> filtrarVehiculos(String id, String marca, String modelo, String anio, String tipo, String precio) {
         List<Vehiculos> vehiculos = new ArrayList<>();
         StringBuilder query = new StringBuilder("SELECT * FROM vehiculos WHERE 1=1");

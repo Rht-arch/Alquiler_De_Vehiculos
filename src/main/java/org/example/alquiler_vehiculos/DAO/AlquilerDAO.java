@@ -9,11 +9,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static java.sql.DriverManager.getConnection;
-
+/**
+ * Clase que maneja las operaciones CRUD (Crear, Leer, Actualizar, Eliminar) para los alquileres.
+ * @author Cristian Alejandro
+ */
 public class AlquilerDAO {
 
-    // Método para insertar un nuevo alquiler
+    /**
+     * Inserta un nuevo alquiler en la base de datos.
+     * Valida si el cliente y el vehículo existen antes de insertar el alquiler.
+     * @param alquiler El objeto Alquileres a insertar.
+     * @return true si la inserción fue exitosa, false en caso contrario.
+     */
     public boolean insertarAlquiler(Alquileres alquiler) {
         // Validar si el cliente y el vehículo existen
         ClientesDAO clienteDAO = new ClientesDAO();
@@ -51,7 +58,11 @@ public class AlquilerDAO {
         }
     }
 
-    // Método para obtener un alquiler por su ID
+    /**
+     * Obtiene un alquiler por su ID.
+     * @param id El ID del alquiler a obtener.
+     * @return El objeto Alquileres si se encuentra, null en caso contrario.
+     */
     public Alquileres obtenerAlquilerPorId(int id) {
         String sql = "SELECT * FROM alquileres WHERE id = ?";
         Alquileres alquiler = null;
@@ -82,7 +93,10 @@ public class AlquilerDAO {
         return alquiler;
     }
 
-    // Método para obtener todos los alquileres
+    /**
+     * Obtiene todos los alquileres de la base de datos.
+     * @return Una lista de objetos Alquileres.
+     */
     public List<Alquileres> obtenerTodosLosAlquileres() {
         List<Alquileres> listaAlquileres = new ArrayList<>();
         String sql = "SELECT * FROM alquileres";
@@ -112,7 +126,11 @@ public class AlquilerDAO {
         return listaAlquileres;
     }
 
-    // Método para actualizar un alquiler existente
+    /**
+     * Actualiza un alquiler existente en la base de datos.
+     * @param alquiler El objeto Alquileres con los datos actualizados.
+     * @return true si la actualización fue exitosa, false en caso contrario.
+     */
     public boolean actualizarAlquiler(Alquileres alquiler) {
         String sql = "UPDATE alquileres SET id_cliente = ?, id_vehiculo = ?, fecha_inicio = ?, fecha_fin = ?, total = ? WHERE id = ?";
 
@@ -137,7 +155,11 @@ public class AlquilerDAO {
         }
     }
 
-    // Método para eliminar un alquiler por su ID
+    /**
+     * Elimina un alquiler por su ID de la base de datos.
+     * @param id El ID del alquiler a eliminar.
+     * @return true si la eliminación fue exitosa, false en caso contrario.
+     */
     public boolean eliminarAlquiler(int id) {
         String sql = "DELETE FROM alquileres WHERE id = ?";
 
@@ -152,7 +174,11 @@ public class AlquilerDAO {
         }
     }
 
-    // Método para obtener los alquileres de un cliente por su ID
+    /**
+     * Obtiene los alquileres de un cliente por su ID.
+     * @param idCliente El ID del cliente cuyos alquileres se desean obtener.
+     * @return Una lista de objetos AlquilerDetalle.
+     */
     public List<AlquilerDetalle> obtenerAlquileresPorCliente(int idCliente) {
         List<AlquilerDetalle> alquileres = new ArrayList<>();
         String query = "SELECT * FROM alquileresDetalles WHERE id_cliente = ?";
