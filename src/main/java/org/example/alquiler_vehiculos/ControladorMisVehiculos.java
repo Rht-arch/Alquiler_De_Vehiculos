@@ -19,8 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.alquiler_vehiculos.BD.AlquilerDetalle;
@@ -30,6 +29,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ControladorMisVehiculos implements Initializable {
@@ -60,6 +60,21 @@ public class ControladorMisVehiculos implements Initializable {
 
     @FXML
     private TableColumn<AlquilerDetalle, Double> colTotal;
+    
+    @FXML
+    private ComboBox<String> comboBoxIdiomas;
+
+    @FXML
+    private Button volver;
+
+    @FXML
+    private Label txResumen;
+
+    /**
+     * Variables para establecer el idioma
+     */
+    private Locale locale;
+    private ResourceBundle bundle;
 
     /**
      * Inicializa la interfaz gráfica y configura las columnas de la tabla.
@@ -69,6 +84,28 @@ public class ControladorMisVehiculos implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Idioma por defecto
+        comboBoxIdiomas.getItems().addAll("Español", "English");
+        comboBoxIdiomas.getSelectionModel().select("Español");
+
+        // Cambio de idioma
+        comboBoxIdiomas.setOnAction(event -> {
+            String selectedLanguage = comboBoxIdiomas.getValue();
+
+            switch (selectedLanguage) {
+                case "English":
+                    Locale.setDefault(Locale.ENGLISH);
+                    locale = Locale.ENGLISH;
+                    break;
+                default:
+                    Locale.setDefault(new Locale("es", "ES"));
+                    locale = new Locale("es", "ES");
+                    break;
+            }
+
+            bundle = ResourceBundle.getBundle("org.example.alquiler_vehiculos.idioma", locale);
+            updateTexts();
+        });
         // Configurar las columnas de la TableView
         colIdAlquiler.setCellValueFactory(new PropertyValueFactory<>("idAlquiler"));
         colMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
@@ -89,6 +126,23 @@ public class ControladorMisVehiculos implements Initializable {
         // Convertir la lista a ObservableList y cargarla en la TableView
         ObservableList<AlquilerDetalle> observableList = FXCollections.observableArrayList(alquileres);
         tableView.setItems(observableList);
+    }
+
+    private void updateTexts() {
+        txResumen.setText(bundle.getString("label.resumenVehiculos"));
+
+        // Actualizar los textos de las columnas de la tabla
+        colIdAlquiler.setText(bundle.getString("col.idAlquiler"));
+        colMarca.setText(bundle.getString("col.marca"));
+        colModelo.setText(bundle.getString("col.modelo"));
+        colAño.setText(bundle.getString("col.anio"));
+        colTipo.setText(bundle.getString("col.tipo"));
+        colFechaInicio.setText(bundle.getString("col.fechaInicio"));
+        colFechaFin.setText(bundle.getString("col.fechaFin"));
+        colTotal.setText(bundle.getString("col.total"));
+
+        // Actualizar el texto del botón
+        volver.setText(bundle.getString("button.volverPrincipal"));
     }
 
     /**

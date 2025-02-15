@@ -19,7 +19,7 @@
                 <TableColumn fx:id="colTotal" prefWidth="100" text="Total" />
             </columns>
         </TableView>
-      <Label layoutX="31.0" layoutY="24.0" text="RESUMEN DE MIS VEHICULOS" textFill="#1e1485">
+      <Label fx:id="txResumen" layoutX="31.0" layoutY="24.0" text="RESUMEN DE MIS VEHICULOS" textFill="#1e1485">
          <font>
             <Font name="AGaramondPro-Bold" size="36.0" />
          </font>
@@ -34,6 +34,6 @@
             <Font name="Arial Bold" size="13.0" />
          </font>
       </Button>
-      <ChoiceBox layoutX="615.0" layoutY="33.0" prefWidth="150.0" style="-fx-background-color: white;" />
+      <ComboBox fx:id="comboBoxIdiomas" layoutX="615.0" layoutY="33.0" prefWidth="150.0" style="-fx-background-color: white;" />
     </children>
 </AnchorPane>
