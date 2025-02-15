@@ -298,7 +298,9 @@ public class Controlador_Pagina_Principal {
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.setResizable(false);
             stage.show();
+            stage.close();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error al cargar la ventana de compra: " + e.getMessage());

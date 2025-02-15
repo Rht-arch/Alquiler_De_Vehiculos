@@ -15,25 +15,49 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *Clase que controla el funcionamiento de la panatalla usuario
+ */
+
 public class Controlador_Usuario {
-
-        @FXML
+    /**
+     * Button al accionar realiza una accion
+     */
+    @FXML
         Button busqueda,cerrar;
-
+    /**
+     * Panel que recoge la pantalla de filtro
+     */
         @FXML
         Pane filtros;
 
-        @FXML
+    /**
+     * ComboBox para recoger marca, modelo y tipo en el filtro
+     */
+    @FXML
         ComboBox<String> marca, modelo , tipo;
-        @FXML
+
+    /**
+     * ComboBox que recoge el año
+     */
+    @FXML
         ComboBox<Integer> anio;
+    /**
+     * ComboBox que recoge el precio
+     */
         @FXML
         ComboBox<Float> precio;
 
-        @FXML
+    /**
+     * Tab que recoge lso tipso de coches que ofertamos
+     */
+    @FXML
         Tab coche,moto,camion;
 
-        @FXML
+    /**
+     * Parametos recogido en la tabla
+     */
+    @FXML
         TableView<Vehiculos> coches,motos,camions;
         @FXML
         TableColumn<Vehiculos, Integer> ids ;
@@ -46,16 +70,34 @@ public class Controlador_Usuario {
         @FXML
         TableColumn<Vehiculos, Double> precios ;
 
-        private ObservableList<Vehiculos> vehiculosObservableList = FXCollections.observableArrayList();
+    /**
+     * Lista que recoge lso Vehiculos
+     */
+    private ObservableList<Vehiculos> vehiculosObservableList = FXCollections.observableArrayList();
 
+    /**
+     * Recoge el nombre
+     */
         @FXML
         Text nombre;
 
-        VehiculoDAO vehiculoDAO = new VehiculoDAO();
+    /**
+     * Llama a la clase vehiculoDAO
+     */
+    VehiculoDAO vehiculoDAO = new VehiculoDAO();
 
+    /**
+     * Mapa pra recoger los modelos por Marca
+     */
         Map<String,String[]> modelosPorMarca = new HashMap<>();
-        Map<String, String[]> marcasPorTipo = new HashMap<>();
+    /**
+     * Mapa que recoge los tipos de Marca
+     */
+    Map<String, String[]> marcasPorTipo = new HashMap<>();
 
+    /**
+     * Metodo que inicializa todos los componentes
+     */
         @FXML
         public void initialize() {
 
@@ -148,14 +190,22 @@ public class Controlador_Usuario {
         }
 
 
-        public void abrirFiltros(javafx.scene.input.MouseEvent mouseEvent) {
+    /**
+     * Metodo que abre el panel de filtros
+     * @param mouseEvent Cuando se clique se abre
+     */
+    public void abrirFiltros(javafx.scene.input.MouseEvent mouseEvent) {
             if(mouseEvent.getButton() == MouseButton.PRIMARY) {
                 filtros.setVisible(true);
             }
 
         }
 
-        public void cerrarFiltros(javafx.scene.input.MouseEvent mouseEvent) {
+    /**
+     * Metodo que cierra el panel de filtros
+     * @param mouseEvent Cuando se clique se cierra
+     */
+    public void cerrarFiltros(javafx.scene.input.MouseEvent mouseEvent) {
             filtros.setVisible(false);
             String marcaSeleccionada = marca.getValue();
             String tipoSeleccionado = tipo.getValue();
@@ -173,7 +223,12 @@ public class Controlador_Usuario {
             List<Vehiculos> vehiculos = vehiculoDAO.obtenerVehiculosConFiltro(sql);
             mostrarenTabla(vehiculos);
         }
-        public void mostrarenTabla(List<Vehiculos> vehiculosList) {
+
+    /**
+     * Metodo que muestra la tbla
+     * @param vehiculosList lista que recoge todos los vehiculos
+     */
+    public void mostrarenTabla(List<Vehiculos> vehiculosList) {
             vehiculosObservableList.clear();
             vehiculosObservableList.addAll(vehiculosList);
             coches.setItems(vehiculosObservableList);
@@ -181,9 +236,6 @@ public class Controlador_Usuario {
             camions.setItems(vehiculosObservableList);
         }
 
-        public void recogerDatos(){
-
-        }
     }
 
 

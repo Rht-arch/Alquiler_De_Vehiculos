@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 
 /**
  * Clase que gestiona y controla la pantalla de inicio de sesion
- * @author Alicia Pacheco Mena
+ * @authors Alicia Pacheco Mena y Rafael Haro
  */
 public class HelloController {
     /**
