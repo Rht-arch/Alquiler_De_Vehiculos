@@ -242,6 +242,7 @@ public class Controlador_admin {
         create.setOnAction(event -> mostrarVehiculos());
 
         informeVentas.setOnAction(event -> generarInformeVentas());
+        informeCoches.setOnAction(event -> generarInformeCoches());
     }
 
     /**
@@ -414,6 +415,10 @@ public class Controlador_admin {
         alert.showAndWait();
     }
 
+    /**
+     * Metod que genera el informe de ventas
+     */
+
     private void generarInformeVentas() {
         try {
             // Cargar el archivo .jasper directamente
@@ -442,6 +447,62 @@ public class Controlador_admin {
             fileChooser.setTitle("Guardar Informe de Ventas");
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
             fileChooser.setInitialFileName("Informe_Ventas.pdf");
+
+            // Crear el diálogo de guardar archivo
+            File file = fileChooser.showSaveDialog(new Stage());
+            if (file != null) {
+                // Exportar el informe a PDF
+                JasperExportManager.exportReportToPdfFile(print, file.getAbsolutePath());
+                System.out.println("Informe de ventas generado en: " + file.getAbsolutePath());
+            } else {
+                System.out.println("La operación fue cancelada por el usuario.");
+            }
+
+            // Cerrar la conexión
+            conexion.close();
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error: No se encontró el driver de la base de datos.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println("Error de SQL: " + e.getMessage());
+            e.printStackTrace();
+        } catch (JRException e) {
+            System.out.println("Error al generar el informe: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Error inesperado: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void generarInformeCoches() {
+        try {
+            // Cargar el archivo .jasper directamente
+            InputStream reportStream = getClass().getResourceAsStream("/Informes/Informe_Coches.jasper");
+            if (reportStream == null) {
+                System.out.println("Error: No se pudo encontrar el archivo .jasper del informe.");
+                return;
+            }
+
+            // Cargar el informe compilado (.jasper)
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(reportStream);
+
+            // Establecer conexión a la base de datos
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conexion = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/alquiler_vehiculos_db", // URL de conexión
+                    "root", // Usuario
+                    "" // Contraseña
+            );
+
+            // Llenar el informe con los datos (sin parámetros)
+            JasperPrint print = JasperFillManager.fillReport(jasperReport, null, conexion);
+
+            // Seleccionar ubicación del archivo PDF
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Guardar Informe de Coches");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+            fileChooser.setInitialFileName("Informe_Coches.pdf");
 
             // Crear el diálogo de guardar archivo
             File file = fileChooser.showSaveDialog(new Stage());
