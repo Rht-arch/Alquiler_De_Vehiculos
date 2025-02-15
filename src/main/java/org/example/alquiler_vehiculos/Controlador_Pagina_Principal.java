@@ -389,6 +389,22 @@ public class Controlador_Pagina_Principal {
             System.out.println("Error al cargar la ventana de compra: " + e.getMessage());
         }
     }
+    @FXML
+    public void cargarMisVehiculos() {
+        try {
+            // Cargar el archivo FXML de la pantalla "Mis Vehículos"
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MisVehiculos.fxml"));
+            Parent root = loader.load();
 
+            // Obtener la escena actual y cambiarla
+            Stage stage = (Stage) busqueda.getScene().getWindow(); // Usamos cualquier nodo de la escena actual
+            stage.setScene(new Scene(root));
+            stage.setTitle("Mis Vehículos");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error al cargar la pantalla Mis Vehículos: " + e.getMessage());
+        }
+    }
 
 }

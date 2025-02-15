@@ -1,5 +1,6 @@
 package org.example.alquiler_vehiculos.DAO;
 
+import org.example.alquiler_vehiculos.BD.AlquilerDetalle;
 import org.example.alquiler_vehiculos.BD.ConexionBD;
 import org.example.alquiler_vehiculos.BD.Alquileres;
 
@@ -7,6 +8,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static java.sql.DriverManager.getConnection;
 
 public class AlquilerDAO {
 
@@ -148,4 +151,36 @@ public class AlquilerDAO {
             return false;
         }
     }
+
+    // Método para obtener los alquileres de un cliente por su ID
+    public List<AlquilerDetalle> obtenerAlquileresPorCliente(int idCliente) {
+        List<AlquilerDetalle> alquileres = new ArrayList<>();
+        String query = "SELECT * FROM alquileresDetalles WHERE id_cliente = ?";
+
+        try (Connection conn = ConexionBD.getConexion();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setInt(1, idCliente);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                AlquilerDetalle alquiler = new AlquilerDetalle(
+                        rs.getInt("id"),
+                        rs.getString("marca"),
+                        rs.getString("modelo"),
+                        rs.getInt("año"),
+                        rs.getString("tipo"),
+                        rs.getDate("fecha_inicio").toLocalDate(),
+                        rs.getDate("fecha_fin").toLocalDate(),
+                        rs.getDouble("total")
+                );
+                alquileres.add(alquiler);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return alquileres;
+    }
+
 }

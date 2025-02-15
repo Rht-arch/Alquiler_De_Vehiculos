@@ -189,7 +189,7 @@ public class HelloController {
                 }
                }else{
                    try {
-                       CambiarPantallas.switchScene(splashStage, "/org/example/alquiler_vehiculos/Mostrar_Vehiculo.fxml", "Alquiler de Coches");
+                       CambiarPantallas.switchScene(splashStage, "/org/example/alquiler_vehiculos/Usuario.fxml", "Alquiler de Coches");
                    } catch (IOException e) {
                        throw new RuntimeException(e);
                    }               }
