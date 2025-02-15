@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.Controlador_Usuario">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.Controlador_Pagina_Principal">
     <children>
-        <Text layoutX="29.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Bienvenido,@!" wrappingWidth="236.51900482177734">
+        <Text layoutX="29.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Bienvenido!" wrappingWidth="236.51900482177734">
             <font>
                 <Font size="26.0" />
             </font>
@@ -18,7 +18,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TableView fx:id="coches" layoutX="7.0" layoutY="14.0" prefHeight="357.0" prefWidth="936.0">
+                                <TableView fx:id="coches" layoutX="7.0" layoutY="14.0" onMouseClicked="#seleccionarVehiculo" prefHeight="357.0" prefWidth="949.0">
                                     <columns>
                                         <TableColumn fx:id="ids" prefWidth="75.0" text="Id" />
                                         <TableColumn fx:id="marcas" prefWidth="300.0" text="Marca" />
@@ -34,7 +34,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TableView fx:id="motos" layoutX="7.0" layoutY="14.0" prefHeight="360.0" prefWidth="950.0">
+                                <TableView fx:id="motos" layoutX="7.0" layoutY="14.0" onMouseClicked="#seleccionarVehiculo" prefHeight="360.0" prefWidth="950.0">
                                     <columns>
                                         <TableColumn fx:id="ids" prefWidth="75.0" text="Id" />
                                         <TableColumn fx:id="marcas" prefWidth="300.0" text="Marca" />
@@ -50,7 +50,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TableView fx:id="camions" layoutX="7.0" layoutY="14.0" prefHeight="357.0" prefWidth="948.0">
+                                <TableView fx:id="camions" layoutX="7.0" layoutY="14.0" onMouseClicked="#seleccionarVehiculo" prefHeight="357.0" prefWidth="948.0">
                                     <columns>
                                         <TableColumn fx:id="ids" prefWidth="75.0" text="Id" />
                                         <TableColumn fx:id="marcas" prefWidth="300.0" text="Marca" />
@@ -67,8 +67,8 @@
         </TabPane>
         <Pane layoutX="48.0" layoutY="318.0" prefHeight="361.0" prefWidth="184.0" stylesheets="@Botones.css">
             <children>
-                <Button layoutY="92.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="183.0" text="Página principal" />
-                <Button layoutY="219.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="183.0" text="Mis vehiculos" />
+                <Button layoutX="1.0" layoutY="55.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="183.0" text="Página principal" />
+                <Button layoutX="1.0" layoutY="230.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="183.0" text="Mis vehiculos" />
             </children>
         </Pane>
         <ImageView fitHeight="200.0" fitWidth="173.0" layoutX="29.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
@@ -93,15 +93,15 @@
             <children>
                 <ComboBox fx:id="marca" layoutX="141.0" layoutY="14.0" prefHeight="26.0" prefWidth="113.0" promptText="-- Marca --" style="-fx-background-color: white;" visibleRowCount="8" />
                 <ComboBox fx:id="modelo" layoutX="279.0" layoutY="14.0" prefHeight="26.0" prefWidth="120.0" promptText="-- Modelo --" style="-fx-background-color: white;" />
-                <ComboBox layoutX="415.0" layoutY="14.0" prefHeight="26.0" prefWidth="97.0" promptText="-- Año --" style="-fx-background-color: white;" />
+                <ComboBox fx:id="anio" layoutX="415.0" layoutY="14.0" prefHeight="26.0" prefWidth="97.0" promptText="-- Año --" style="-fx-background-color: white;" />
                 <ComboBox fx:id="tipo" layoutX="23.0" layoutY="14.0" prefHeight="26.0" prefWidth="97.0" promptText="-- Tipo --" style="-fx-background-color: white;" />
-                <ComboBox layoutX="537.0" layoutY="14.0" prefHeight="26.0" prefWidth="120.0" promptText="-- Precio --" style="-fx-background-color: white;" />
+                <ComboBox fx:id="precio" layoutX="537.0" layoutY="14.0" prefHeight="26.0" prefWidth="120.0" promptText="-- Precio --" style="-fx-background-color: white;" />
                 <Button fx:id="cerrar" layoutX="289.0" layoutY="143.0" mnemonicParsing="false" onMouseClicked="#cerrarFiltros" style="-fx-background-radius: 50; -fx-background-color: white;" text="Guardar Filtros" />
             </children>
         </Pane>
-        <DatePicker layoutX="1057.0" layoutY="119.0" promptText="Selecciona la fecha" />
-        <Button layoutX="1000.0" layoutY="705.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="218.0" stylesheets="@Botones.css" text="Ir a pantalla de compra" />
-        <DatePicker layoutX="1057.0" layoutY="192.0" promptText="Selecciona la fecha" />
+        <DatePicker fx:id="fechaInicio" layoutX="1057.0" layoutY="119.0" promptText="Selecciona la fecha" />
+        <Button fx:id="comprar" layoutX="998.0" layoutY="705.0" mnemonicParsing="false" onMouseClicked="#compra" prefHeight="38.0" prefWidth="220.0" stylesheets="@Botones.css" text="Ir a la pantalla de compra" />
+        <DatePicker fx:id="fechaFin" layoutX="1057.0" layoutY="192.0" promptText="Selecciona la fecha" />
         <Label layoutX="1057.0" layoutY="82.0" style="-fx-font-weight: bold;" text="Fecha de inicio">
             <font>
                 <Font size="14.0" />
