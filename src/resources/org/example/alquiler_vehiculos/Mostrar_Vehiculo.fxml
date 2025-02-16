@@ -69,7 +69,7 @@
             <children>
                 <Button fx:id="btprincipal" layoutY="8.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="183.0" text="Página principal" />
                 <Button fx:id="btgestionar" layoutY="143.0" mnemonicParsing="false" onMouseClicked="#cargarGestion" prefHeight="25.0" prefWidth="183.0" text="Gestionar vehiculos" />
-                <Button fx:id="btvehiculos" layoutX="1.0" layoutY="283.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="183.0" text="Mis vehiculos" />
+                <Button fx:id="btvehiculos" layoutX="1.0" layoutY="283.0" mnemonicParsing="false" onMouseClicked="#cargarMisVehiculos" prefHeight="25.0" prefWidth="183.0" text="Mis vehiculos" />
             </children>
         </Pane>
         <ImageView fitHeight="200.0" fitWidth="173.0" layoutX="29.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
