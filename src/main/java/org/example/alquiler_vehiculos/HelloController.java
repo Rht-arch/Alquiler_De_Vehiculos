@@ -2,6 +2,7 @@ package org.example.alquiler_vehiculos;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -50,6 +51,11 @@ public class HelloController {
      */
     @FXML
     private Hyperlink HyperLinkRegis;
+    /**
+     * Hiperlink para moverse a la pantalla de manual de usuario
+     */
+    @FXML
+    private Hyperlink hyperLinkAyuda;
 
     /**
      * ComboBox para indicar el idioma
@@ -141,6 +147,8 @@ public class HelloController {
         buttonAcceder.setText(bundle.getString("login.button"));
         HyperLinkRegis.setText(bundle.getString("login.register"));
         labelNoTienesCuenta.setText(bundle.getString("ntc"));
+
+        hyperLinkAyuda.setText(bundle.getString("login.help"));
     }
 
     /**
@@ -221,5 +229,20 @@ public class HelloController {
             e.printStackTrace();
         }
 
+    }
+    @FXML
+    private void abrirAyuda() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/ManualUsuario.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Ayuda - Manual de Usuario");
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
