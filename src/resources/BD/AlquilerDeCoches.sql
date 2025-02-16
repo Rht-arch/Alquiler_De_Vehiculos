@@ -85,4 +85,3 @@ INSERT INTO clientes (dni, nombre, apellido, telefono, correo, contraseña) VALU
                                                                                ('45678901D', 'Laura', 'Fernández', '633456789', 'laura.fernandez@gmail.com', 'lauraPass321'),
                                                                                ('00000000X', 'Admin', 'Admin', '644567890', 'admin@gmail.com', 'admin123')
     ON DUPLICATE KEY UPDATE dni = VALUES(dni); -- Evita duplicados
-
