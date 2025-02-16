@@ -167,14 +167,6 @@ public class Controlador_Usuario {
     private int userId;
 
     /**
-     * Este metodo configura la id del usuario con la id recibida
-     * @param userId
-     */
-    public void setUserId(int userId) {
-        this.userId = userId;
-        System.out.println("ID del usuario recibido en Página Principal: " + userId);
-    }
-    /**
      * Metodo que incializa los componentes
      */
     @FXML
@@ -182,7 +174,8 @@ public class Controlador_Usuario {
         // Idioma por defecto
         comboBoxIdiomas.getItems().addAll("Español", "English");
         comboBoxIdiomas.getSelectionModel().select("Español");
-
+        this.userId = SesionUsuario.getInstancia().getUserId();
+        System.out.println("ID del usuario recibido en Página Principal: " + userId);
         // Cambio de idioma
         comboBoxIdiomas.setOnAction(event -> {
             String selectedLanguage = comboBoxIdiomas.getValue();
@@ -571,8 +564,6 @@ public class Controlador_Usuario {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MisVehiculos.fxml"));
             Parent root = loader.load();
-            ControladorMisVehiculos controlador = loader.getController();
-            controlador.setUserId(userId);
             Stage stage = (Stage) busqueda.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle(bundle.getString("title.misVehiculos")); // Usa la clave del idioma

@@ -37,6 +37,6 @@
             </content>
         </ScrollPane>
 
-        <Button layoutX="550.0" layoutY="770.0" onAction="#cerrarManual" style="-fx-background-color: #f1a52b; -fx-text-fill: white; -fx-font-size: 14px;" text="Cerrar" />
+        <Button fx:id="cerrar" layoutX="550.0" layoutY="770.0" onMouseClicked="#cerrarManual" style="-fx-background-color: #f1a52b; -fx-text-fill: white; -fx-font-size: 14px;" text="Cerrar" />
     </children>
 </Pane>

@@ -196,7 +196,7 @@ public class HelloController {
                 try {
                     FXMLLoader loader2;
                     Scene mainScene;
-
+                    SesionUsuario.getInstancia().setUserId(userId);
                     if (correo.equals("admin@gmail.com")) {
                         loader2 = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/Mostrar_Vehiculo.fxml"));
                     } else {
@@ -205,15 +205,7 @@ public class HelloController {
 
                     mainScene = new Scene(loader2.load());
 
-                    // Obtener el controlador y enviar la ID
-                    Object controller = loader2.getController();
-                    if (controller instanceof Controlador_Pagina_Principal) {
-                        ((Controlador_Pagina_Principal) controller).setUserId(userId);
-                    } else if (controller instanceof Controlador_Usuario) {
-                        ((Controlador_Usuario) controller).setUserId(userId);
-                    }
 
-                    enviarIdAMisVehiculos(userId);
 
 
                     Stage mainStage = new Stage();
@@ -255,23 +247,6 @@ public class HelloController {
         }
     }
 
-    /**
-     * Método que envia la id del usuario a mis vehiculos para que carge sus alquileres
-     * @param userId Id usuario para la tabla alquileres
-     */
-    private void enviarIdAMisVehiculos(int userId) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/MisVehiculos.fxml"));
-            Parent root = loader.load();
 
-            ControladorMisVehiculos controladorMisVehiculos = loader.getController();
-            controladorMisVehiculos.setUserId(userId);
-            System.out.println("ID enviada a Mis Vehículos: " + userId);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error al cargar Mis Vehículos.");
-        }
-    }
 
 }

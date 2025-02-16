@@ -95,17 +95,6 @@ public class ControladorMisVehiculos implements Initializable {
      */
     private int userId;
 
-    /**
-     * Configura la id del usuario con la recibida
-     * @param userId Integer con la id
-     */
-    public void setUserId(int userId) {
-        this.userId = userId;
-        System.out.println("ID del usuario recibido en Mis Vehículos: " + userId);
-        cargarMisVehiculos(userId);
-    }
-
-
 
     /**
      * Inicializa la interfaz gráfica y configura las columnas de la tabla.
@@ -118,7 +107,7 @@ public class ControladorMisVehiculos implements Initializable {
         // Idioma por defecto
         comboBoxIdiomas.getItems().addAll("Español", "English");
         comboBoxIdiomas.getSelectionModel().select("Español");
-
+        this.userId = SesionUsuario.getInstancia().getUserId();
         // Cambio de idioma
         comboBoxIdiomas.setOnAction(event -> {
             String selectedLanguage = comboBoxIdiomas.getValue();
@@ -187,16 +176,14 @@ public class ControladorMisVehiculos implements Initializable {
         if(userId == 5) {
             try {
                 CambiarPantallas.switchScene(currentStage, "Mostrar_Vehiculo.fxml", "Pantalla Principal");
-                Controlador_Pagina_Principal controladorPrincipal = new Controlador_Pagina_Principal();
-                controladorPrincipal.setUserId(userId);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }else {
             try {
                 CambiarPantallas.switchScene(currentStage, "Usuario.fxml", "Pantalla Principal");
-                Controlador_Usuario controladorUsuario = new Controlador_Usuario();
-                controladorUsuario.setUserId(userId);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
