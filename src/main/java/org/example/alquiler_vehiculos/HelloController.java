@@ -80,20 +80,23 @@ public class HelloController {
      */
     @FXML
     public void handleLogin() {
-        String username = textUsuario.getText();
+        String email = textUsuario.getText();
         String password = textContraseña.getText();
 
-        if (clientesDAO.obtenerClientePorId(username, password) != null) {
-            showSplashScreen();
+        // Obtener el ID del cliente a partir del correo
+        Integer userId = clientesDAO.obtenerIdPorCorreo(email, password);
+
+        if (userId != null) {
+            showSplashScreen(userId); // Pasar la ID a la pantalla principal
         } else {
-            //Alerta
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Validación Fallida");
             alert.setHeaderText(null);
-            alert.setContentText("Por favor, rellena ambos campos.");
+            alert.setContentText("Correo o contraseña incorrectos.");
             alert.showAndWait();
         }
     }
+
 
     /**
      * Metodo que inicializa los elementos del idioma
@@ -166,7 +169,7 @@ public class HelloController {
     /**
      * Metodo qyue muestra el spalsh y despues la pagina principal
      */
-    private void showSplashScreen() {
+    private void showSplashScreen(int userId, String correo) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/splash.fxml"));
             Scene splashScene = new Scene(loader.load());
@@ -181,24 +184,42 @@ public class HelloController {
             splashStage.show();
 
             splashController.startSplash(() -> {
-               if(clientesDAO.obtenerClientePorId(textUsuario.getText(),textContraseña.getText()).getCorreo().matches("admin@gmail.com")) {
                 try {
-                    CambiarPantallas.switchScene(splashStage, "/org/example/alquiler_vehiculos/admin.fxml", "Alquiler de Coches");
+                    FXMLLoader loader2;
+                    Scene mainScene;
+
+                    if (correo.equals("admin@gmail.com")) {
+                        loader2 = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/PaginaPrincipal.fxml"));
+                    } else {
+                        loader2 = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/Usuario.fxml"));
+                    }
+
+                    mainScene = new Scene(loader2.load());
+
+                    // Obtener el controlador y enviar la ID
+                    Object controller = loader2.getController();
+                    if (controller instanceof Controlador_Pagina_Principal) {
+                        ((Controlador_Pagina_Principal) controller).setUserId(userId);
+                    } else if (controller instanceof Controlador_Usuario) {
+                        ((Controlador_Usuario) controller).setUserId(userId);
+                    }
+
+                    Stage mainStage = new Stage();
+                    mainStage.setScene(mainScene);
+                    mainStage.setTitle("Alquiler de Coches");
+                    mainStage.setResizable(false);
+                    mainStage.show();
+
+                    splashStage.close();
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
-               }else{
-                   try {
-                       CambiarPantallas.switchScene(splashStage, "/org/example/alquiler_vehiculos/Usuario.fxml", "Alquiler de Coches");
-                   } catch (IOException e) {
-                       throw new RuntimeException(e);
-                   }               }
             });
 
             currentStage.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
 
+    }
 }
