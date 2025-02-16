@@ -139,7 +139,7 @@ public class Controlador_Compra {
             int anioVehiculo = alquilerDAO.obtenerAnioVehiculo(alquilerDetalle.getMarca(), alquilerDetalle.getModelo());
 
             if (idVehiculo == -1 || anioVehiculo == -1) {
-                System.out.println("❌ Error: No se encontró el ID o Año del vehículo.");
+                System.out.println("Error: No se encontró el ID o Año del vehículo.");
                 mostrarAlerta(Alert.AlertType.ERROR, "Error en la Compra", "No se pudo completar el alquiler.");
                 return;
             }
@@ -148,10 +148,10 @@ public class Controlador_Compra {
             boolean exito = alquilerDAO.registrarAlquiler(alquilerDetalle, idVehiculo, anioVehiculo);
 
             if (exito) {
-                System.out.println("✅ Alquiler registrado correctamente.");
+                System.out.println("Alquiler registrado correctamente.");
                 mostrarAlerta(Alert.AlertType.INFORMATION, "Alquiler Exitoso", "El vehículo ha sido alquilado correctamente.");
             } else {
-                System.out.println("❌ Error al registrar el alquiler.");
+                System.out.println(" Error al registrar el alquiler.");
                 mostrarAlerta(Alert.AlertType.ERROR, "Error en la Compra", "No se pudo completar el alquiler.");
             }
         } else {
