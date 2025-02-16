@@ -267,7 +267,7 @@ public class Controlador_Usuario {
                 modelo.getItems().addAll(modelosPorMarca.get(marcaSeleccionada));
             }
         });
-        coches.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.SINGLE);
+        coches.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         motos.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.SINGLE);
         camions.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.SINGLE);
         // Eliminar el código que responde al clic en la tabla
@@ -460,8 +460,10 @@ public class Controlador_Usuario {
     }
 
     /**
-     * Metodo que envia toda la informacion recogida a la siguiente pantalla
-     * @param alquilerDetalle Variable para recoger datos
+     * Metodo que envia toda la informacion recogida a la
+     * pantalla de compra
+     *
+     * @param alquilerDetalle Variable para recoger datos del alquiler
      */
     private void enviarAVistaDetalle(AlquilerDetalle alquilerDetalle) {
         try {
@@ -488,7 +490,7 @@ public class Controlador_Usuario {
     }
 
     /**
-     * Metodo que carga la patalla mis vehiculos
+     * Metodo que cambia la escena actual a la de mis vehiculos
      */
     @FXML
     public void cargarMisVehiculos() {
