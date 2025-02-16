@@ -58,13 +58,15 @@ public class AlquilerDAO {
         }
     }
 
+
+
     /**
      * Obtiene un alquiler por su ID.
      * @param id El ID del alquiler a obtener.
      * @return El objeto Alquileres si se encuentra, null en caso contrario.
      */
     public Alquileres obtenerAlquilerPorId(int id) {
-        String sql = "SELECT * FROM alquileres WHERE id = ?";
+        String sql = "SELECT * FROM alquileresDetalles WHERE id = ?";
         Alquileres alquiler = null;
 
         try (Connection conn = ConexionBD.getConexion();
@@ -191,7 +193,7 @@ public class AlquilerDAO {
 
             while (rs.next()) {
                 AlquilerDetalle alquiler = new AlquilerDetalle(
-                        rs.getInt("id"),
+                        rs.getInt("id"),  // Asegurar que es "id" y no "idAlquiler"
                         rs.getString("marca"),
                         rs.getString("modelo"),
                         rs.getInt("año"),
@@ -202,11 +204,112 @@ public class AlquilerDAO {
                 );
                 alquileres.add(alquiler);
             }
+            System.out.println("🔍 Se encontraron " + alquileres.size() + " alquileres para el cliente ID: " + idCliente);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return alquileres;
     }
+
+
+    /**
+     * Obtiene el ID del vehículo basado en la marca y modelo.
+     * @param marca La marca del vehículo.
+     * @param modelo El modelo del vehículo.
+     * @return El ID del vehículo si se encuentra, -1 si no existe.
+     */
+    public int obtenerIdVehiculo(String marca, String modelo) {
+        String sql = "SELECT id FROM vehiculos WHERE marca = ? AND modelo = ?";
+
+        try (Connection conn = ConexionBD.getConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, marca);
+            pstmt.setString(2, modelo);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1; // Retorna -1 si no se encuentra el vehículo
+    }
+
+    /**
+     * Registra un nuevo alquiler en la tabla `alquileresDetalles`.
+     * @param alquilerDetalle Objeto con los datos del alquiler.
+     * @param idVehiculo ID del vehículo obtenido de la base de datos.
+     * @return true si la inserción fue exitosa, false en caso contrario.
+     */
+    /**
+     * Registra un nuevo alquiler en la tabla `alquileresDetalles`.
+     * @param alquilerDetalle Objeto con los datos del alquiler.
+     * @param idVehiculo ID del vehículo obtenido de la base de datos.
+     * @param anioVehiculo Año del vehículo.
+     * @return true si la inserción fue exitosa, false en caso contrario.
+     */
+    public int registrarAlquiler(AlquilerDetalle alquilerDetalle, int idVehiculo, int anioVehiculo) {
+        int alquilerId = -1; // Inicializamos con un valor de error
+        String sql = "INSERT INTO alquileresDetalles (id_cliente, id_vehiculo, marca, modelo, año, tipo, fecha_inicio, fecha_fin, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = ConexionBD.getConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) { // 🔹 Asegurar que se soliciten claves generadas
+
+            pstmt.setInt(1, alquilerDetalle.getIdCliente());
+            pstmt.setInt(2, idVehiculo);
+            pstmt.setString(3, alquilerDetalle.getMarca());
+            pstmt.setString(4, alquilerDetalle.getModelo());
+            pstmt.setInt(5, anioVehiculo);
+            pstmt.setString(6, alquilerDetalle.getTipo());
+            pstmt.setDate(7, java.sql.Date.valueOf(alquilerDetalle.getFechaInicio()));
+            pstmt.setDate(8, java.sql.Date.valueOf(alquilerDetalle.getFechaFin()));
+            pstmt.setDouble(9, alquilerDetalle.getTotal());
+
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) { // 🔹 Obtener la clave generada
+                    if (generatedKeys.next()) {
+                        alquilerId = generatedKeys.getInt(1);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return alquilerId;
+    }
+
+
+
+    /**
+     * Obtiene el año del vehículo basado en la marca y modelo.
+     * @param marca La marca del vehículo.
+     * @param modelo El modelo del vehículo.
+     * @return El año del vehículo si se encuentra, -1 si no existe.
+     */
+    public int obtenerAnioVehiculo(String marca, String modelo) {
+        String sql = "SELECT año FROM vehiculos WHERE marca = ? AND modelo = ?";
+
+        try (Connection conn = ConexionBD.getConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, marca);
+            pstmt.setString(2, modelo);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("año");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1; // Retorna -1 si no se encuentra el vehículo
+    }
+
+
 
 }

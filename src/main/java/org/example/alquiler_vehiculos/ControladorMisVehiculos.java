@@ -76,6 +76,16 @@ public class ControladorMisVehiculos implements Initializable {
     private Locale locale;
     private ResourceBundle bundle;
 
+    private int userId;
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+        System.out.println("ID del usuario recibido en Mis Vehículos: " + userId);
+        cargarMisVehiculos(userId);
+    }
+
+
+
     /**
      * Inicializa la interfaz gráfica y configura las columnas de la tabla.
      * Además, carga los datos de los alquileres del cliente desde la base de datos.
@@ -107,7 +117,7 @@ public class ControladorMisVehiculos implements Initializable {
             updateTexts();
         });
         // Configurar las columnas de la TableView
-        colIdAlquiler.setCellValueFactory(new PropertyValueFactory<>("idAlquiler"));
+        colIdAlquiler.setCellValueFactory(new PropertyValueFactory<>("idAlquiler"));  // <-- Usa idAlquiler, NO id
         colMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
         colModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
         colAño.setCellValueFactory(new PropertyValueFactory<>("año"));
@@ -117,7 +127,7 @@ public class ControladorMisVehiculos implements Initializable {
         colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
 
         // Obtener el ID del cliente logueado (esto debería venir de la sesión)
-        int idCliente = 1; // Cambia esto por el ID del cliente logueado
+        int idCliente = userId ; // Cambia esto por el ID del cliente logueado
 
         // Obtener los alquileres del cliente
         AlquilerDAO alquilerDAO = new AlquilerDAO();
@@ -132,7 +142,7 @@ public class ControladorMisVehiculos implements Initializable {
         txResumen.setText(bundle.getString("label.resumenVehiculos"));
 
         // Actualizar los textos de las columnas de la tabla
-        colIdAlquiler.setText(bundle.getString("col.idAlquiler"));
+        colIdAlquiler.setText(bundle.getString("col.id"));
         colMarca.setText(bundle.getString("col.marca"));
         colModelo.setText(bundle.getString("col.modelo"));
         colAño.setText(bundle.getString("col.anio"));
@@ -159,4 +169,36 @@ public class ControladorMisVehiculos implements Initializable {
             e.printStackTrace();
         }
     }
+    public void cargarVehiculosAlquilados(List<AlquilerDetalle> alquileres) {
+        ObservableList<AlquilerDetalle> observableList = FXCollections.observableArrayList(alquileres);
+        tableView.setItems(observableList);
+    }
+
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+        this.bundle = ResourceBundle.getBundle("org.example.alquiler_vehiculos.idioma", locale);
+        updateTexts(); // Actualizar los textos en el nuevo idioma
+    }
+
+    public void cargarMisVehiculos(int userId) {
+        System.out.println("🔎 Buscando vehículos alquilados para el usuario: " + userId);
+
+        AlquilerDAO alquilerDAO = new AlquilerDAO();
+        List<AlquilerDetalle> listaAlquileres = alquilerDAO.obtenerAlquileresPorCliente(userId);
+
+        if (listaAlquileres.isEmpty()) {
+            System.out.println("⚠ No se encontraron vehículos para el usuario.");
+        } else {
+            System.out.println("✅ Vehículos encontrados: " + listaAlquileres.size());
+            for (AlquilerDetalle vehiculo : listaAlquileres) {
+                System.out.println(vehiculo.getMarca() + " " + vehiculo.getModelo());
+            }
+        }
+
+        ObservableList<AlquilerDetalle> observableList = FXCollections.observableArrayList(listaAlquileres);
+        tableView.setItems(observableList);
+    }
+
+
 }

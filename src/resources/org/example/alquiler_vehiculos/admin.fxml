@@ -65,11 +65,11 @@
             </Tab>
         </tabs>
       </TabPane>
-      <Pane layoutX="38.0" layoutY="413.0" prefHeight="200.0" prefWidth="184.0" stylesheets="@Botones.css">
+      <Pane layoutX="48.0" layoutY="318.0" prefHeight="361.0" prefWidth="184.0" stylesheets="@Botones.css">
          <children>
-            <Button fx:id="paginaPrincipalButton" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#irAPantallaInicio" prefHeight="25.0" prefWidth="183.0" text="Página principal" />
-            <Button fx:id="gestionarVehiculosButton" layoutY="87.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="183.0" text="Gestionar vehiculos" />
-            <Button fx:id="mostrarVehiculosButton" layoutX="1.0" layoutY="162.0" mnemonicParsing="false" onMouseClicked="#irAMostrarVehiculos" prefHeight="25.0" prefWidth="183.0" text="Mostrar vehiculos" />
+            <Button fx:id="paginaPrincipalButton" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#irAPantallaInicio" prefHeight="38.0" prefWidth="183.0" text="Página principal" />
+            <Button fx:id="gestionarVehiculosButton" layoutY="143.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="183.0" text="Gestionar vehiculos" />
+            <Button fx:id="mostrarVehiculosButton" layoutX="1.0" layoutY="283.0" mnemonicParsing="false" onMouseClicked="#irAMostrarVehiculos" prefHeight="25.0" prefWidth="183.0" text="Mostrar vehiculos" />
          </children>
       </Pane>
       <Pane layoutX="780.0" layoutY="40.0" prefHeight="200.0" prefWidth="382.0" stylesheets="@Botones.css">
@@ -132,6 +132,6 @@
       </ImageView>
       <ComboBox fx:id="comboBoxIdiomas" layoutX="971.0" layoutY="28.0" prefWidth="150.0" style="-fx-background-color: white;" />
       <Button fx:id="informeCoches" layoutX="427.0" layoutY="714.0" mnemonicParsing="false" stylesheets="@Botones.css" text="Generar Informe Coches" />
-      <Button fx:id="informeVentas" layoutX="794.0" layoutY="714.0" mnemonicParsing="false" stylesheets="@Botones.css" text="Generar Informe Ventas"  />
+      <Button fx:id="informeVentas" layoutX="794.0" layoutY="714.0" mnemonicParsing="false" stylesheets="@Botones.css" text="Generar Informe Ventas" />
    </children>
 </Pane>

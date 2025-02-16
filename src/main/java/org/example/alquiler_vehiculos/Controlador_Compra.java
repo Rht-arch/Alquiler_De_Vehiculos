@@ -1,13 +1,19 @@
 package org.example.alquiler_vehiculos;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import org.example.alquiler_vehiculos.BD.AlquilerDetalle;
+import org.example.alquiler_vehiculos.DAO.AlquilerDAO;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -20,7 +26,7 @@ public class Controlador_Compra {
     @FXML
     private Label txDetalles;
     /**
-     * TableView para msotrar lso vehiculos
+     * Tableview  vehiculos
      */
     @FXML private TableView<AlquilerDetalle> tablaCompra;
     @FXML private TableColumn<AlquilerDetalle, String> colMarca;
@@ -31,11 +37,11 @@ public class Controlador_Compra {
     @FXML private TableColumn<AlquilerDetalle, Date> colFechaFin;
     @FXML private TableColumn<AlquilerDetalle, Float> colTotal;
     /**
-     * Button para realizar uan accion
+     * Button para realizar la acción de compra
      */
     @FXML private Button btnComprar;
     /**
-     * Button para realizar uan accion
+     * Button para realizar la acción de retornar
      */
     @FXML private Button btnVolver;
     /**
@@ -56,7 +62,8 @@ public class Controlador_Compra {
     private final ObservableList<AlquilerDetalle> listaAlquileres = FXCollections.observableArrayList();
 
     /**
-     * Metodo que inicializa los componentes
+     * Metodo que inicializa los componentes con los datos iniciales
+     *
      */
     @FXML
     public void initialize() {
@@ -129,8 +136,75 @@ public class Controlador_Compra {
      */
     @FXML
     private void comprarVehiculo() {
-        System.out.println("Vehículo alquilado: " + listaAlquileres.get(0));
+        if (!listaAlquileres.isEmpty()) {
+            AlquilerDetalle alquilerDetalle = listaAlquileres.get(0); // Obtener el alquiler
+
+            AlquilerDAO alquilerDAO = new AlquilerDAO();
+            int idVehiculo = alquilerDAO.obtenerIdVehiculo(alquilerDetalle.getMarca(), alquilerDetalle.getModelo());
+            int anioVehiculo = alquilerDAO.obtenerAnioVehiculo(alquilerDetalle.getMarca(), alquilerDetalle.getModelo());
+
+            if (idVehiculo == -1 || anioVehiculo == -1) {
+                System.out.println("Error: No se encontró el ID o Año del vehículo.");
+                mostrarAlerta(Alert.AlertType.ERROR, "Error en la Compra", "No se pudo completar el alquiler.");
+                return;
+            }
+
+            int idAlquiler = alquilerDAO.registrarAlquiler(alquilerDetalle, idVehiculo, anioVehiculo);
+
+            if (idAlquiler > 0) { // 🔹 Verificar si el ID es válido
+                System.out.println("Alquiler registrado con ID: " + idAlquiler);
+                mostrarAlerta(Alert.AlertType.INFORMATION, "Alquiler Exitoso", "El vehículo ha sido alquilado correctamente.\nID del Alquiler: " + idAlquiler);
+
+                // 🔹 Abrir el splash y luego abrir la pantalla de finalización
+                abrirSplashScreen2(idAlquiler);
+
+            } else {
+                System.out.println("Error al registrar el alquiler.");
+                mostrarAlerta(Alert.AlertType.ERROR, "Error en la Compra", "No se pudo completar el alquiler.");
+            }
+        } else {
+            System.out.println("⚠ No hay vehículos seleccionados para alquilar.");
+            mostrarAlerta(Alert.AlertType.WARNING, "Aviso", "No hay vehículos en la lista de compra.");
+        }
     }
+
+
+
+
+    private void abrirSplashScreen2(int idAlquiler) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/splash2.fxml"));
+            Parent root = loader.load();
+
+            SplashController2 splashController = loader.getController();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.setTitle("Cargando...");
+
+            // Iniciar Splash y cuando termine, abrir la pantalla de finalización de compra
+            splashController.startSplash(() -> {
+                stage.close();
+                abrirFinCompra(idAlquiler); // 🔹 Abre la pantalla de finalización después del splash
+            });
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
+    }
+
 
     /**
      * Metodo que vuelve a la pantalla anterior
@@ -139,4 +213,24 @@ public class Controlador_Compra {
     private void volver() {
         System.out.println("Volver a la pantalla anterior");
     }
+
+    private void abrirFinCompra(int idAlquiler) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/FinCompra.fxml"));
+            Parent root = loader.load();
+
+            Controlador_Fin_Compra controladorFinCompra = loader.getController();
+            controladorFinCompra.setIdAlquiler(idAlquiler); // 🔹 Pasar la ID del alquiler
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Finalización de Compra");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error al abrir la pantalla de finalización de compra.");
+        }
+    }
+
+
 }

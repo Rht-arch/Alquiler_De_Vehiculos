@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<!--Panel principal -->
+<!-- Panel principal -->
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="650.0" style="-fx-background-color: #ffffff; -fx-border-color: #f1a52b; -fx-border-width: 10;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.HelloController">
     <children>
@@ -13,43 +13,47 @@
             <children>
                 <AnchorPane prefHeight="282.0" prefWidth="315.0" style="-fx-background-color: #1e1485; -fx-background-radius: 10;">
                     <children>
-                        <!--Label -->
+                        <!-- Label -->
                         <Label fx:id="labelIniciarSesion" alignment="CENTER" layoutX="99.0" layoutY="14.0" text="Iniciar Sesión" textFill="WHITE">
                             <font>
                                 <Font name="Yu Gothic UI Semilight" size="21.0" />
                             </font>
                         </Label>
-                        <!--TextField para usuario -->
+                        <!-- TextField para usuario -->
                         <TextField fx:id="textUsuario" layoutX="65.0" layoutY="95.0" prefHeight="26.0" prefWidth="201.0" promptText="Usuario" style="-fx-background-radius: 10;">
-                     <tooltip>
-                        <Tooltip text="Introduce tu email" />
-                     </tooltip></TextField>
-                        <!--PasswordField para la contraseña-->
+                            <tooltip>
+                                <Tooltip text="Introduce tu email" />
+                            </tooltip>
+                        </TextField>
+                        <!-- PasswordField para la contraseña -->
                         <PasswordField fx:id="textContraseña" layoutX="64.0" layoutY="141.0" prefHeight="26.0" prefWidth="202.0" promptText="Contraseña" style="-fx-background-radius: 10;">
-                     <tooltip>
-                        <Tooltip text="Introduce tu contraseña" />
-                     </tooltip></PasswordField>
-                        <!--Boton -->
-                        <Button fx:id="buttonAcceder" layoutX="64.0" layoutY="219.0" onMouseClicked="#handleLogin" prefHeight="26.0" prefWidth="202.0" style="-fx-background-color: #f1a52b; -fx-background-radius: 10; -fx-text-fill: #ffffff;" text="Acceder" />
-                        <!--Lable -->
+                            <tooltip>
+                                <Tooltip text="Introduce tu contraseña" />
+                            </tooltip>
+                        </PasswordField>
+                        <!-- Botón -->
+                        <Button fx:id="buttonAcceder" defaultButton="true" layoutX="64.0" layoutY="219.0" onMouseClicked="#handleLogin" prefHeight="26.0" prefWidth="202.0" style="-fx-background-color: #f1a52b; -fx-background-radius: 10; -fx-text-fill: #ffffff;" text="Acceder" />
+                        <!-- Label -->
                         <Label fx:id="labelNoTienesCuenta" layoutX="69.0" layoutY="260.0" text="¿No tienes una cuenta?" textFill="WHITE">
                             <font>
                                 <Font name="Arial" size="13.0" />
                             </font>
                         </Label>
-                        <!--Link para registrar-->
+                        <!-- Hyperlink para registrar -->
                         <Hyperlink fx:id="HyperLinkRegis" layoutX="207.0" layoutY="256.0" mnemonicParsing="true" text="Regístrate" />
+                        <!-- Hyperlink para la Ayuda -->
+                        <Hyperlink fx:id="hyperLinkAyuda" layoutX="180.0" layoutY="280.0" onAction="#abrirAyuda" text="¿Necesitas ayuda?" />
                     </children>
                 </AnchorPane>
             </children>
         </VBox>
-        <!--Imagen -->
+        <!-- Imagen -->
         <ImageView fitHeight="214.0" fitWidth="262.0" layoutX="22.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../../../imagenes/logo_proyecto.png" />
             </image>
         </ImageView>
-        <!--ComboBox -->
+        <!-- ComboBox de idiomas -->
         <ComboBox fx:id="ComBoBoxIdiomasLogin" layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="118.0" promptText="Idioma" style="-fx-background-color: #ffffff;" />
     </children>
 </AnchorPane>

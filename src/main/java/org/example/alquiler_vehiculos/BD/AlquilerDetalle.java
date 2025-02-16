@@ -64,10 +64,11 @@ public class AlquilerDetalle {
      * @param fechaFin Fecha de fin del alquiler.
      * @param total Total a pagar por el alquiler.
      */
-    public AlquilerDetalle(String marca, String modelo, String tipo, LocalDate fechaInicio, LocalDate fechaFin, double total) {
+    public AlquilerDetalle(String marca, String modelo, String tipo,int idCliente, LocalDate fechaInicio, LocalDate fechaFin, double total) {
         this.marca = marca;
         this.modelo = modelo;
         this.tipo = tipo;
+        this.idCliente = idCliente;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.total = total;

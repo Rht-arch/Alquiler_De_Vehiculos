@@ -12,15 +12,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.example.alquiler_vehiculos.BD.AlquilerDetalle;
 import org.example.alquiler_vehiculos.BD.Vehiculos;
+import org.example.alquiler_vehiculos.DAO.AlquilerDAO;
 import org.example.alquiler_vehiculos.DAO.ClientesDAO;
 import org.example.alquiler_vehiculos.DAO.VehiculoDAO;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
@@ -140,6 +141,12 @@ public class Controlador_Pagina_Principal {
     private Locale locale;
     private ResourceBundle bundle;
 
+    private int userId;
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+        System.out.println("ID del usuario recibido en Página Principal: " + userId);
+    }
     /**
      * Metodo que incializa los componentes
      */
@@ -411,6 +418,9 @@ public class Controlador_Pagina_Principal {
     /**
      * Metodo que realiza la compra
      */
+    /**
+     * Metodo que realiza la compra
+     */
     @FXML
     public void compra() {
         if (vehiculoSeleccionado != null) { // Verificamos que haya un vehículo seleccionado
@@ -418,31 +428,41 @@ public class Controlador_Pagina_Principal {
             LocalDate ini = fechaInicio.getValue();
             LocalDate fin = fechaFin.getValue();
 
-            if (ini != null && fin != null) {
-                // Calculamos el total de alquiler
-                double total = vehiculoSeleccionado.getPreciodia() * Period.between(ini, fin).getDays();
-                // Creamos el detalle de alquiler
-                AlquilerDetalle alquilerDetalle = new AlquilerDetalle(
-                        vehiculoSeleccionado.getMarca(),
-                        vehiculoSeleccionado.getModelo(),
-                        vehiculoSeleccionado.getTipo(),
-                        ini,
-                        fin,
-                        total
-                );
-
-                enviarAVistaDetalle(alquilerDetalle);
-            } else {
-                System.out.println("Por favor, selecciona las fechas.");
+            // Validación de fechas
+            if (ini == null || fin == null) {
+                mostrarAlerta(Alert.AlertType.WARNING, "Fechas requeridas", "Por favor, selecciona una fecha de inicio y una fecha de fin para continuar con la compra.");
+                return;
             }
+
+            if (!fin.isAfter(ini)) {
+                mostrarAlerta(Alert.AlertType.WARNING, "Fechas incorrectas", "La fecha de fin debe ser posterior a la fecha de inicio.");
+                return;
+            }
+
+            // Calculamos el total de alquiler
+            double total = vehiculoSeleccionado.getPreciodia() * Period.between(ini, fin).getDays();
+
+            // Creamos el detalle de alquiler
+            AlquilerDetalle alquilerDetalle = new AlquilerDetalle(
+                    vehiculoSeleccionado.getMarca(),
+                    vehiculoSeleccionado.getModelo(),
+                    vehiculoSeleccionado.getTipo(),
+                    userId,
+                    ini,
+                    fin,
+                    total
+            );
+
+            // Enviar la información a la vista de detalle de compra
+            enviarAVistaDetalle(alquilerDetalle);
         } else {
-            System.out.println("Por favor, selecciona un vehículo.");
+            mostrarAlerta(Alert.AlertType.WARNING, "Vehículo no seleccionado", "Por favor, selecciona un vehículo antes de continuar con la compra.");
         }
+
+        // Limpiar selección en la tabla y los filtros
         coches.getSelectionModel().clearSelection();
         motos.getSelectionModel().clearSelection();
         camions.getSelectionModel().clearSelection();
-
-        // Limpiar los filtros
         tipo.getSelectionModel().clearSelection();
         marca.getSelectionModel().clearSelection();
         modelo.getSelectionModel().clearSelection();
@@ -453,8 +473,23 @@ public class Controlador_Pagina_Principal {
     }
 
     /**
+     * Metodo para mostrar una alerta
+     * @param tipo Tipo de alerta (ERROR, WARNING, INFO, etc.)
+     * @param titulo Título de la ventana de alerta
+     * @param mensaje Mensaje a mostrar en la alerta
+     */
+    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
+    }
+
+
+    /**
      * Metodo que envia toda la informacion recogida a la siguiente pantalla
-     * @param alquilerDetalle Variabel para recoger datos
+     * @param alquilerDetalle Variable para recoger datos
      */
     private void enviarAVistaDetalle(AlquilerDetalle alquilerDetalle) {
         try {
@@ -485,15 +520,27 @@ public class Controlador_Pagina_Principal {
      */
     @FXML
     public void cargarMisVehiculos() {
+        if (bundle == null) {
+            System.out.println("⚠ Advertencia: bundle es NULL, cargando idioma por defecto...");
+            bundle = ResourceBundle.getBundle("org.example.alquiler_vehiculos.idioma", new Locale("es", "ES"));
+        }
+
         try {
-            // Cargar el archivo FXML de la pantalla "Mis Vehículos"
+            String titulo = bundle.getString("title.misVehiculos"); // Asegúrate de que la clave existe
+            System.out.println("✅ Clave encontrada: " + titulo);
+        } catch (MissingResourceException e) {
+            System.out.println("🚨 ERROR: No se encontró la clave 'title.misVehiculos' en el archivo de propiedades.");
+            e.printStackTrace();
+        }
+
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MisVehiculos.fxml"));
             Parent root = loader.load();
-
-            // Obtener la escena actual y cambiarla
-            Stage stage = (Stage) busqueda.getScene().getWindow(); // Usamos cualquier nodo de la escena actual
+            ControladorMisVehiculos controlador = loader.getController();
+            controlador.setUserId(userId);
+            Stage stage = (Stage) busqueda.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Mis Vehículos");
+            stage.setTitle(bundle.getString("title.misVehiculos")); // Usa la clave del idioma
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -501,4 +548,12 @@ public class Controlador_Pagina_Principal {
         }
     }
 
+
+
+
+    @FXML
+    public void cargarGestion(MouseEvent mouseEvent) throws IOException {
+        Stage currentStage = (Stage) ((javafx.scene.Node) mouseEvent.getSource()).getScene().getWindow();
+        CambiarPantallas.switchScene(currentStage, "admin.fxml", "Gestionar Vehiculos");
+    }
 }

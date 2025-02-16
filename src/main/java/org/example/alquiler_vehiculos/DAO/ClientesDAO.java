@@ -170,4 +170,24 @@ public class ClientesDAO {
         }
         return false;
     }
+    public Integer obtenerIdPorCorreo(String correo, String contraseña) {
+        Integer userId = null;
+        String sql = "SELECT id FROM clientes WHERE correo = ? AND contraseña = ?";
+
+        try (Connection conn = ConexionBD.getConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, correo);
+            pstmt.setString(2, contraseña);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                userId = rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userId;
+    }
+
 }
