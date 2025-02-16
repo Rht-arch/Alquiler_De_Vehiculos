@@ -155,7 +155,8 @@ public class Controlador_Compra {
                 System.out.println("Alquiler registrado con ID: " + idAlquiler);
                 mostrarAlerta(Alert.AlertType.INFORMATION, "Alquiler Exitoso", "El vehículo ha sido alquilado correctamente.\nID del Alquiler: " + idAlquiler);
 
-                abrirFinCompra(idAlquiler); // 🔹 Pasar la ID del alquiler
+                // 🔹 Abrir el splash y luego abrir la pantalla de finalización
+                abrirSplashScreen2(idAlquiler);
 
             } else {
                 System.out.println("Error al registrar el alquiler.");
@@ -169,7 +170,8 @@ public class Controlador_Compra {
 
 
 
-    private void abrirSplashScreen2() {
+
+    private void abrirSplashScreen2(int idAlquiler) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/splash2.fxml"));
             Parent root = loader.load();
@@ -180,8 +182,11 @@ public class Controlador_Compra {
             stage.setResizable(false);
             stage.setTitle("Cargando...");
 
-            // Iniciar Splash y cerrar la ventana cuando termine
-            splashController.startSplash(stage::close);
+            // Iniciar Splash y cuando termine, abrir la pantalla de finalización de compra
+            splashController.startSplash(() -> {
+                stage.close();
+                abrirFinCompra(idAlquiler); // 🔹 Abre la pantalla de finalización después del splash
+            });
 
             stage.show();
         } catch (IOException e) {
