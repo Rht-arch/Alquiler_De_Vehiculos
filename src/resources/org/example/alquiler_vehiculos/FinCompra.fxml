@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.Controlador_Fin_Compra">
+   <children>
+      <Label layoutX="112.0" layoutY="126.0" text="¡Gracias por su compra!">
+         <font>
+            <Font size="36.0" />
+         </font></Label>
+      <Label layoutX="150.0" layoutY="188.0" text="Para descargar su factura pulsa">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Hyperlink fx:id="descarga" layoutX="369.0" layoutY="184.0" onMouseClicked="#generarReporte" text="aqui">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Hyperlink>
+   </children>
+</Pane>

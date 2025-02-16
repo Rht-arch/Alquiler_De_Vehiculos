@@ -62,7 +62,8 @@ public class Controlador_Compra {
     private final ObservableList<AlquilerDetalle> listaAlquileres = FXCollections.observableArrayList();
 
     /**
-     * Metodo que inicializa los componentes
+     * Metodo que inicializa los componentes con los datos iniciales
+     *
      */
     @FXML
     public void initialize() {
@@ -138,25 +139,35 @@ public class Controlador_Compra {
         if (!listaAlquileres.isEmpty()) {
             AlquilerDetalle alquilerDetalle = listaAlquileres.get(0); // Obtener el alquiler
 
-            // Obtener ID y Año del vehículo
             AlquilerDAO alquilerDAO = new AlquilerDAO();
             int idVehiculo = alquilerDAO.obtenerIdVehiculo(alquilerDetalle.getMarca(), alquilerDetalle.getModelo());
             int anioVehiculo = alquilerDAO.obtenerAnioVehiculo(alquilerDetalle.getMarca(), alquilerDetalle.getModelo());
 
-            // Si no se encontró el ID o Año, no continuar
             if (idVehiculo == -1 || anioVehiculo == -1) {
+                System.out.println("Error: No se encontró el ID o Año del vehículo.");
+                mostrarAlerta(Alert.AlertType.ERROR, "Error en la Compra", "No se pudo completar el alquiler.");
                 return;
             }
 
-            // Insertar en alquileresDetalles
-            boolean exito = alquilerDAO.registrarAlquiler(alquilerDetalle, idVehiculo, anioVehiculo);
+            int idAlquiler = alquilerDAO.registrarAlquiler(alquilerDetalle, idVehiculo, anioVehiculo);
 
-            // Si la inserción es exitosa, abrir SplashScreen2
-            if (exito) {
-                abrirSplashScreen2();
+            if (idAlquiler > 0) { // 🔹 Verificar si el ID es válido
+                System.out.println("Alquiler registrado con ID: " + idAlquiler);
+                mostrarAlerta(Alert.AlertType.INFORMATION, "Alquiler Exitoso", "El vehículo ha sido alquilado correctamente.\nID del Alquiler: " + idAlquiler);
+
+                abrirFinCompra(idAlquiler); // 🔹 Pasar la ID del alquiler
+
+            } else {
+                System.out.println("Error al registrar el alquiler.");
+                mostrarAlerta(Alert.AlertType.ERROR, "Error en la Compra", "No se pudo completar el alquiler.");
             }
+        } else {
+            System.out.println("⚠ No hay vehículos seleccionados para alquilar.");
+            mostrarAlerta(Alert.AlertType.WARNING, "Aviso", "No hay vehículos en la lista de compra.");
         }
     }
+
+
 
     private void abrirSplashScreen2() {
         try {
@@ -197,5 +208,24 @@ public class Controlador_Compra {
     private void volver() {
         System.out.println("Volver a la pantalla anterior");
     }
+
+    private void abrirFinCompra(int idAlquiler) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/FinCompra.fxml"));
+            Parent root = loader.load();
+
+            Controlador_Fin_Compra controladorFinCompra = loader.getController();
+            controladorFinCompra.setIdAlquiler(idAlquiler); // 🔹 Pasar la ID del alquiler
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Finalización de Compra");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error al abrir la pantalla de finalización de compra.");
+        }
+    }
+
 
 }

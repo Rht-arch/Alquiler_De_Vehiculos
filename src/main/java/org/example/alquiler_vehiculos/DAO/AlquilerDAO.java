@@ -243,32 +243,41 @@ public class AlquilerDAO {
      * Registra un nuevo alquiler en la tabla `alquileresDetalles`.
      * @param alquilerDetalle Objeto con los datos del alquiler.
      * @param idVehiculo ID del vehículo obtenido de la base de datos.
-     * @param anio Año del vehículo.
+     * @param anioVehiculo Año del vehículo.
      * @return true si la inserción fue exitosa, false en caso contrario.
      */
-    public boolean registrarAlquiler(AlquilerDetalle alquilerDetalle, int idVehiculo, int anio) {
-        String sql = "INSERT INTO alquileresDetalles (id_cliente, id_vehiculo, marca, modelo, tipo, año, fecha_inicio, fecha_fin, total) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public int registrarAlquiler(AlquilerDetalle alquilerDetalle, int idVehiculo, int anioVehiculo) {
+        int alquilerId = -1; // Inicializamos con un valor de error
+        String sql = "INSERT INTO alquileresDetalles (id_cliente, id_vehiculo, marca, modelo, año, tipo, fecha_inicio, fecha_fin, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = ConexionBD.getConexion();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) { // 🔹 Asegurar que se soliciten claves generadas
 
             pstmt.setInt(1, alquilerDetalle.getIdCliente());
             pstmt.setInt(2, idVehiculo);
             pstmt.setString(3, alquilerDetalle.getMarca());
             pstmt.setString(4, alquilerDetalle.getModelo());
-            pstmt.setString(5, alquilerDetalle.getTipo());
-            pstmt.setInt(6, anio);  // Añadimos el año
+            pstmt.setInt(5, anioVehiculo);
+            pstmt.setString(6, alquilerDetalle.getTipo());
             pstmt.setDate(7, java.sql.Date.valueOf(alquilerDetalle.getFechaInicio()));
             pstmt.setDate(8, java.sql.Date.valueOf(alquilerDetalle.getFechaFin()));
             pstmt.setDouble(9, alquilerDetalle.getTotal());
 
-            return pstmt.executeUpdate() > 0; // Retorna true si la inserción fue exitosa
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) { // 🔹 Obtener la clave generada
+                    if (generatedKeys.next()) {
+                        alquilerId = generatedKeys.getInt(1);
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        return alquilerId;
     }
+
 
 
     /**
