@@ -1,14 +1,19 @@
 package org.example.alquiler_vehiculos;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import org.example.alquiler_vehiculos.BD.AlquilerDetalle;
 import org.example.alquiler_vehiculos.DAO.AlquilerDAO;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -133,32 +138,47 @@ public class Controlador_Compra {
         if (!listaAlquileres.isEmpty()) {
             AlquilerDetalle alquilerDetalle = listaAlquileres.get(0); // Obtener el alquiler
 
-            // 1️⃣ Obtener el ID y el AÑO del vehículo
+            // Obtener ID y Año del vehículo
             AlquilerDAO alquilerDAO = new AlquilerDAO();
             int idVehiculo = alquilerDAO.obtenerIdVehiculo(alquilerDetalle.getMarca(), alquilerDetalle.getModelo());
             int anioVehiculo = alquilerDAO.obtenerAnioVehiculo(alquilerDetalle.getMarca(), alquilerDetalle.getModelo());
 
+            // Si no se encontró el ID o Año, no continuar
             if (idVehiculo == -1 || anioVehiculo == -1) {
-                System.out.println("Error: No se encontró el ID o Año del vehículo.");
-                mostrarAlerta(Alert.AlertType.ERROR, "Error en la Compra", "No se pudo completar el alquiler.");
                 return;
             }
 
-            // 2️⃣ Insertar el alquiler en `alquileresDetalles`
+            // Insertar en alquileresDetalles
             boolean exito = alquilerDAO.registrarAlquiler(alquilerDetalle, idVehiculo, anioVehiculo);
 
+            // Si la inserción es exitosa, abrir SplashScreen2
             if (exito) {
-                System.out.println("Alquiler registrado correctamente.");
-                mostrarAlerta(Alert.AlertType.INFORMATION, "Alquiler Exitoso", "El vehículo ha sido alquilado correctamente.");
-            } else {
-                System.out.println(" Error al registrar el alquiler.");
-                mostrarAlerta(Alert.AlertType.ERROR, "Error en la Compra", "No se pudo completar el alquiler.");
+                abrirSplashScreen2();
             }
-        } else {
-            System.out.println("⚠ No hay vehículos seleccionados para alquilar.");
-            mostrarAlerta(Alert.AlertType.WARNING, "Aviso", "No hay vehículos en la lista de compra.");
         }
     }
+
+    private void abrirSplashScreen2() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/splash2.fxml"));
+            Parent root = loader.load();
+
+            SplashController2 splashController = loader.getController();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.setTitle("Cargando...");
+
+            // Iniciar Splash y cerrar la ventana cuando termine
+            splashController.startSplash(stage::close);
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
