@@ -140,6 +140,12 @@ public class Controlador_Pagina_Principal {
     private Locale locale;
     private ResourceBundle bundle;
 
+    private int userId;
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+        System.out.println("ID del usuario recibido en Página Principal: " + userId);
+    }
     /**
      * Metodo que incializa los componentes
      */
@@ -426,6 +432,7 @@ public class Controlador_Pagina_Principal {
                         vehiculoSeleccionado.getMarca(),
                         vehiculoSeleccionado.getModelo(),
                         vehiculoSeleccionado.getTipo(),
+                        userId,
                         ini,
                         fin,
                         total
@@ -454,7 +461,7 @@ public class Controlador_Pagina_Principal {
 
     /**
      * Metodo que envia toda la informacion recogida a la siguiente pantalla
-     * @param alquilerDetalle Variabel para recoger datos
+     * @param alquilerDetalle Variable para recoger datos
      */
     private void enviarAVistaDetalle(AlquilerDetalle alquilerDetalle) {
         try {
