@@ -417,6 +417,9 @@ public class Controlador_Pagina_Principal {
     /**
      * Metodo que realiza la compra
      */
+    /**
+     * Metodo que realiza la compra
+     */
     @FXML
     public void compra() {
         if (vehiculoSeleccionado != null) { // Verificamos que haya un vehículo seleccionado
@@ -424,32 +427,41 @@ public class Controlador_Pagina_Principal {
             LocalDate ini = fechaInicio.getValue();
             LocalDate fin = fechaFin.getValue();
 
-            if (ini != null && fin != null) {
-                // Calculamos el total de alquiler
-                double total = vehiculoSeleccionado.getPreciodia() * Period.between(ini, fin).getDays();
-                // Creamos el detalle de alquiler
-                AlquilerDetalle alquilerDetalle = new AlquilerDetalle(
-                        vehiculoSeleccionado.getMarca(),
-                        vehiculoSeleccionado.getModelo(),
-                        vehiculoSeleccionado.getTipo(),
-                        userId,
-                        ini,
-                        fin,
-                        total
-                );
-
-                enviarAVistaDetalle(alquilerDetalle);
-            } else {
-                System.out.println("Por favor, selecciona las fechas.");
+            // Validación de fechas
+            if (ini == null || fin == null) {
+                mostrarAlerta(Alert.AlertType.WARNING, "Fechas requeridas", "Por favor, selecciona una fecha de inicio y una fecha de fin para continuar con la compra.");
+                return;
             }
+
+            if (!fin.isAfter(ini)) {
+                mostrarAlerta(Alert.AlertType.WARNING, "Fechas incorrectas", "La fecha de fin debe ser posterior a la fecha de inicio.");
+                return;
+            }
+
+            // Calculamos el total de alquiler
+            double total = vehiculoSeleccionado.getPreciodia() * Period.between(ini, fin).getDays();
+
+            // Creamos el detalle de alquiler
+            AlquilerDetalle alquilerDetalle = new AlquilerDetalle(
+                    vehiculoSeleccionado.getMarca(),
+                    vehiculoSeleccionado.getModelo(),
+                    vehiculoSeleccionado.getTipo(),
+                    userId,
+                    ini,
+                    fin,
+                    total
+            );
+
+            // Enviar la información a la vista de detalle de compra
+            enviarAVistaDetalle(alquilerDetalle);
         } else {
-            System.out.println("Por favor, selecciona un vehículo.");
+            mostrarAlerta(Alert.AlertType.WARNING, "Vehículo no seleccionado", "Por favor, selecciona un vehículo antes de continuar con la compra.");
         }
+
+        // Limpiar selección en la tabla y los filtros
         coches.getSelectionModel().clearSelection();
         motos.getSelectionModel().clearSelection();
         camions.getSelectionModel().clearSelection();
-
-        // Limpiar los filtros
         tipo.getSelectionModel().clearSelection();
         marca.getSelectionModel().clearSelection();
         modelo.getSelectionModel().clearSelection();
@@ -458,6 +470,21 @@ public class Controlador_Pagina_Principal {
         fechaInicio.setValue(null);
         fechaFin.setValue(null);
     }
+
+    /**
+     * Metodo para mostrar una alerta
+     * @param tipo Tipo de alerta (ERROR, WARNING, INFO, etc.)
+     * @param titulo Título de la ventana de alerta
+     * @param mensaje Mensaje a mostrar en la alerta
+     */
+    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
+    }
+
 
     /**
      * Metodo que envia toda la informacion recogida a la siguiente pantalla
