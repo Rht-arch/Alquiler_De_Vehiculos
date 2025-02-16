@@ -164,7 +164,7 @@ public class ControladorMisVehiculos implements Initializable {
     private void handleVolver(ActionEvent event) {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         try {
-            CambiarPantallas.switchScene(currentStage, "Mostrar_Vehiculo.fxml", "Pantalla Principal");
+            CambiarPantallas.switchScene(currentStage, "Usuario.fxml", "Pantalla Principal");
         } catch (IOException e) {
             e.printStackTrace();
         }

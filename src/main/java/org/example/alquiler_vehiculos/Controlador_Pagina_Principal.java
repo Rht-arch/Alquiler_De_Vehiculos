@@ -295,10 +295,6 @@ public class Controlador_Pagina_Principal {
         moto.setText(bundle.getString("tab.motos"));
         camion.setText(bundle.getString("tab.furgonetas"));
 
-        // Actualizar los textos de los botones
-        btprincipal.setText(bundle.getString("button.paginaPrincipal"));
-        btgestionar.setText(bundle.getString("button.gestionarVehiculos"));
-        btvehiculos.setText(bundle.getString("button.misVehiculos"));
         comprar.setText(bundle.getString("button.irCompra"));
         cerrar.setText(bundle.getString("button.guardarFiltros"));
 
@@ -319,6 +315,12 @@ public class Controlador_Pagina_Principal {
         modelos.setText(bundle.getString("table.modelo"));
         anios.setText(bundle.getString("table.anio"));
         precios.setText(bundle.getString("table.precio"));
+        // Actualizar los textos de los botones
+        btprincipal.setText(bundle.getString("button.paginaPrincipal"));
+        btvehiculos.setText(bundle.getString("button.misVehiculos"));
+        btgestionar.setText(bundle.getString("button.gestionarVehiculos"));
+
+
 
 
 
