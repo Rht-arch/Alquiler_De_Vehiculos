@@ -20,7 +20,7 @@ public class Controlador_Compra {
     @FXML
     private Label txDetalles;
     /**
-     * TableView para msotrar lso vehiculos
+     * Tableview  vehiculos
      */
     @FXML private TableView<AlquilerDetalle> tablaCompra;
     @FXML private TableColumn<AlquilerDetalle, String> colMarca;
@@ -31,11 +31,11 @@ public class Controlador_Compra {
     @FXML private TableColumn<AlquilerDetalle, Date> colFechaFin;
     @FXML private TableColumn<AlquilerDetalle, Float> colTotal;
     /**
-     * Button para realizar uan accion
+     * Button para realizar la acción de compra
      */
     @FXML private Button btnComprar;
     /**
-     * Button para realizar uan accion
+     * Button para realizar la acción de retornar
      */
     @FXML private Button btnVolver;
     /**
