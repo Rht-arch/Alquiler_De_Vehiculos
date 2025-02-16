@@ -26,6 +26,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.util.JRLoader;
+import org.example.alquiler_vehiculos.BD.ConexionBD;
 import org.example.alquiler_vehiculos.DAO.VehiculoDAO;
 import org.example.alquiler_vehiculos.BD.Vehiculos;
 
@@ -35,7 +36,9 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class Controlador_admin {
@@ -239,8 +242,8 @@ public class Controlador_admin {
         delete.setOnAction(event -> eliminarVehiculo());
         create.setOnAction(event -> mostrarVehiculos());
 
-        informeVentas.setOnAction(event -> generarInformeVentas());
-        informeCoches.setOnAction(event -> generarInformeCoches());
+        informeVentas.setOnAction(event -> generarReporteVentas());
+        informeCoches.setOnAction(event -> generarReporteCoche());
     }
 
     /**
@@ -417,114 +420,51 @@ public class Controlador_admin {
      * Metod que genera el informe de ventas
      */
 
-    private void generarInformeVentas() {
+    public void generarReporteVentas() {
         try {
-            // Cargar el archivo .jasper directamente
-            InputStream reportStream = getClass().getResourceAsStream("/Informes/Informe_Ventas.jasper");
-            if (reportStream == null) {
-                System.out.println("Error: No se pudo encontrar el archivo .jasper del informe.");
-                return;
-            }
+            Class.forName("org.mariadb.jdbc.Driver");
+            Connection conn = ConexionBD.getConexion();
 
-            // Cargar el informe compilado (.jasper)
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(reportStream);
-
-            // Establecer conexión a la base de datos
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/alquiler_vehiculos_db", // URL de conexión
-                    "root", // Usuario
-                    "" // Contraseña
-            );
-
-            // Llenar el informe con los datos (sin parámetros)
-            JasperPrint print = JasperFillManager.fillReport(jasperReport, null, conexion);
-
-            // Seleccionar ubicación del archivo PDF
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Guardar Informe de Ventas");
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
-            fileChooser.setInitialFileName("Informe_Ventas.pdf");
+            fileChooser.setTitle("Guardar Informe PDF");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos PDF", "*.pdf"));
+            File selectedFile = fileChooser.showSaveDialog(new Stage());
 
-            // Crear el diálogo de guardar archivo
-            File file = fileChooser.showSaveDialog(new Stage());
-            if (file != null) {
-                // Exportar el informe a PDF
-                JasperExportManager.exportReportToPdfFile(print, file.getAbsolutePath());
-                System.out.println("Informe de ventas generado en: " + file.getAbsolutePath());
+            if (selectedFile != null) {
+                Map<String, Object> parametros = new HashMap<>();
+                JasperPrint print = JasperFillManager.fillReport("Informes/Informe_Ventas.jasper", parametros, conn);
+                JasperExportManager.exportReportToPdfFile(print, selectedFile.getAbsolutePath());
+
+                System.out.println("Informe generado con éxito en: " + selectedFile.getAbsolutePath());
             } else {
-                System.out.println("La operación fue cancelada por el usuario.");
+                System.out.println("La selección del archivo fue cancelada.");
             }
-
-            // Cerrar la conexión
-            conexion.close();
-        } catch (ClassNotFoundException e) {
-            System.out.println("Error: No se encontró el driver de la base de datos.");
-            e.printStackTrace();
-        } catch (SQLException e) {
-            System.out.println("Error de SQL: " + e.getMessage());
-            e.printStackTrace();
-        } catch (JRException e) {
-            System.out.println("Error al generar el informe: " + e.getMessage());
-            e.printStackTrace();
-        } catch (Exception e) {
-            System.out.println("Error inesperado: " + e.getMessage());
+        } catch (JRException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
+    @FXML
 
-    private void generarInformeCoches() {
+    public void generarReporteCoche() {
         try {
-            // Cargar el archivo .jasper directamente
-            InputStream reportStream = getClass().getResourceAsStream("/Informes/Informe_Coches.jasper");
-            if (reportStream == null) {
-                System.out.println("Error: No se pudo encontrar el archivo .jasper del informe.");
-                return;
-            }
+            Class.forName("org.mariadb.jdbc.Driver");
+            Connection conn = ConexionBD.getConexion();
 
-            // Cargar el informe compilado (.jasper)
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(reportStream);
-
-            // Establecer conexión a la base de datos
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/alquiler_vehiculos_db", // URL de conexión
-                    "root", // Usuario
-                    "" // Contraseña
-            );
-
-            // Llenar el informe con los datos (sin parámetros)
-            JasperPrint print = JasperFillManager.fillReport(jasperReport, null, conexion);
-
-            // Seleccionar ubicación del archivo PDF
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Guardar Informe de Coches");
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
-            fileChooser.setInitialFileName("Informe_Coches.pdf");
+            fileChooser.setTitle("Guardar Informe PDF");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos PDF", "*.pdf"));
+            File selectedFile = fileChooser.showSaveDialog(new Stage());
 
-            // Crear el diálogo de guardar archivo
-            File file = fileChooser.showSaveDialog(new Stage());
-            if (file != null) {
-                // Exportar el informe a PDF
-                JasperExportManager.exportReportToPdfFile(print, file.getAbsolutePath());
-                System.out.println("Informe de ventas generado en: " + file.getAbsolutePath());
+            if (selectedFile != null) {
+                Map<String, Object> parametros = new HashMap<>();
+                JasperPrint print = JasperFillManager.fillReport("Informes/Informe_Coches.jasper", parametros, conn);
+                JasperExportManager.exportReportToPdfFile(print, selectedFile.getAbsolutePath());
+
+                System.out.println("Informe generado con éxito en: " + selectedFile.getAbsolutePath());
             } else {
-                System.out.println("La operación fue cancelada por el usuario.");
+                System.out.println("La selección del archivo fue cancelada.");
             }
-
-            // Cerrar la conexión
-            conexion.close();
-        } catch (ClassNotFoundException e) {
-            System.out.println("Error: No se encontró el driver de la base de datos.");
-            e.printStackTrace();
-        } catch (SQLException e) {
-            System.out.println("Error de SQL: " + e.getMessage());
-            e.printStackTrace();
-        } catch (JRException e) {
-            System.out.println("Error al generar el informe: " + e.getMessage());
-            e.printStackTrace();
-        } catch (Exception e) {
-            System.out.println("Error inesperado: " + e.getMessage());
+        } catch (JRException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

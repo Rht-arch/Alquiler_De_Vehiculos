@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -20,7 +21,6 @@ import org.example.alquiler_vehiculos.BD.Vehiculos;
 import org.example.alquiler_vehiculos.DAO.ClientesDAO;
 import org.example.alquiler_vehiculos.DAO.VehiculoDAO;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
@@ -534,5 +534,9 @@ public class Controlador_Pagina_Principal {
             System.out.println("Error al cargar la pantalla Mis Vehículos: " + e.getMessage());
         }
     }
-
+    @FXML
+    public void cargarGestion(MouseEvent mouseEvent) throws IOException {
+        Stage currentStage = (Stage) ((javafx.scene.Node) mouseEvent.getSource()).getScene().getWindow();
+        CambiarPantallas.switchScene(currentStage, "admin.fxml", "Gestionar Vehiculos");
+    }
 }

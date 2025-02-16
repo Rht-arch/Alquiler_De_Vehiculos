@@ -6,6 +6,7 @@
 <?import javafx.scene.text.*?>
 
 <!-- Panel principal -->
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="650.0" style="-fx-background-color: #ffffff; -fx-border-color: #f1a52b; -fx-border-width: 10;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.HelloController">
     <children>
         <VBox alignment="CENTER" layoutX="311.0" layoutY="34.0">
@@ -31,7 +32,7 @@
                             </tooltip>
                         </PasswordField>
                         <!-- Botón -->
-                        <Button fx:id="buttonAcceder" layoutX="64.0" layoutY="219.0" onMouseClicked="#handleLogin" prefHeight="26.0" prefWidth="202.0" style="-fx-background-color: #f1a52b; -fx-background-radius: 10; -fx-text-fill: #ffffff;" text="Acceder" />
+                        <Button fx:id="buttonAcceder" defaultButton="true" layoutX="64.0" layoutY="219.0" onMouseClicked="#handleLogin" prefHeight="26.0" prefWidth="202.0" style="-fx-background-color: #f1a52b; -fx-background-radius: 10; -fx-text-fill: #ffffff;" text="Acceder" />
                         <!-- Label -->
                         <Label fx:id="labelNoTienesCuenta" layoutX="69.0" layoutY="260.0" text="¿No tienes una cuenta?" textFill="WHITE">
                             <font>
@@ -41,7 +42,7 @@
                         <!-- Hyperlink para registrar -->
                         <Hyperlink fx:id="HyperLinkRegis" layoutX="207.0" layoutY="256.0" mnemonicParsing="true" text="Regístrate" />
                         <!-- Hyperlink para la Ayuda -->
-                        <Hyperlink fx:id="hyperLinkAyuda" layoutX="180.0" layoutY="280.0" text="¿Necesitas ayuda?" onAction="#abrirAyuda" />
+                        <Hyperlink fx:id="hyperLinkAyuda" layoutX="180.0" layoutY="280.0" onAction="#abrirAyuda" text="¿Necesitas ayuda?" />
                     </children>
                 </AnchorPane>
             </children>
