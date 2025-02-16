@@ -87,7 +87,7 @@ public class HelloController {
         Integer userId = clientesDAO.obtenerIdPorCorreo(email, password);
 
         if (userId != null) {
-            showSplashScreen(userId); // Pasar la ID a la pantalla principal
+            showSplashScreen(userId,email); // Pasar la ID a la pantalla principal
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Validación Fallida");
@@ -189,7 +189,7 @@ public class HelloController {
                     Scene mainScene;
 
                     if (correo.equals("admin@gmail.com")) {
-                        loader2 = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/PaginaPrincipal.fxml"));
+                        loader2 = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/Mostrar_Vehiculo.fxml"));
                     } else {
                         loader2 = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/Usuario.fxml"));
                     }
