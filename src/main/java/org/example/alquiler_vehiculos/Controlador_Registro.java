@@ -160,7 +160,7 @@ public class Controlador_Registro {
     private void abrirPantallaInicioSesion() {
         try {
             Stage currentStage = (Stage) HlinicioSesion.getScene().getWindow();
-            CambiarPantallas.switchScene(currentStage, "/org/example/alquiler_vehiculos/Iniciar_Sesion.fxml",
+            CambiarPantallas.switchScene(currentStage, "/org/example/alquiler_vehiculos/InicioDeSesion.fxml",
                     "UrbanDrive - Iniciar Sesión");
         } catch (IOException e) {
             e.printStackTrace();
