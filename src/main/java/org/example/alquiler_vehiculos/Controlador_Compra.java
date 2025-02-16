@@ -8,7 +8,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.example.alquiler_vehiculos.BD.AlquilerDetalle;
 import org.example.alquiler_vehiculos.DAO.AlquilerDAO;
@@ -19,15 +18,18 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * Clase que controla la clase compra
+ * Clase que controla la pantalla de compra de un vehículo de alquiler.
+ * Permite seleccionar un vehículo, confirmar el alquiler y registrar la transacción en la base de datos.
+ * Además, muestra un splash screen después de realizar el alquiler.
  * @author Cristian Alejandro
  */
 public class Controlador_Compra {
+
+    // Etiqueta para mostrar detalles del alquiler
     @FXML
     private Label txDetalles;
-    /**
-     * Tableview  vehiculos
-     */
+
+    // Tabla para mostrar los vehículos seleccionados para alquilar
     @FXML private TableView<AlquilerDetalle> tablaCompra;
     @FXML private TableColumn<AlquilerDetalle, String> colMarca;
     @FXML private TableColumn<AlquilerDetalle, String> colModelo;
@@ -36,41 +38,36 @@ public class Controlador_Compra {
     @FXML private TableColumn<AlquilerDetalle, Date> colFechaInicio;
     @FXML private TableColumn<AlquilerDetalle, Date> colFechaFin;
     @FXML private TableColumn<AlquilerDetalle, Float> colTotal;
-    /**
-     * Button para realizar la acción de compra
-     */
+
+    // Botón para confirmar la compra
     @FXML private Button btnComprar;
-    /**
-     * Button para realizar la acción de retornar
-     */
-    @FXML private Button btnVolver;
-    /**
-     * Variable alquilar detalle
-     */
+
+
+    // Objeto que almacena la información del vehículo seleccionado
     private AlquilerDetalle vehiculoSeleccionado;
 
+    // ComboBox para seleccionar el idioma de la interfaz
     @FXML
     private ComboBox<String> comboBoxIdiomas;
-    /**
-     * Variables para establecer el idioma
-     */
+
+    // Variables para gestionar el idioma de la interfaz
     private Locale locale;
     private ResourceBundle bundle;
-    /**
-     * Lista que contiene todos los alquileres
-     */
+
+    // Lista observable que contiene los detalles del alquiler
     private final ObservableList<AlquilerDetalle> listaAlquileres = FXCollections.observableArrayList();
 
     /**
-     * Metodo que inicializa los componentes
+     * Método que inicializa los componentes de la interfaz al cargar la vista.
      */
+
     @FXML
     public void initialize() {
-        // Idioma por defecto
+        // Agregar opciones de idioma al ComboBox
         comboBoxIdiomas.getItems().addAll("Español", "English");
-        comboBoxIdiomas.getSelectionModel().select("Español");
+        comboBoxIdiomas.getSelectionModel().select("Español"); // Seleccionar español por defecto
 
-        // Cambio de idioma
+        // Configurar el cambio de idioma
         comboBoxIdiomas.setOnAction(event -> {
             String selectedLanguage = comboBoxIdiomas.getValue();
 
@@ -86,9 +83,10 @@ public class Controlador_Compra {
             }
 
             bundle = ResourceBundle.getBundle("org.example.alquiler_vehiculos.idioma", locale);
-            updateTexts();
+            updateTexts(); // Actualizar los textos de la interfaz con el nuevo idioma
         });
-        // Configurar las columnas de la tabla con las propiedades del objeto AlquilerDetalle
+
+        // Configurar las columnas de la tabla con las propiedades de los objetos AlquilerDetalle
         colMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
         colModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
         colTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
@@ -100,6 +98,10 @@ public class Controlador_Compra {
         // Asignar la lista de alquileres a la tabla
         tablaCompra.setItems(listaAlquileres);
     }
+
+    /**
+     * Método que actualiza los textos de la interfaz al cambiar de idioma.
+     */
 
     private void updateTexts() {
         // Actualizar el título
@@ -116,86 +118,70 @@ public class Controlador_Compra {
 
         // Actualizar los textos de los botones
         btnComprar.setText(bundle.getString("button.alquilar"));
-        btnVolver.setText(bundle.getString("button.volver"));
     }
 
     /**
-     * Metodo que selecciona un coche
-     * @param alquilerDetalle Variabla del aquiler detallado
+     * Método que recibe un objeto `AlquilerDetalle` y lo añade a la lista de alquileres.
+     * @param alquilerDetalle Objeto que contiene la información del vehículo seleccionado.
      */
     public void setVehiculoSeleccionado(AlquilerDetalle alquilerDetalle) {
         if (alquilerDetalle != null) {
-            listaAlquileres.clear(); // Limpiar la tabla antes de agregar el nuevo
+            listaAlquileres.clear(); // Limpiar la lista antes de agregar el nuevo vehículo
             listaAlquileres.add(alquilerDetalle);
         }
     }
 
     /**
-     * Metodo que realiza la compra
+     * Método que gestiona el proceso de alquiler de un vehículo.
+     * Obtiene el ID del vehículo, lo registra en la base de datos y muestra la pantalla de carga.
      */
     @FXML
     private void comprarVehiculo() {
         if (!listaAlquileres.isEmpty()) {
-            AlquilerDetalle alquilerDetalle = listaAlquileres.get(0); // Obtener el alquiler
+            AlquilerDetalle alquilerDetalle = listaAlquileres.get(0); // Obtener el vehículo a alquilar
 
-            // Obtener ID y Año del vehículo
+            // Obtener el ID y el año del vehículo desde la base de datos
             AlquilerDAO alquilerDAO = new AlquilerDAO();
             int idVehiculo = alquilerDAO.obtenerIdVehiculo(alquilerDetalle.getMarca(), alquilerDetalle.getModelo());
             int anioVehiculo = alquilerDAO.obtenerAnioVehiculo(alquilerDetalle.getMarca(), alquilerDetalle.getModelo());
 
-            // Si no se encontró el ID o Año, no continuar
+            // Si no se encuentra el ID o el año del vehículo, no continuar
             if (idVehiculo == -1 || anioVehiculo == -1) {
                 return;
             }
 
-            // Insertar en alquileresDetalles
+            // Registrar el alquiler en la base de datos
             boolean exito = alquilerDAO.registrarAlquiler(alquilerDetalle, idVehiculo, anioVehiculo);
 
-            // Si la inserción es exitosa, abrir SplashScreen2
+            // Si el registro es exitoso, abrir la pantalla de carga (SplashScreen2)
             if (exito) {
                 abrirSplashScreen2();
             }
         }
     }
 
+    /**
+     * Método que abre la pantalla de carga `SplashScreen2` después de confirmar el alquiler.
+     */
     private void abrirSplashScreen2() {
         try {
+            // Cargar la ventana SplashScreen2 desde el archivo FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/splash2.fxml"));
             Parent root = loader.load();
 
+            // Obtener el controlador de la pantalla de carga
             SplashController2 splashController = loader.getController();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.setTitle("Cargando...");
 
-            // Iniciar Splash y cerrar la ventana cuando termine
+            // Iniciar la animación de carga y cerrar la ventana cuando termine
             splashController.startSplash(stage::close);
 
-            stage.show();
+            stage.show(); // Mostrar la ventana de carga
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Imprimir error si la ventana no se carga correctamente
         }
     }
-
-
-
-
-    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
-        Alert alerta = new Alert(tipo);
-        alerta.setTitle(titulo);
-        alerta.setHeaderText(null);
-        alerta.setContentText(mensaje);
-        alerta.showAndWait();
-    }
-
-
-    /**
-     * Metodo que vuelve a la pantalla anterior
-     */
-    @FXML
-    private void volver() {
-        System.out.println("Volver a la pantalla anterior");
-    }
-
 }
