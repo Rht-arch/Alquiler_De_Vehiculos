@@ -7,7 +7,9 @@ import java.util.Date;
  * Contiene información como el ID del alquiler, ID del cliente, ID del vehículo,
  * fechas de inicio y fin del alquiler, y el total a pagar.
  *
- * @author Cristian Alejandro
+ * @author Cristian Alejandro (Desarrollador principal)
+ * @author Rafael Haro (Colaborador)
+ * @author Alicia Pacheco (Colaborador)
  */
 public class Alquileres {
 

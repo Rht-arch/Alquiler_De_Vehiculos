@@ -14,7 +14,8 @@ import java.util.ResourceBundle;
 
 /**
  * Clase que gestiona y controla la pantalla de inicio de sesion
- * @authors Alicia Pacheco Mena y Rafael Haro
+ * @authors Alicia Pacheco Mena y Rafael Haro (Desarrolladores principales)
+ * @author Cristian Alejandro (Colaborador)
  */
 public class HelloController {
     /**
@@ -234,6 +235,10 @@ public class HelloController {
         }
 
     }
+
+    /**
+     * Método que permite abrir la ayuda de usuario
+     */
     @FXML
     private void abrirAyuda() {
         try {
@@ -249,14 +254,18 @@ public class HelloController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Método que envia la id del usuario a mis vehiculos para que carge sus alquileres
+     * @param userId Id usuario para la tabla alquileres
+     */
     private void enviarIdAMisVehiculos(int userId) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/MisVehiculos.fxml"));
             Parent root = loader.load();
 
             ControladorMisVehiculos controladorMisVehiculos = loader.getController();
-            controladorMisVehiculos.setUserId(userId); // 🔹 Pasar la ID del usuario
-
+            controladorMisVehiculos.setUserId(userId);
             System.out.println("ID enviada a Mis Vehículos: " + userId);
 
         } catch (IOException e) {

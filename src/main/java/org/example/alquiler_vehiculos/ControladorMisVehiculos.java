@@ -32,8 +32,17 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Clase que gestiona los vehiculos del usuario , muestra los alquilers según
+ * la id del cliente recibida
+ * @author Alicia Pacheco (Desarrolladora Principal)
+ * @author Rafael Haro (Colaborador)
+ * @author Cristian Alejandro (Colaborador)
+ */
 public class ControladorMisVehiculos implements Initializable {
-
+    /**
+     * TableView que almacena los datos del alquiler y las columnas de la bbdd
+     */
     @FXML
     private TableView<AlquilerDetalle> tableView;
 
@@ -60,13 +69,19 @@ public class ControladorMisVehiculos implements Initializable {
 
     @FXML
     private TableColumn<AlquilerDetalle, Double> colTotal;
-    
+    /**
+     * ComboBox que permite seleccionar el idioma de la app
+     */
     @FXML
     private ComboBox<String> comboBoxIdiomas;
-
+    /**
+     * Botón que permite regresar a la pantalla principal
+     */
     @FXML
     private Button volver;
-
+    /**
+     * Label con el texto de resumen
+     */
     @FXML
     private Label txResumen;
 
@@ -75,9 +90,15 @@ public class ControladorMisVehiculos implements Initializable {
      */
     private Locale locale;
     private ResourceBundle bundle;
-
+    /**
+     * Integer que almacena la id del cliente
+     */
     private int userId;
 
+    /**
+     * Configura la id del usuario con la recibida
+     * @param userId Integer con la id
+     */
     public void setUserId(int userId) {
         this.userId = userId;
         System.out.println("ID del usuario recibido en Mis Vehículos: " + userId);
@@ -142,7 +163,7 @@ public class ControladorMisVehiculos implements Initializable {
         txResumen.setText(bundle.getString("label.resumenVehiculos"));
 
         // Actualizar los textos de las columnas de la tabla
-        colIdAlquiler.setText(bundle.getString("col.id"));
+        colIdAlquiler.setText(bundle.getString("col.idAlquiler"));
         colMarca.setText(bundle.getString("col.marca"));
         colModelo.setText(bundle.getString("col.modelo"));
         colAño.setText(bundle.getString("col.anio"));
@@ -163,18 +184,29 @@ public class ControladorMisVehiculos implements Initializable {
     @FXML
     private void handleVolver(ActionEvent event) {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        try {
-            CambiarPantallas.switchScene(currentStage, "Usuario.fxml", "Pantalla Principal");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(userId == 5) {
+            try {
+                CambiarPantallas.switchScene(currentStage, "Mostrar_Vehiculo.fxml", "Pantalla Principal");
+                Controlador_Pagina_Principal controladorPrincipal = new Controlador_Pagina_Principal();
+                controladorPrincipal.setUserId(userId);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+            try {
+                CambiarPantallas.switchScene(currentStage, "Usuario.fxml", "Pantalla Principal");
+                Controlador_Usuario controladorUsuario = new Controlador_Usuario();
+                controladorUsuario.setUserId(userId);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
-    public void cargarVehiculosAlquilados(List<AlquilerDetalle> alquileres) {
-        ObservableList<AlquilerDetalle> observableList = FXCollections.observableArrayList(alquileres);
-        tableView.setItems(observableList);
-    }
 
-
+    /**
+     * Permite configurar el idioma en el que deben estar los textos
+     * @param locale
+     */
     public void setLocale(Locale locale) {
         this.locale = locale;
         this.bundle = ResourceBundle.getBundle("org.example.alquiler_vehiculos.idioma", locale);

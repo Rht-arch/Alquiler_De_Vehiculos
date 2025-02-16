@@ -16,17 +16,42 @@ import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Clase que gestiona el fin de compra,generando un informe
+ * que simula un recibo de compra para justificar el alquiler
+ * @author Rafael Haro (Desarrollador Principal)
+ * @author Cristian Alejandro (Colaborador)
+ * @author Alicia Pacheco (Colaborador)
+ */
 public class Controlador_Fin_Compra {
+    /**
+     * Link que permite descargar el archivo
+     */
     @FXML
-    Hyperlink descarga;
-
+    public Hyperlink descarga;
+    /**
+     * Permite manejar datos de la BBDD
+     */
     AlquilerDAO alquilerDAO = new AlquilerDAO();
+
+    /**
+     * Variable con el alquiler determinado
+     */
     private int idAlquiler;
 
+    /**
+     * Configura la id del alquiler para que poder imprimir el informe
+     * @param idAlquiler Id del alquiler a justificar
+     */
     public void setIdAlquiler(int idAlquiler) {
         this.idAlquiler = idAlquiler;
     }
 
+    /**
+     * Método que permite generar el reporte del recibo de compra
+     * en función a la id del alquiler y permite al usuario guardarlo
+     * donde el prefiera
+     */
     @FXML
     public void generarReporte() {
         if (idAlquiler == 0) {

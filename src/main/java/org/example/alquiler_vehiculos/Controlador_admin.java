@@ -8,7 +8,9 @@
  * una tabla que muestra los vehículos disponibles y campos de texto para ingresar o
  * modificar la información de los vehículos.
  *
- * @author Alicia Pacheco
+ * @author Alicia Pacheco(Desarrolladora Principal)
+ * @author Rafael Haro (Diseño y colaborador)
+ * @author Cristian Alejadnro (Colaborador)
  */
 package org.example.alquiler_vehiculos;
 
@@ -42,103 +44,146 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class Controlador_admin {
+    /**
+     * Texto de bienvenida
+     */
     @FXML
     private Text welcomeText;
-
-    @FXML
-    private Tab tabCoches;
-
-    @FXML
-    private Tab tabMotos;
-
-    @FXML
-    private Tab tabFurgonetas;
+    /**
+     * Botones para gestionar el DAO
+     */
     @FXML
     private Button insert, delete, update, create;
-
+    /**
+     * Campos para extraer los datos y manejarlos en la BBDD
+     */
     @FXML
     private TextField id, marca, modelo, anio, tipo, precio;
-
+    /**
+     * Tabla que almacena los datos
+     */
     @FXML
     private TableView<Vehiculos> coches;
-
+    /**
+     * Columna de la tabla
+     */
     @FXML
     private TableColumn<Vehiculos, Integer> ids;
-
+    /**
+     * Columna de la tabla
+     */
     @FXML
     private TableColumn<Vehiculos, String> marcas;
-
+    /**
+     * Columna de la tabla
+     */
     @FXML
     private TableColumn<Vehiculos, String> modelos;
-
+    /**
+     * Columna de la tabla
+     */
     @FXML
     private TableColumn<Vehiculos, Integer> anios;
-
+    /**
+     * Columna de la tabla
+     */
     @FXML
     private TableColumn<Vehiculos, Float> precios;
-
+    /**
+     * Texto que indica el campo
+     */
     @FXML
     private Text txid;
-
+    /**
+     * Texto que indica el campo
+     */
     @FXML
     private Text txmarca;
-
+    /**
+     * Texto que indica el campo
+     */
     @FXML
     private Text txmodelo;
-
+    /**
+     * Texto que indica el campo
+     */
     @FXML
     private Text txaño;
-
+    /**
+     * Texto que indica el campo
+     */
     @FXML
     private Text tectipo;
-
+    /**
+     * Texto que indica el campo
+     */
     @FXML
     private Text txprecio;
-
+    /**
+     * Texto que indica el campo
+     */
     @FXML
     private Text labelId;
-
+    /**
+     * Texto que indica el campo
+     */
     @FXML
     private Text labelMarca;
+    /**
+     * Pestaña de coches del TabPane
+     */
     @FXML
     private Tab tabcoches;
-
+    /**
+     * Pestaña de motos del TabPane
+     */
     @FXML
     private Tab tabmotos;
-
+    /**
+     * Pestaña de furgonetas del TabPane
+     */
     @FXML
     private Tab tabfurgonetas;
-
-    @FXML
-    private Text labelModelo;
-
-    @FXML
-    private Text labelAnio;
-
-    @FXML
-    private Text labelTipo;
-
-    @FXML
-    private Text labelPrecio;
-
+    /**
+     * Cambia a la pestaña de gestionar
+     */
     @FXML
     private Button gestionarVehiculosButton;
-
+    /**
+     * Botón que almacena la lógica de generación de informes de coches
+     */
     @FXML
     private Button informeCoches;
-
+    /**
+     * Botón que almacena la lógica de generación de informes de ventas
+     */
     @FXML
     private Button informeVentas;
-
+    /**
+     * Botones que permiten moverse entre las pestañas de pagina principal y mis vehiculos
+     */
     @FXML
     private Button paginaPrincipalButton, mostrarVehiculosButton;
-
+    /**
+     * Combobox con los idiomas
+     */
     @FXML
     private ComboBox<String> comboBoxIdiomas;
-
+    /**
+     * Maneja los datos de vehiculo
+     */
     private VehiculoDAO vehiculoDAO = new VehiculoDAO();
+    /**
+     * Almacena los vehiculos en una lista
+     */
     private ObservableList<Vehiculos> listaVehiculos;
+    /**
+     * Gestiona idiomas
+     */
     private Locale locale;
+    /**
+     * Gestiona idiomas
+     */
     private ResourceBundle bundle;
 
 
@@ -417,7 +462,7 @@ public class Controlador_admin {
     }
 
     /**
-     * Metod que genera el informe de ventas
+     * Método que genera el informe de ventas
      */
 
     public void generarReporteVentas() {
@@ -443,8 +488,10 @@ public class Controlador_admin {
             e.printStackTrace();
         }
     }
+    /**
+     * Método que genera el informe de ventas
+     */
     @FXML
-
     public void generarReporteCoche() {
         try {
             Class.forName("org.mariadb.jdbc.Driver");

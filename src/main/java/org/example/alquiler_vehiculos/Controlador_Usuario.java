@@ -12,32 +12,47 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.example.alquiler_vehiculos.BD.AlquilerDetalle;
 import org.example.alquiler_vehiculos.BD.Vehiculos;
+import org.example.alquiler_vehiculos.DAO.AlquilerDAO;
 import org.example.alquiler_vehiculos.DAO.ClientesDAO;
 import org.example.alquiler_vehiculos.DAO.VehiculoDAO;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.*;
 
 /**
- * Clase que controla la Pagina Principal versión usuario
- * @author Rafael Haro
+ * Clase que controla la Pagina Principal versión Usuario
+ * en esta se realiza la busqueda del vehiculo deseado de manera
+ * general o mediante los filtros deseados y escogiendo las fechas
+ * permite realizar el alquiler / pasar a la pantalla de compra.
+ * Tambien permite al usuario ver sus vehiculos
+ * @author Rafael Haro (Desarrollador Principal)
+ * @author Alicia Pacheco (Colaborador)
+ * @author Cristian Alejandro (Colaborador)
+ * @version 1.0
+ * @since 1.0
  */
 
 public class Controlador_Usuario {
-
+    /**
+     * LLamada al DAO clientes para obtener la id del cliente
+     */
     ClientesDAO clientesDAO = new ClientesDAO();
-
+    /**
+     * Campos que recogen las fechas mediante DatePicker
+     */
     @FXML
     DatePicker fechaInicio,fechaFin;
-
+    /**
+     * Botones que permite abrir filtros,cerrar y proceder a la compra
+     */
     @FXML
     Button busqueda,cerrar,comprar;
 
@@ -72,11 +87,14 @@ public class Controlador_Usuario {
     @FXML
     Tab coche,moto,camion;
 
+    /**
+     * Combobox con los idiomas
+     */
     @FXML
     private ComboBox<String> comboBoxIdiomas;
 
     /**
-     * Elementos de la tabla
+     * Generación de la tabla y sus respectivas columnas
      */
     @FXML
     TableView<Vehiculos> coches,motos,camions;
@@ -105,22 +123,26 @@ public class Controlador_Usuario {
      */
     @FXML
     Text nombre;
+    /**
+     * Texto para fecha fin
+     */
     @FXML
     private Label txFecha;
-
+    /**
+     * Texto para fecha fin
+     */
     @FXML
     private Label txFechaF;
-
+    /**
+     * Botón que se encarga de cambiar a la pestaña de pantalla principal
+     */
     @FXML
     private Button btprincipal;
-
-    @FXML
-    private Button btgestionar;
-
+    /**
+     * Botón que se encarga de cambiar a la pestaña de mis vehiculos
+     */
     @FXML
     private Button btvehiculos;
-
-
     /**
      * Llamada a la clase VehiculoDAO
      */
@@ -130,7 +152,7 @@ public class Controlador_Usuario {
      */
     Map<String,String[]> modelosPorMarca = new HashMap<>();
     /**
-     * Mapa de lso modelos pr tipo
+     * Mapa de los  modelos por tipo
      */
     Map<String, String[]> marcasPorTipo = new HashMap<>();
 
@@ -139,9 +161,15 @@ public class Controlador_Usuario {
      */
     private Locale locale;
     private ResourceBundle bundle;
-
+    /**
+     *  Integer que almacena la id del usuario
+     */
     private int userId;
 
+    /**
+     * Este metodo configura la id del usuario con la id recibida
+     * @param userId
+     */
     public void setUserId(int userId) {
         this.userId = userId;
         System.out.println("ID del usuario recibido en Página Principal: " + userId);
@@ -267,7 +295,7 @@ public class Controlador_Usuario {
                 modelo.getItems().addAll(modelosPorMarca.get(marcaSeleccionada));
             }
         });
-        coches.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        coches.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.SINGLE);
         motos.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.SINGLE);
         camions.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.SINGLE);
         // Eliminar el código que responde al clic en la tabla
@@ -285,6 +313,9 @@ public class Controlador_Usuario {
 
     }
 
+    /**
+     * Metodo que se encarga de actualizar los campos en función del idioma
+     */
     private void updateTexts() {
 
         txtWelcome.setText(bundle.getString("welcome.text"));
@@ -294,10 +325,6 @@ public class Controlador_Usuario {
         moto.setText(bundle.getString("tab.motos"));
         camion.setText(bundle.getString("tab.furgonetas"));
 
-        // Actualizar los textos de los botones
-        btprincipal.setText(bundle.getString("button.paginaPrincipal"));
-        btgestionar.setText(bundle.getString("button.gestionarVehiculos"));
-        btvehiculos.setText(bundle.getString("button.misVehiculos"));
         comprar.setText(bundle.getString("button.irCompra"));
         cerrar.setText(bundle.getString("button.guardarFiltros"));
 
@@ -318,6 +345,11 @@ public class Controlador_Usuario {
         modelos.setText(bundle.getString("table.modelo"));
         anios.setText(bundle.getString("table.anio"));
         precios.setText(bundle.getString("table.precio"));
+        // Actualizar los textos de los botones
+        btprincipal.setText(bundle.getString("button.paginaPrincipal"));
+        btvehiculos.setText(bundle.getString("button.misVehiculos"));
+
+
 
 
 
@@ -337,10 +369,6 @@ public class Controlador_Usuario {
     public void abrirFiltros(javafx.scene.input.MouseEvent mouseEvent) {
         if(mouseEvent.getButton() == MouseButton.PRIMARY) {
             filtros.setVisible(true);
-            tipo.getSelectionModel().clearSelection();
-            tipo.setPromptText("--Tipo--");
-            marca.getSelectionModel().clearSelection();
-            modelo.getSelectionModel().clearSelection();
         }
 
     }
@@ -415,7 +443,7 @@ public class Controlador_Usuario {
     }
 
     /**
-     * Metodo que realiza la compra
+     * Metodo que realiza la compra y valida fechas
      */
     @FXML
     public void compra() {
@@ -424,32 +452,41 @@ public class Controlador_Usuario {
             LocalDate ini = fechaInicio.getValue();
             LocalDate fin = fechaFin.getValue();
 
-            if (ini != null && fin != null) {
-                // Calculamos el total de alquiler
-                double total = vehiculoSeleccionado.getPreciodia() * Period.between(ini, fin).getDays();
-                // Creamos el detalle de alquiler
-                AlquilerDetalle alquilerDetalle = new AlquilerDetalle(
-                        vehiculoSeleccionado.getMarca(),
-                        vehiculoSeleccionado.getModelo(),
-                        vehiculoSeleccionado.getTipo(),
-                        userId,
-                        ini,
-                        fin,
-                        total
-                );
-
-                enviarAVistaDetalle(alquilerDetalle);
-            } else {
-                System.out.println("Por favor, selecciona las fechas.");
+            // Validación de fechas
+            if (ini == null || fin == null) {
+                mostrarAlerta(Alert.AlertType.WARNING, "Fechas requeridas", bundle.getString("no_fecha"));
+                return;
             }
+
+            if (!fin.isBefore(ini)) {
+                mostrarAlerta(Alert.AlertType.WARNING, "Fechas incorrectas", bundle.getString("fecha_mal"));
+                return;
+            }
+
+            // Calculamos el total de alquiler
+            double total = vehiculoSeleccionado.getPreciodia() * Period.between(ini, fin).getDays();
+
+            // Creamos el detalle de alquiler
+            AlquilerDetalle alquilerDetalle = new AlquilerDetalle(
+                    vehiculoSeleccionado.getMarca(),
+                    vehiculoSeleccionado.getModelo(),
+                    vehiculoSeleccionado.getTipo(),
+                    userId,
+                    ini,
+                    fin,
+                    total
+            );
+
+            // Enviar la información a la vista de detalle de compra
+            enviarAVistaDetalle(alquilerDetalle);
         } else {
-            System.out.println("Por favor, selecciona un vehículo.");
+            mostrarAlerta(Alert.AlertType.WARNING, "Vehículo no seleccionado", bundle.getString("no_vehiculo"));
         }
+
+        // Limpiar selección en la tabla y los filtros
         coches.getSelectionModel().clearSelection();
         motos.getSelectionModel().clearSelection();
         camions.getSelectionModel().clearSelection();
-
-        // Limpiar los filtros
         tipo.getSelectionModel().clearSelection();
         marca.getSelectionModel().clearSelection();
         modelo.getSelectionModel().clearSelection();
@@ -459,11 +496,35 @@ public class Controlador_Usuario {
         fechaFin.setValue(null);
     }
 
+
     /**
-     * Metodo que envia toda la informacion recogida a la
-     * pantalla de compra
-     *
-     * @param alquilerDetalle Variable para recoger datos del alquiler
+     * Metodo para mostrar una alerta en el idioma seleccionado
+     * @param tipo Tipo de alerta (ERROR, WARNING, INFO, etc.)
+     * @param tituloClave Clave del título en el archivo de propiedades
+     * @param mensajeClave Clave del mensaje en el archivo de propiedades
+     */
+    private void mostrarAlerta(Alert.AlertType tipo, String tituloClave, String mensajeClave) {
+       if(comboBoxIdiomas.getSelectionModel().getSelectedItem().equals("English")){
+           bundle = ResourceBundle.getBundle("org.example.alquiler_vehiculos.idioma_en",  Locale.ENGLISH);
+       }else{
+           bundle = ResourceBundle.getBundle("org.example.alquiler_vehiculos.idioma", new Locale("es", "ES"));
+       }
+
+
+
+        String titulo = bundle.getString(tituloClave);
+        String mensaje = bundle.getString(mensajeClave);
+
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
+    }
+
+    /**
+     * Metodo que envia toda la informacion recogida a la siguiente pantalla
+     * @param alquilerDetalle Variable para recoger datos
      */
     private void enviarAVistaDetalle(AlquilerDetalle alquilerDetalle) {
         try {
@@ -490,19 +551,31 @@ public class Controlador_Usuario {
     }
 
     /**
-     * Metodo que cambia la escena actual a la de mis vehiculos
+     * Metodo que carga la patalla mis vehiculos
      */
     @FXML
     public void cargarMisVehiculos() {
+        if (bundle == null) {
+            System.out.println("⚠ Advertencia: bundle es NULL, cargando idioma por defecto...");
+            bundle = ResourceBundle.getBundle("org.example.alquiler_vehiculos.idioma", new Locale("es", "ES"));
+        }
+
         try {
-            // Cargar el archivo FXML de la pantalla "Mis Vehículos"
+            String titulo = bundle.getString("title.misVehiculos"); // Asegúrate de que la clave existe
+            System.out.println("Clave encontrada: " + titulo);
+        } catch (MissingResourceException e) {
+            System.out.println(" ERROR: No se encontró la clave 'title.misVehiculos' en el archivo de propiedades.");
+            e.printStackTrace();
+        }
+
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MisVehiculos.fxml"));
             Parent root = loader.load();
-
-            // Obtener la escena actual y cambiarla
-            Stage stage = (Stage) busqueda.getScene().getWindow(); // Usamos cualquier nodo de la escena actual
+            ControladorMisVehiculos controlador = loader.getController();
+            controlador.setUserId(userId);
+            Stage stage = (Stage) busqueda.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Mis Vehículos");
+            stage.setTitle(bundle.getString("title.misVehiculos")); // Usa la clave del idioma
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

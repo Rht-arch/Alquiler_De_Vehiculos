@@ -14,7 +14,9 @@ import java.util.regex.Pattern;
 
 /**
  * Clase que controla la pantalla de Registro
- * @author Alicia Pacheco Mena
+ * @author Alicia Pacheco Mena (Desarrollador principal)
+ * @author Rafael Haro (Colaborador)
+ * @author Cristian Alejandro (Colaborador)
  */
 
 public class Controlador_Registro {

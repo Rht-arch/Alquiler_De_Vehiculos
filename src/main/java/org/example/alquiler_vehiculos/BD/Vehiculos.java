@@ -4,7 +4,9 @@ package org.example.alquiler_vehiculos.BD;
  * Clase que representa un vehículo disponible para alquiler.
  * Contiene información como el ID del vehículo, marca, modelo, año, tipo y precio por día.
  *
- * @author Cristian Alejandro
+ * @author Cristian Alejandro (Desarrollador principal)
+ * @author Rafael Haro (Colaborador)
+ * @author Alicia Pacheco (Colaborador)
  */
 public class Vehiculos {
 

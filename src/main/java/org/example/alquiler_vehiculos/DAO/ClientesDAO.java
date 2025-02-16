@@ -10,7 +10,9 @@ import java.util.List;
 /**
  * Clase que proporciona métodos para interactuar con la tabla de clientes en la base de datos.
  * Permite realizar operaciones como insertar, obtener, actualizar y eliminar clientes.
- * @author Cristian Alejandro
+ * @author Cristian Alejandro (Desarrollador principal)
+ * @author Rafael Haro (Colaborador)
+ * @author Alicia Pacheco (Colaborador)
  */
 public class ClientesDAO {
 

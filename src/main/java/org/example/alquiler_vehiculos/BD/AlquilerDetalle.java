@@ -7,7 +7,9 @@ import java.time.LocalDate;
  * Contiene información como el ID del alquiler, marca, modelo, año, tipo de vehículo,
  * ID del cliente, fechas de inicio y fin del alquiler, y el total a pagar.
  *
- * @author Cristian Alejandro
+ * @author Cristian Alejandro (Desarrollador principal)
+ * @author Rafael Haro (Colaborador)
+ * @author Alicia Pacheco (Colaborador)
  */
 public class AlquilerDetalle {
     /**

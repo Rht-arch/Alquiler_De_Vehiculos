@@ -3,15 +3,38 @@ package org.example.alquiler_vehiculos.BD;
 /**
  * Clase que representa a un cliente.
  * Contiene información sobre el cliente como su ID, DNI, nombre, apellido, teléfono, correo y contraseña.
- * @author Cristian Alejandro
+ * @author Cristian Alejandro (Desarrollador principal)
+ * @author Rafael Haro (Colaborador)
+ * @author Alicia Pacheco (Colaborador)
  */
 public class Clientes {
+    /**
+     * Almacena la id del cliente
+     */
     private int id;
+    /**
+     * Almacena el dni del cliente
+     */
     private String dni;
+    /**
+     * Almacena el nombre del cliente
+     */
     private String nombre;
+    /**
+     * Almacena el apellido del cliente
+     */
     private String apellido;
+    /**
+     * Almacena el telefono del cliente
+     */
     private String telefono;
+    /**
+     * Almacena el correo del cliente
+     */
     private String correo;
+    /**
+     * Almacena la contraseña del cliente
+     */
     private String contraseña;
 
     /**

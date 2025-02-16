@@ -19,8 +19,11 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * Clase que controla la clase compra
- * @author Cristian Alejandro
+ * Clase que controla la clase compra, genera el alquiler
+ * en la tabla para
+ * @author Cristian Alejandro (Desarrolladora Principal)
+ * @author Rafael Haro (Colaborador)
+ * @author Alicia Pacheco (Colaborador)
  */
 public class Controlador_Compra {
     @FXML
@@ -132,7 +135,7 @@ public class Controlador_Compra {
     }
 
     /**
-     * Metodo que realiza la compra
+     * Metodo que realiza la compra mediante los datos recibiidos
      */
     @FXML
     private void comprarVehiculo() {
@@ -169,8 +172,10 @@ public class Controlador_Compra {
     }
 
 
-
-
+    /**
+     * Método que gestiona la pantalla de carga para simular la descargar
+     * @param idAlquiler
+     */
     private void abrirSplashScreen2(int idAlquiler) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/splash2.fxml"));
@@ -185,7 +190,7 @@ public class Controlador_Compra {
             // Iniciar Splash y cuando termine, abrir la pantalla de finalización de compra
             splashController.startSplash(() -> {
                 stage.close();
-                abrirFinCompra(idAlquiler); // 🔹 Abre la pantalla de finalización después del splash
+                abrirFinCompra(idAlquiler); //
             });
 
             stage.show();
@@ -194,9 +199,12 @@ public class Controlador_Compra {
         }
     }
 
-
-
-
+    /**
+     * Método que muestra una alerta
+     * @param tipo tipo de alerta
+     * @param titulo nombre de la pestaña de alerta
+     * @param mensaje mensaje de la alerta
+     */
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
         Alert alerta = new Alert(tipo);
         alerta.setTitle(titulo);
@@ -206,21 +214,20 @@ public class Controlador_Compra {
     }
 
 
-    /**
-     * Metodo que vuelve a la pantalla anterior
-     */
-    @FXML
-    private void volver() {
-        System.out.println("Volver a la pantalla anterior");
-    }
 
+
+    /**
+     * Permite abrir la pantalla de compra y envia la id del alquiler a la
+     * pantalla de compra para poder generar el informe
+     * @param idAlquiler Recibe la id del alquiler
+     */
     private void abrirFinCompra(int idAlquiler) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/FinCompra.fxml"));
             Parent root = loader.load();
 
             Controlador_Fin_Compra controladorFinCompra = loader.getController();
-            controladorFinCompra.setIdAlquiler(idAlquiler); // 🔹 Pasar la ID del alquiler
+            controladorFinCompra.setIdAlquiler(idAlquiler); //
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));

@@ -28,17 +28,28 @@ import java.time.Period;
 import java.util.*;
 
 /**
- * Clase que controla la Pagina Principal
- * @author Rafael Haro
+ * Clase que controla la Pagina Principal version admin
+ * en esta se realiza la busqueda del vehiculo deseado de manera
+ * general o mediante los filtros deseados y escogiendo las fechas
+ * permite realizar el alquiler / pasar a la pantalla de compra.
+ * Tambien permite al admin ver sus vehiculos para pruebas y ir
+ * a la ventana de gestión para modificar los vehiculos de la base
+ *  @author Rafael Haro (Desarrollador Principal)
+ *  @author Alicia Pacheco (Colaborador)
+ *  @author Cristian Alejandro (Colaborador)
  */
 
 public class Controlador_Pagina_Principal {
 
     ClientesDAO clientesDAO = new ClientesDAO();
-
+    /**
+     * Campos que almacenan los datos de las fechas
+     */
     @FXML
     DatePicker fechaInicio,fechaFin;
-
+    /**
+     * Botones que permite abrir y cerrar filtros y ir a la pantalla de compra
+     */
     @FXML
     Button busqueda,cerrar,comprar;
 
@@ -50,9 +61,8 @@ public class Controlador_Pagina_Principal {
 
     @FXML
     private Text txtWelcome;
-
     /**
-     * ComboBoz para marca, modelo y tipo
+     * ComboBox para marca, modelo y tipo
      */
     @FXML
     ComboBox<String> marca, modelo , tipo;
@@ -66,18 +76,19 @@ public class Controlador_Pagina_Principal {
      */
     @FXML
     ComboBox<Float> precio;
-
     /**
      * Tab que recoge los tipos de vehiculos
      */
     @FXML
     Tab coche,moto,camion;
-
+    /**
+     * Combobox que gestiona el idioma de la ventana
+     */
     @FXML
     private ComboBox<String> comboBoxIdiomas;
 
     /**
-     * Elementos de la tabla
+     * Elementos de la tabla y generación de la tabla
      */
     @FXML
     TableView<Vehiculos> coches,motos,camions;
@@ -111,13 +122,19 @@ public class Controlador_Pagina_Principal {
 
     @FXML
     private Label txFechaF;
-
+    /**
+     * Botón que permite cambiar a la pantalla principal
+     */
     @FXML
     private Button btprincipal;
-
+    /**
+     * Botón que cambia a la venta de gestión de vehiculo
+     */
     @FXML
     private Button btgestionar;
-
+    /**
+     * Botón que cambia a mis vehiculos
+     */
     @FXML
     private Button btvehiculos;
 
@@ -140,9 +157,15 @@ public class Controlador_Pagina_Principal {
      */
     private Locale locale;
     private ResourceBundle bundle;
-
+    /**
+     * Variable que recibe la id del usuario de login
+     */
     private int userId;
 
+    /**
+     * Gestiona el set de la id de usuario desde el envio del login
+     * @param userId Integer con la id del usuario
+     */
     public void setUserId(int userId) {
         this.userId = userId;
         System.out.println("ID del usuario recibido en Página Principal: " + userId);
@@ -286,6 +309,10 @@ public class Controlador_Pagina_Principal {
 
     }
 
+    /**
+     * Método que permite actualizar todos los textos en función del
+     * idioma seleccionado
+     */
     private void updateTexts() {
 
         txtWelcome.setText(bundle.getString("welcome.text"));
@@ -334,7 +361,7 @@ public class Controlador_Pagina_Principal {
 
     /**
      * Este método abre la pestaña de filtros y muestra los campos para filtrar
-     * @param mouseEvent
+     * @param mouseEvent Recoge una evento de ratón
      */
 
     public void abrirFiltros(javafx.scene.input.MouseEvent mouseEvent) {
@@ -395,7 +422,6 @@ public class Controlador_Pagina_Principal {
     /**
      * Este metodo es el encargado de obtener el vehiculo elegido por el cliente y
      * y sirve para enlazarlo al metodo compra() que genera el vehiculo para la compra
-     *
      */
     @FXML
     public void seleccionarVehiculo() {
@@ -417,9 +443,6 @@ public class Controlador_Pagina_Principal {
         }
     }
 
-    /**
-     * Metodo que realiza la compra
-     */
     /**
      * Metodo que realiza la compra
      */
@@ -529,9 +552,9 @@ public class Controlador_Pagina_Principal {
 
         try {
             String titulo = bundle.getString("title.misVehiculos"); // Asegúrate de que la clave existe
-            System.out.println("✅ Clave encontrada: " + titulo);
+            System.out.println("Clave encontrada: " + titulo);
         } catch (MissingResourceException e) {
-            System.out.println("🚨 ERROR: No se encontró la clave 'title.misVehiculos' en el archivo de propiedades.");
+            System.out.println("ERROR: No se encontró la clave 'title.misVehiculos' en el archivo de propiedades.");
             e.printStackTrace();
         }
 
@@ -551,8 +574,11 @@ public class Controlador_Pagina_Principal {
     }
 
 
-
-
+    /**
+     * Método que permite cambiar a la ventana de gestión de vehiculos
+     * @param mouseEvent Recoge un evento de teclado
+     * @throws IOException
+     */
     @FXML
     public void cargarGestion(MouseEvent mouseEvent) throws IOException {
         Stage currentStage = (Stage) ((javafx.scene.Node) mouseEvent.getSource()).getScene().getWindow();

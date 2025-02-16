@@ -7,7 +7,9 @@ import java.sql.SQLException;
 /**
  * Clase que maneja la conexión a la base de datos.
  * Proporciona métodos para obtener una conexión a la base de datos de alquiler de vehículos.
- * @author Cristian Alejandro
+ * @author Cristian Alejandro (Desarrollador principal)
+ * @author Rafael Haro (Colaborador)
+ * @author Alicia Pacheco (Colaborador)
  */
 public class ConexionBD {
     private static final String URL = "jdbc:mysql://localhost:3306/alquiler_vehiculos_db";

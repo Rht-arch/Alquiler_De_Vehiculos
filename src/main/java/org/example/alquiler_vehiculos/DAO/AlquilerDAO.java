@@ -11,7 +11,9 @@ import java.util.List;
 
 /**
  * Clase que maneja las operaciones CRUD (Crear, Leer, Actualizar, Eliminar) para los alquileres.
- * @author Cristian Alejandro
+ * @author Cristian Alejandro (Desarrollador principal)
+ * @author Rafael Haro (Colaborador)
+ * @author Alicia Pacheco (Colaborador)
  */
 public class AlquilerDAO {
 
