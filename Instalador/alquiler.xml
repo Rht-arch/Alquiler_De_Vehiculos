@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>C:\Users\34658\IdeaProjects\Alquiler_De_Vehiculos\Instalador\Alquiler_Vehiculos.jar</jar>
+  <outfile>C:\Users\34658\IdeaProjects\Alquiler_De_Vehiculos\Instalador\installer.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl></downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon></icon>
+  <classPath>
+    <mainClass>org.example.alquiler_vehiculos.Launcher</mainClass>
+  </classPath>
+  <jre>
+    <path>%JAVA_HOME%;%PATH%</path>
+    <requiresJdk>true</requiresJdk>
+    <requires64Bit>false</requires64Bit>
+    <minVersion>66</minVersion>
+    <maxVersion></maxVersion>
+    <opt>--module-path &quot;javafx-sdk-23.0.2\lib&quot; --add-modules javafx.controls,javafx.fxml</opt>
+  </jre>
+</launch4jConfig>
