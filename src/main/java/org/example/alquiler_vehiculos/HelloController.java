@@ -198,7 +198,7 @@ public class HelloController {
                     Scene mainScene;
                     SesionUsuario.getInstancia().setUserId(userId);
                     if (correo.equals("admin@gmail.com")) {
-                        loader2 = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/Mostrar_Vehiculo.fxml"));
+                        loader2 = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/admin.fxml"));
                     } else {
                         loader2 = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/Usuario.fxml"));
                     }
