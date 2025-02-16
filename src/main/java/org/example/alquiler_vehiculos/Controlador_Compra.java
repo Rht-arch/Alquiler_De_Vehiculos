@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.text.Text;
 import org.example.alquiler_vehiculos.BD.AlquilerDetalle;
+import org.example.alquiler_vehiculos.DAO.AlquilerDAO;
 
 import java.util.Date;
 import java.util.Locale;
@@ -129,8 +130,45 @@ public class Controlador_Compra {
      */
     @FXML
     private void comprarVehiculo() {
-        System.out.println("Vehículo alquilado: " + listaAlquileres.get(0));
+        if (!listaAlquileres.isEmpty()) {
+            AlquilerDetalle alquilerDetalle = listaAlquileres.get(0); // Obtener el alquiler
+
+            // 1️⃣ Obtener el ID y el AÑO del vehículo
+            AlquilerDAO alquilerDAO = new AlquilerDAO();
+            int idVehiculo = alquilerDAO.obtenerIdVehiculo(alquilerDetalle.getMarca(), alquilerDetalle.getModelo());
+            int anioVehiculo = alquilerDAO.obtenerAnioVehiculo(alquilerDetalle.getMarca(), alquilerDetalle.getModelo());
+
+            if (idVehiculo == -1 || anioVehiculo == -1) {
+                System.out.println("❌ Error: No se encontró el ID o Año del vehículo.");
+                mostrarAlerta(Alert.AlertType.ERROR, "Error en la Compra", "No se pudo completar el alquiler.");
+                return;
+            }
+
+            // 2️⃣ Insertar el alquiler en `alquileresDetalles`
+            boolean exito = alquilerDAO.registrarAlquiler(alquilerDetalle, idVehiculo, anioVehiculo);
+
+            if (exito) {
+                System.out.println("✅ Alquiler registrado correctamente.");
+                mostrarAlerta(Alert.AlertType.INFORMATION, "Alquiler Exitoso", "El vehículo ha sido alquilado correctamente.");
+            } else {
+                System.out.println("❌ Error al registrar el alquiler.");
+                mostrarAlerta(Alert.AlertType.ERROR, "Error en la Compra", "No se pudo completar el alquiler.");
+            }
+        } else {
+            System.out.println("⚠ No hay vehículos seleccionados para alquilar.");
+            mostrarAlerta(Alert.AlertType.WARNING, "Aviso", "No hay vehículos en la lista de compra.");
+        }
     }
+
+
+    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
+    }
+
 
     /**
      * Metodo que vuelve a la pantalla anterior
@@ -139,4 +177,5 @@ public class Controlador_Compra {
     private void volver() {
         System.out.println("Volver a la pantalla anterior");
     }
+
 }
