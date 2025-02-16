@@ -2,42 +2,41 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
 <Pane prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: white; -fx-border-color: #f1a52b; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.Controlador_ManualUsuario">
     <children>
-        <Label layoutX="40.0" layoutY="30.0" text="Manual de Usuario" style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #f1a52b;"/>
+        <Label layoutX="40.0" layoutY="30.0" style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #f1a52b;" text="Manual de Usuario" />
 
         <ScrollPane layoutX="40.0" layoutY="80.0" prefHeight="680.0" prefWidth="1200.0">
             <content>
                 <VBox spacing="10.0" style="-fx-padding: 20;">
-                    <Label text="📖 MANUAL DE USUARIO - SISTEMA DE ALQUILER DE VEHÍCULOS" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
-                    <Label text="Versión: 1.0    Fecha: [Fecha actual]    Autor: [Nombre o Empresa]" style="-fx-font-size: 14px;"/>
+                    <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="📖 MANUAL DE USUARIO - SISTEMA DE ALQUILER DE VEHÍCULOS" />
+                    <Label style="-fx-font-size: 14px;" text="Versión: 1.0    Fecha: 16/02/2025    Autor: UrbanDrive " />
 
-                    <Label text="📌 1. INTRODUCCIÓN" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-                    <Label text="Bienvenido al Sistema de Alquiler de Vehículos. Esta aplicación permite buscar, seleccionar y alquilar vehículos de forma sencilla y rápida." wrapText="true"/>
+                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="📌 1. INTRODUCCIÓN" />
+                    <Label text="Bienvenido al Sistema de Alquiler de Vehículos. Esta aplicación permite buscar, seleccionar y alquilar vehículos de forma sencilla y rápida." wrapText="true" />
 
-                    <Label text="📌 2. REQUISITOS DEL SISTEMA" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-                    <Label text="- Windows 10/11, macOS o Linux\n- Java 22 o superior\n- Base de Datos: MySQL/MariaDB\n- RAM: 4GB mínimo\n- Espacio en disco: 500MB mínimo" wrapText="true"/>
+                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="📌 2. REQUISITOS DEL SISTEMA" />
+                    <Label text="- Windows 10/11, macOS o Linux\n- Java 22 o superior\n- Base de Datos: MySQL/MariaDB\n- RAM: 4GB mínimo\n- Espacio en disco: 500MB mínimo" wrapText="true" />
 
-                    <Label text="📌 3. ACCESO AL SISTEMA" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-                    <Label text="1. Abre la aplicación.\n2. Ingresa tu usuario y contraseña.\n3. Haz clic en 'Iniciar sesión'." wrapText="true"/>
+                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="📌 3. ACCESO AL SISTEMA" />
+                    <Label text="1. Abre la aplicación.\n2. Ingresa tu usuario y contraseña.\n3. Haz clic en 'Iniciar sesión'." wrapText="true" />
 
-                    <Label text="📌 4. PANTALLA PRINCIPAL" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-                    <Label text="Desde la pantalla principal puedes acceder a la búsqueda de vehículos, gestión de alquileres y configuración de usuario." wrapText="true"/>
+                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="📌 4. PANTALLA PRINCIPAL" />
+                    <Label text="Desde la pantalla principal puedes acceder a la búsqueda de vehículos, gestión de alquileres y configuración de usuario." wrapText="true" />
 
-                    <Label text="📌 5. PROCESO DE ALQUILER" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-                    <Label text="1. Selecciona un vehículo.\n2. Elige las fechas de alquiler.\n3. Confirma el alquiler.\n4. Espera la pantalla de carga." wrapText="true"/>
+                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="📌 5. PROCESO DE ALQUILER" />
+                    <Label text="1. Selecciona un vehículo.\n2. Elige las fechas de alquiler.\n3. Confirma el alquiler.\n4. Espera la pantalla de carga." wrapText="true" />
 
-                    <Label text="📌 6. SOLUCIÓN DE PROBLEMAS" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-                    <Label text="- Si no puedes iniciar sesión, revisa tu usuario y contraseña.\n- Si el botón 'Alquilar' no funciona, asegúrate de seleccionar fechas válidas." wrapText="true"/>
+                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="📌 6. SOLUCIÓN DE PROBLEMAS" />
+                    <Label text="- Si no puedes iniciar sesión, revisa tu usuario y contraseña.\n- Si el botón 'Alquilar' no funciona, asegúrate de seleccionar fechas válidas." wrapText="true" />
 
-                    <Label text="📌 7. CONTACTO Y SOPORTE" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-                    <Label text="📧 soporte@alquilervehiculos.com\n📞 +34 123 456 789\n🌐 www.alquilervehiculos.com" wrapText="true"/>
+                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="📌 7. CONTACTO Y SOPORTE" />
+                    <Label text="📧 soporte@urbandrive.com\n📞 +34 123 456 789\n🌐 www.urbandrive.com" wrapText="true" />
                 </VBox>
             </content>
         </ScrollPane>
 
-        <Button layoutX="550.0" layoutY="770.0" text="Cerrar" onAction="#cerrarManual" style="-fx-background-color: #f1a52b; -fx-text-fill: white; -fx-font-size: 14px;"/>
+        <Button layoutX="550.0" layoutY="770.0" onAction="#cerrarManual" style="-fx-background-color: #f1a52b; -fx-text-fill: white; -fx-font-size: 14px;" text="Cerrar" />
     </children>
 </Pane>

@@ -7,7 +7,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: white; -fx-border-color: #f1a52b; -fx-border-width: 5; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.alquiler_vehiculos.Controlador_Pagina_Principal">
     <children>
-        <Text layoutX="29.0" fx:id="txtWelcome" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Bienvenido!" wrappingWidth="236.51900482177734">
+        <Text fx:id="txtWelcome" layoutX="29.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Bienvenido!" wrappingWidth="236.51900482177734">
             <font>
                 <Font size="26.0" />
             </font>
@@ -67,8 +67,8 @@
         </TabPane>
         <Pane layoutX="48.0" layoutY="318.0" prefHeight="361.0" prefWidth="184.0" stylesheets="@Botones.css">
             <children>
-                <Button layoutX="1.0" layoutY="55.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="183.0" text="Página principal" fx:id="btprincipal" />
-                <Button layoutX="1.0" layoutY="230.0" mnemonicParsing="false" onAction="#cargarMisVehiculos" prefHeight="25.0" prefWidth="183.0" text="Mis vehiculos" fx:id="btvehiculos" />
+                <Button fx:id="btprincipal" layoutX="1.0" layoutY="55.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="183.0" text="Página principal" />
+                <Button fx:id="btvehiculos" layoutX="1.0" layoutY="230.0" mnemonicParsing="false" onAction="#cargarMisVehiculos" onMouseClicked="#cargarMisVehiculos" prefHeight="25.0" prefWidth="183.0" text="Mis vehiculos" />
             </children>
         </Pane>
         <ImageView fitHeight="200.0" fitWidth="173.0" layoutX="29.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
@@ -107,7 +107,7 @@
                 <Font size="14.0" />
             </font>
         </Label>
-        <Label  fx:id="txFechaF" layoutX="1057.0" layoutY="160.0" style="-fx-font-weight: bold;" text="Fecha de final">
+        <Label fx:id="txFechaF" layoutX="1057.0" layoutY="160.0" style="-fx-font-weight: bold;" text="Fecha de final">
             <font>
                 <Font size="14.0" />
             </font>
