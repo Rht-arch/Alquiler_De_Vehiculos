@@ -18,6 +18,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.example.alquiler_vehiculos.BD.AlquilerDetalle;
 import org.example.alquiler_vehiculos.BD.Vehiculos;
+import org.example.alquiler_vehiculos.DAO.AlquilerDAO;
 import org.example.alquiler_vehiculos.DAO.ClientesDAO;
 import org.example.alquiler_vehiculos.DAO.VehiculoDAO;
 
@@ -519,21 +520,37 @@ public class Controlador_Pagina_Principal {
      */
     @FXML
     public void cargarMisVehiculos() {
+        if (bundle == null) {
+            System.out.println("⚠ Advertencia: bundle es NULL, cargando idioma por defecto...");
+            bundle = ResourceBundle.getBundle("org.example.alquiler_vehiculos.idioma", new Locale("es", "ES"));
+        }
+
         try {
-            // Cargar el archivo FXML de la pantalla "Mis Vehículos"
+            String titulo = bundle.getString("title.misVehiculos"); // Asegúrate de que la clave existe
+            System.out.println("✅ Clave encontrada: " + titulo);
+        } catch (MissingResourceException e) {
+            System.out.println("🚨 ERROR: No se encontró la clave 'title.misVehiculos' en el archivo de propiedades.");
+            e.printStackTrace();
+        }
+
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MisVehiculos.fxml"));
             Parent root = loader.load();
-
-            // Obtener la escena actual y cambiarla
-            Stage stage = (Stage) busqueda.getScene().getWindow(); // Usamos cualquier nodo de la escena actual
+            ControladorMisVehiculos controlador = loader.getController();
+            controlador.setUserId(userId);
+            Stage stage = (Stage) busqueda.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Mis Vehículos");
+            stage.setTitle(bundle.getString("title.misVehiculos")); // Usa la clave del idioma
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error al cargar la pantalla Mis Vehículos: " + e.getMessage());
         }
     }
+
+
+
+
     @FXML
     public void cargarGestion(MouseEvent mouseEvent) throws IOException {
         Stage currentStage = (Stage) ((javafx.scene.Node) mouseEvent.getSource()).getScene().getWindow();

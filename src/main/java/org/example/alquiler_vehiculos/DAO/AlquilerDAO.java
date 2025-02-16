@@ -58,13 +58,15 @@ public class AlquilerDAO {
         }
     }
 
+
+
     /**
      * Obtiene un alquiler por su ID.
      * @param id El ID del alquiler a obtener.
      * @return El objeto Alquileres si se encuentra, null en caso contrario.
      */
     public Alquileres obtenerAlquilerPorId(int id) {
-        String sql = "SELECT * FROM alquileres WHERE id = ?";
+        String sql = "SELECT * FROM alquileresDetalles WHERE id = ?";
         Alquileres alquiler = null;
 
         try (Connection conn = ConexionBD.getConexion();
@@ -191,7 +193,7 @@ public class AlquilerDAO {
 
             while (rs.next()) {
                 AlquilerDetalle alquiler = new AlquilerDetalle(
-                        rs.getInt("id"),
+                        rs.getInt("id"),  // Asegurar que es "id" y no "idAlquiler"
                         rs.getString("marca"),
                         rs.getString("modelo"),
                         rs.getInt("año"),
@@ -202,12 +204,15 @@ public class AlquilerDAO {
                 );
                 alquileres.add(alquiler);
             }
+            System.out.println("🔍 Se encontraron " + alquileres.size() + " alquileres para el cliente ID: " + idCliente);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return alquileres;
     }
+
+
     /**
      * Obtiene el ID del vehículo basado en la marca y modelo.
      * @param marca La marca del vehículo.
