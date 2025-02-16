@@ -76,6 +76,13 @@ public class ControladorMisVehiculos implements Initializable {
     private Locale locale;
     private ResourceBundle bundle;
 
+    private int userId;
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+        System.out.println("ID del usuario recibido en Página Principal: " + userId);
+    }
+
     /**
      * Inicializa la interfaz gráfica y configura las columnas de la tabla.
      * Además, carga los datos de los alquileres del cliente desde la base de datos.
@@ -107,7 +114,7 @@ public class ControladorMisVehiculos implements Initializable {
             updateTexts();
         });
         // Configurar las columnas de la TableView
-        colIdAlquiler.setCellValueFactory(new PropertyValueFactory<>("idAlquiler"));
+        colIdAlquiler.setCellValueFactory(new PropertyValueFactory<>("id"));
         colMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
         colModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
         colAño.setCellValueFactory(new PropertyValueFactory<>("año"));
@@ -117,7 +124,7 @@ public class ControladorMisVehiculos implements Initializable {
         colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
 
         // Obtener el ID del cliente logueado (esto debería venir de la sesión)
-        int idCliente = 1; // Cambia esto por el ID del cliente logueado
+        int idCliente = userId ; // Cambia esto por el ID del cliente logueado
 
         // Obtener los alquileres del cliente
         AlquilerDAO alquilerDAO = new AlquilerDAO();

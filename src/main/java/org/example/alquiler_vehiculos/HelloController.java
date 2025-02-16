@@ -212,11 +212,15 @@ public class HelloController {
                         ((Controlador_Usuario) controller).setUserId(userId);
                     }
 
+                    enviarIdAMisVehiculos(userId);
+
+
                     Stage mainStage = new Stage();
                     mainStage.setScene(mainScene);
                     mainStage.setTitle("Alquiler de Coches");
                     mainStage.setResizable(false);
                     mainStage.show();
+
 
                     splashStage.close();
                 } catch (IOException e) {
@@ -245,4 +249,20 @@ public class HelloController {
             e.printStackTrace();
         }
     }
+    private void enviarIdAMisVehiculos(int userId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/alquiler_vehiculos/MisVehiculos.fxml"));
+            Parent root = loader.load();
+
+            ControladorMisVehiculos controladorMisVehiculos = loader.getController();
+            controladorMisVehiculos.setUserId(userId); // 🔹 Pasar la ID del usuario
+
+            System.out.println("ID enviada a Mis Vehículos: " + userId);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error al cargar Mis Vehículos.");
+        }
+    }
+
 }
