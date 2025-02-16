@@ -68,6 +68,7 @@ public class AlquilerDetalle {
         this.marca = marca;
         this.modelo = modelo;
         this.tipo = tipo;
+        this.idCliente = idCliente;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.total = total;
