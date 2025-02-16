@@ -16,7 +16,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *Clase que controla el funcionamiento de la panatalla usuario
+ *Clase que controla el funcionamiento de la pantalla usuario
+ *
+ * @author Rafael Haro
+ * @version 1.0
+ * @since 1.0
  */
 
 public class Controlador_Usuario {
@@ -95,6 +99,12 @@ public class Controlador_Usuario {
      */
     Map<String, String[]> marcasPorTipo = new HashMap<>();
 
+    private int userId;
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+        System.out.println("ID del usuario recibido en Página Principal: " + userId);
+    }
     /**
      * Metodo que inicializa todos los componentes
      */
